@@ -1,6 +1,7 @@
 # Group 20 Project
 
-
+# Communications
+- Discord server
 
 # Members
 - Angus Ng
