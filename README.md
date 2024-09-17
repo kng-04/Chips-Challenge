@@ -10,3 +10,13 @@
 - William Fermanis
 - Lingjun Gui
 - Krystal Ng
+
+# ASSIGNMENTS
+| Member | Assignment |
+|   :---:   |    :---:     |
+| Krystal Ng  | Renderer   |
+| Willliam Fermanis  | Domain     |
+|        | Persistency |
+|        | App        |
+|        | Recorder   | 
+|        | Fuzz       |
