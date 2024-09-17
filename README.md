@@ -19,4 +19,4 @@
 |        | Persistency |
 |        | App        |
 |        | Recorder   | 
-|        | Fuzz       |
+| Whole Team       | Fuzz       |
