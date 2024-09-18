@@ -16,7 +16,7 @@
 |   :---:   |    :---:     |
 | Krystal Ng  | Renderer   |
 | Willliam Fermanis  | Domain     |
-|        | Persistency |
+| Lingjun Gui | Persistency |
 |        | App        |
 |        | Recorder   | 
 | Whole Team       | Fuzz       |
