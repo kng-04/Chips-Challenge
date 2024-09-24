@@ -1,0 +1,50 @@
+package nz.ac.wgtn.swen225.lc.domain;
+import java.util.*;
+
+
+public class Chap extends Characters{
+    private Map<String, Boolean> keys;
+    private int treasuresCollected;
+    private boolean levelCompleted = false;
+
+    public Chap(int startX, int startY) {
+        this.x = startX;
+        this.y = startY;
+        this.keys = new HashMap<>();
+    }
+
+    public void move(int dx, int dy, Tiles[][] maze) {
+        int newX = this.x + dx;
+        int newY = this.y + dy;
+
+        if (newX >= 0 && newX < maze.length && newY >= 0 && newY < maze[0].length) {
+            if (maze[newX][newY].canMoveInto()) {
+                this.x = newX;
+                this.y = newY;
+                maze[this.x][this.y].interact(this); // Interact with the tile Chap moves onto
+            } else {
+                System.out.println("Chap cannot move onto that tile!");
+            }
+        }
+    }
+
+    public void collectKey(String color) {
+        keys.put(color, true);
+    }
+
+    public boolean hasKey(String color) {
+        return keys.getOrDefault(color, false);
+    }
+
+    public void collectTreasure() {
+        treasuresCollected++;
+    }
+
+    public boolean isLevelCompleted() {
+        return levelCompleted;
+    }
+
+    public void completeLevel() {
+        levelCompleted = true;
+    }
+}
