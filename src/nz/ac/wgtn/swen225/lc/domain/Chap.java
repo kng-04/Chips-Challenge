@@ -6,11 +6,13 @@ public class Chap extends Characters{
     private Map<String, Boolean> keys;
     private int treasuresCollected;
     private boolean levelCompleted = false;
+    private Game game;
 
-    public Chap(int startX, int startY) {
+    public Chap(int startX, int startY, Game game) {
         this.x = startX;
         this.y = startY;
         this.keys = new HashMap<>();
+        this.game = game;
     }
 
     public void move(int dx, int dy, Tiles[][] maze) {
@@ -38,6 +40,7 @@ public class Chap extends Characters{
 
     public void collectTreasure() {
         treasuresCollected++;
+        game.decrementTotalTreasures();
     }
 
     public boolean isLevelCompleted() {
