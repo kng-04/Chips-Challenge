@@ -41,6 +41,9 @@ public class Game {
     public void decrementTotalTreasures(){
         this.totalTreasures--;
     }
+    public int getTotalTreasures(){
+        return totalTreasures;
+    }
 
     public void startGame() {
         while (!chap.isLevelCompleted()) {

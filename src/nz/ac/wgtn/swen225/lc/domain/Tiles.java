@@ -5,5 +5,5 @@ public abstract class Tiles {
 
     public abstract boolean canMoveInto();
 
-    public abstract void interact(Chap chap); // Handle interactions when Chap steps on the tile
+    public abstract void interact(Chap chap, Game game); // Handle interactions when Chap steps on the tile
 }

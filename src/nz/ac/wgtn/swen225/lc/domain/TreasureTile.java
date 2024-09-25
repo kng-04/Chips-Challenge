@@ -10,7 +10,7 @@ public class TreasureTile extends Tiles{
      return this.canMoveInto();
     }
 
-    public void interact(Chap chap){
+    public void interact(Chap chap, Game game){
         chap.collectTreasure(); // Increment Chap's treasure count
         System.out.println("Chap picked up a treasure!");
     }

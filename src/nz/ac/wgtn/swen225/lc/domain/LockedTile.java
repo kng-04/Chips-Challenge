@@ -14,7 +14,7 @@ public class LockedTile extends Tiles{
     }
 
     @Override
-    public void interact(Chap chap) {
+    public void interact(Chap chap, Game game) {
         if (chap.hasKey(this.keyColor)) {
             System.out.println("Door unlocked with " + keyColor + " key!");
             this.canMoveInto = true; // Door is now unlocked

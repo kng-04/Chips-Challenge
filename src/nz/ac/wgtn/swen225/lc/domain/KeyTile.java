@@ -14,7 +14,7 @@ public class KeyTile extends Tiles{
         return this.canMoveInto();
     }
     @Override
-    public void interact(Chap chap){
+    public void interact(Chap chap, Game game){
         chap.collectKey(this.color); // Adds key to Chap's inventory
         System.out.println("Chap picked up a " + color + " key.");
     }

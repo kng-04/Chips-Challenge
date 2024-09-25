@@ -16,7 +16,7 @@ public class IntoField extends Tiles{
     }
 
     @Override
-    public void interact(Chap chap) {
+    public void interact(Chap chap, Game game) {
         System.out.println("Hint: " + hint); //temporary - display UI.TextBox with hint
     }
 }

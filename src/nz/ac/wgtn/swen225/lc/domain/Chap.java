@@ -23,7 +23,7 @@ public class Chap extends Characters{
             if (maze[newX][newY].canMoveInto()) {
                 this.x = newX;
                 this.y = newY;
-                maze[this.x][this.y].interact(this); // Interact with the tile Chap moves onto
+                maze[this.x][this.y].interact(this, game); // Interact with the tile Chap moves onto
             } else {
                 System.out.println("Chap cannot move onto that tile!");
             }
@@ -36,6 +36,10 @@ public class Chap extends Characters{
 
     public boolean hasKey(String color) {
         return keys.getOrDefault(color, false);
+    }
+
+    public int getTreasuresCollected(){
+        return this.treasuresCollected;
     }
 
     public void collectTreasure() {

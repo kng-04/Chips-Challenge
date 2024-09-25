@@ -11,7 +11,7 @@ public class ExitTile extends Tiles{
     }
 
     @Override
-    public void interact(Chap chap) {
+    public void interact(Chap chap, Game game) {
         System.out.println("Chap reached the exit! Level complete.");
         chap.completeLevel(); // Calls a method to mark the level as complete
     }

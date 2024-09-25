@@ -12,7 +12,7 @@ public class FreeTile extends Tiles{
     }
 
     @Override
-    public void interact(Chap chap) {
+    public void interact(Chap chap, Game game) {
         // No special interaction for FreeTile
     }
 }
