@@ -4,12 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import nz.ac.wgtn.swen225.lc.domain.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static nz.ac.wgtn.swen225.lc.domain.Color.Green;
-import static nz.ac.wgtn.swen225.lc.domain.Color.Yellow;
-
 /**
  * Convert GameData to/from txt/json.
  * This class should only be used by persistency module internally.

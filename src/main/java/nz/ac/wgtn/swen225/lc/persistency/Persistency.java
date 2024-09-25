@@ -4,7 +4,6 @@ import nz.ac.wgtn.swen225.lc.domain.Game;
 
 import java.io.IOException;
 
-import static nz.ac.wgtn.swen225.lc.persistency.GameDataConverter.gameDataFromJson;
 import static nz.ac.wgtn.swen225.lc.persistency.GameDataConverter.gameDataToJson;
 
 /**
