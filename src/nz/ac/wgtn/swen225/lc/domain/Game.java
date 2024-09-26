@@ -6,16 +6,25 @@ public class Game {
     private Chap chap;
     private Tiles[][] maze;
     private int totalTreasures;
+    private int height, width, secondsLeft;
+    private List<Characters> characters;
+    private List<Tiles> inventory, tiles;
 
-    public Game() {
+    public Game(int height, int width, int secondsLeft,  List<Characters> characters, List<Tiles> inventory, List<Tiles> tiles  ) {
+        this.height = height;
+        this.width = width;
+        this.secondsLeft = secondsLeft;
+        this.characters = characters;
+        this.inventory = inventory;
+        this.tiles = tiles;
         this.maze = initializeMaze(); // Create your maze layout
         this.chap = new Chap(0, 0, this); // Starting position of Chap
         this.totalTreasures = countTreasuresInMaze();
     }
 
     private Tiles[][] initializeMaze() {
-        // Create a 9x9 maze with various tiles, keys, and treasures
-        Tiles[][] grid = new Tiles[9][9];
+        // Create a maze with various tiles, keys, and treasures
+        Tiles[][] grid = new Tiles[width][height];
         for (int i = 0; i < grid.length; i++) {
 
             for (int j = 0; j < grid[0].length; j++) {
@@ -39,7 +48,7 @@ public class Game {
     }
 
     public void replaceTileWith(){
-        
+
     }
 
     public void decrementTotalTreasures(){
