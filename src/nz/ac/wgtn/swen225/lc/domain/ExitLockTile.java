@@ -1,8 +1,8 @@
 package nz.ac.wgtn.swen225.lc.domain;
 
-public class ExitLock extends Tiles{
+public class ExitLockTile extends Tiles{
 
-        public ExitLock() {
+        public ExitLockTile() {
             this.canMoveInto = false; // Default is locked
         }
 
@@ -14,7 +14,7 @@ public class ExitLock extends Tiles{
         @Override
         public void interact(Chap chap, Game game) {
             if (chap.getTreasuresCollected()==game.getTotalTreasures()) {
-                this.canMoveInto = true; // Door is now unlocked
+                this = new ExitTile();
             } else {
                 throw new IllegalStateException("Chap has not picked up all the treasure!");
             }

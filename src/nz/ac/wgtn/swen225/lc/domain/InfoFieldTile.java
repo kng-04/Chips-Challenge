@@ -1,10 +1,10 @@
 package nz.ac.wgtn.swen225.lc.domain;
 
-public class IntoField extends Tiles{
+public class InfoFieldTile extends Tiles{
 
     String keyColor;
     String hint;
-    public IntoField(String keyColor, String hint) {
+    public InfoFieldTile(String keyColor, String hint) {
         this.keyColor = keyColor;
         this.canMoveInto = true;
         this.hint = hint;

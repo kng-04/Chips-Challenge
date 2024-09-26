@@ -38,6 +38,10 @@ public class Game {
         return count;
     }
 
+    public void replaceTileWith(){
+        
+    }
+
     public void decrementTotalTreasures(){
         this.totalTreasures--;
     }

@@ -1,9 +1,9 @@
 package nz.ac.wgtn.swen225.lc.domain;
 
-public class LockedTile extends Tiles{
+public class LockedDoorTile extends Tiles{
     private String keyColor;
 
-    public LockedTile(String keyColor) {
+    public LockedDoorTile(String keyColor) {
         this.keyColor = keyColor;
         this.canMoveInto = false; // Default is locked
     }
