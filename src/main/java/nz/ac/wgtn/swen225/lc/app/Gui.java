@@ -1,7 +1,6 @@
 package nz.ac.wgtn.swen225.lc.app;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
@@ -19,7 +18,7 @@ public class Gui extends JFrame{
     private void loadMenu(){
 
         // Main Screen
-        var gameArea = new JPanel();
+        var gameArea = new JPanel(); // Game will render here
         var title = new JLabel("Game Area");
         gameArea.setBackground(Color.WHITE);
         gameArea.add(title);
@@ -47,7 +46,7 @@ public class Gui extends JFrame{
         }
         sidebar.add(keyInventory);
 
-        new LevelTimer(60, timeLabel); // TODO needs to be started once player first moves?
+        new LevelTimer(60, timeLabel); // TODO needs to be started once player first moves? and on new level
 
         // SplitPane
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, gameArea, sidebar);
@@ -72,8 +71,13 @@ public class Gui extends JFrame{
         var mGame = new JMenu("Game");
         var miQuit= new JMenuItem("Quit");
         var miPause = new JMenuItem("Pause");
-        miQuit.addActionListener(e -> this.dispose());
+        var miPlay = new JMenuItem("Play");
+        miQuit.addActionListener(e -> {
+            // TODO save what level player was on but not level state same as a CTRL-X
+            this.dispose();
+        });
         miPause.addActionListener(null); // TODO add pause
+        mGame.add(miPlay);
         mGame.add(miPause);
         mGame.add(miQuit);
 
@@ -97,5 +101,12 @@ public class Gui extends JFrame{
         menuBar.add(mGame);
         menuBar.add(mLevel);
         menuBar.add(help);
+    }
+
+    private void pauseGame(){
+        // Stop timer
+        // disable input
+        // stop game logic
+        // show game is paused
     }
 }
