@@ -3,22 +3,21 @@ import java.util.*;
 
 
 public class Game {
-    private Chap chap;
     private Tiles[][] maze;
     private int totalTreasures;
     private int height, width, secondsLeft;
     private List<Characters> characters;
     private List<Tiles> inventory, tiles;
+    private boolean mapComplete;
 
     public Game(int height, int width, int secondsLeft,  List<Characters> characters, List<Tiles> inventory, List<Tiles> tiles  ) {
         this.height = height;
         this.width = width;
         this.secondsLeft = secondsLeft;
-        this.characters = characters;
+        this.characters = characters; //get(0) = chap
         this.inventory = inventory;
         this.tiles = tiles;
         this.maze = initializeMaze(); // Create your maze layout
-        this.chap = new Chap(0, 0, this); // Starting position of Chap
         this.totalTreasures = countTreasuresInMaze();
     }
 
@@ -53,13 +52,14 @@ public class Game {
 
     public void decrementTotalTreasures(){
         this.totalTreasures--;
+        if(this.totalTreasures){mapComplete=true;}
     }
     public int getTotalTreasures(){
         return totalTreasures;
     }
 
     public void startGame() {
-        while (!chap.isLevelCompleted()) {
+        while (!mapComplete) {
             //
         }
 
