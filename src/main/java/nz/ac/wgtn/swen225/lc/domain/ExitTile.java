@@ -1,6 +1,6 @@
 package nz.ac.wgtn.swen225.lc.domain;
 
-public class ExitTile extends Tiles{
+public class ExitTile extends Tile {
     public ExitTile() {
         this.canMoveInto = true;
     }

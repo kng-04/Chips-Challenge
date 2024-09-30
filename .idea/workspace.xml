@@ -5,8 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b697583b-8820-4eae-b064-a146f18abd20" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/Color.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/CoordinateEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/Chap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/Chap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/Characters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/Characters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/Enemy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/ExitLockTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/ExitLockTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/ExitTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/ExitTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/FreeTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/FreeTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/InfoFieldTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/InfoFieldTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/KeyTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/KeyTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/LockedDoorTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/LockedDoorTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/Tiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/Tile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/TreasureTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/TreasureTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/WallTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/WallTile.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +31,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -38,6 +54,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -86,6 +103,8 @@
       <workItem from="1726984984436" duration="11249000" />
       <workItem from="1727320994329" duration="13000" />
       <workItem from="1727321976554" duration="53000" />
+      <workItem from="1727690638654" duration="24000" />
+      <workItem from="1727690686811" duration="2016000" />
     </task>
     <servers />
   </component>

@@ -15,7 +15,7 @@ public class Chap extends Characters{
         this.game = game;
     }
 
-    public void move(int dx, int dy, Tiles[][] maze) {
+    public void move(int dx, int dy, Tile[][] maze) {
         int newX = this.x + dx;
         int newY = this.y + dy;
 

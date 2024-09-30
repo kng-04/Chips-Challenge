@@ -1,6 +1,6 @@
 package nz.ac.wgtn.swen225.lc.domain;
 
-public class TreasureTile extends Tiles{
+public class TreasureTile extends Tile {
     boolean canMoveInto;
     TreasureTile(){
         this.canMoveInto = true;

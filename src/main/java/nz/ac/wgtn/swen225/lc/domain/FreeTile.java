@@ -1,6 +1,6 @@
 package nz.ac.wgtn.swen225.lc.domain;
 
-public class FreeTile extends Tiles{
+public class FreeTile extends Tile {
 
     public FreeTile() {
         this.canMoveInto = true;
