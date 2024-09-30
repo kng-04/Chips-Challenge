@@ -12,7 +12,7 @@ public class Game {
         this.height = height;
         this.width = width;
         this.secondsLeft = secondsLeft;
-        this.characters = characters;
+        this.characters = characters; //get(0) = chap
         this.inventory = inventory;
         this.tiles = tiles;
         this.totalTreasures = countTreasuresInMaze();
@@ -36,6 +36,7 @@ public class Game {
 
     public void decrementTotalTreasures(){
         this.totalTreasures--;
+        if(this.totalTreasures){mapComplete=true;}
     }
     public int getTotalTreasures(){
         return totalTreasures;
