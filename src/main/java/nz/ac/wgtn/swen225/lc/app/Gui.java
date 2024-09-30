@@ -16,7 +16,7 @@ public class Gui extends JFrame{
     }
 
     private void loadMenu(){
-
+        setTitle("Larry Croft's Adventures");
         // Main Screen
         var gameArea = new JPanel(); // Game will render here
         var title = new JLabel("Game Area");
@@ -95,12 +95,53 @@ public class Gui extends JFrame{
         // Help Submenu
         var help = new JMenu("Help");
         var miHelp = new JMenuItem("Get Help");
+        miHelp.addActionListener(e -> createHelpMenu());
         help.add(miHelp);
 
         // Add menubar items
         menuBar.add(mGame);
         menuBar.add(mLevel);
         menuBar.add(help);
+    }
+
+    /**
+     * Creates a new window containing the rules of the game
+     */
+    private void createHelpMenu(){
+        var helpScreen = new JFrame("Help Page");
+
+        var helpPanel = new JPanel();
+        var helpText = new JTextArea("""
+                Controls:
+                    1. CTRL-X - Exit the game: The current game state will be lost. The next time the game is started, it will resume from the last unfinished level.
+                    2. CTRL-S - Exit the game and save: Saves the game state. The game will resume the next time the application is started.
+                    3. CTRL-R - Resume a saved game: Opens a file selector to choose a saved game to be loaded.
+                    4. CTRL-1 - Start a new game at level 1.
+                    5. CTRL-2 - Start a new game at level 2.
+                    6. SPACE - Pause the game and display a “Game is Paused” dialog.
+                    7. ESC - Close the “Game is Paused” dialog and resume the game.
+                    8. UP, DOWN, LEFT, RIGHT ARROWS - Move Chap within the maze.
+                """);
+        helpText.setLineWrap(true);
+        helpText.setRows(10);
+        helpText.setColumns(50);
+        helpText.setWrapStyleWord(true);
+        var closeHelp = new JButton("Close");
+        closeHelp.addActionListener(e -> helpScreen.dispose());
+        var helpScroll = new JScrollPane(helpText);
+
+
+        helpPanel.setLayout(new BorderLayout());
+        helpScreen.add(helpPanel);
+        helpPanel.add(helpScroll, BorderLayout.CENTER);
+        helpScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        helpScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // Text wraps
+        helpPanel.add(closeHelp, BorderLayout.SOUTH);
+        helpScreen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        //helpScreen.setPreferredSize(new Dimension(800,400));
+        helpScreen.setVisible(true);
+
+        helpScreen.pack();
     }
 
     private void pauseGame(){
