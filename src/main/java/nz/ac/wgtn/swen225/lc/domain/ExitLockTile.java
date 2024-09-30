@@ -1,6 +1,6 @@
 package nz.ac.wgtn.swen225.lc.domain;
 
-public class ExitLockTile extends Tiles{
+public class ExitLockTile extends Tile {
 
         public ExitLockTile() {
             this.canMoveInto = false; // Default is locked

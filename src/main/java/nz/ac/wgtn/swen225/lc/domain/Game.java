@@ -3,50 +3,34 @@ import java.util.*;
 
 
 public class Game {
-    private Tiles[][] maze;
     private int totalTreasures;
     private int height, width, secondsLeft;
     private List<Characters> characters;
-    private List<Tiles> inventory, tiles;
-    private boolean mapComplete;
+    private List<Tile> inventory, tiles;
 
-    public Game(int height, int width, int secondsLeft,  List<Characters> characters, List<Tiles> inventory, List<Tiles> tiles  ) {
+    public Game(int height, int width, int secondsLeft, List<Characters> characters, List<Tile> inventory, List<Tile> tiles  ) {
         this.height = height;
         this.width = width;
         this.secondsLeft = secondsLeft;
         this.characters = characters; //get(0) = chap
         this.inventory = inventory;
         this.tiles = tiles;
-        this.maze = initializeMaze(); // Create your maze layout
         this.totalTreasures = countTreasuresInMaze();
     }
 
-    private Tiles[][] initializeMaze() {
-        // Create a maze with various tiles, keys, and treasures
-        Tiles[][] grid = new Tiles[width][height];
-        for (int i = 0; i < grid.length; i++) {
+    public Game(){
 
-            for (int j = 0; j < grid[0].length; j++) {
-                grid[i][j] = new FreeTile(); // Default to FreeTile
-            }
-        }
-
-        return grid;
     }
+
+
 
     private int countTreasuresInMaze() {
-        int count = 0;
-        for (Tiles[] row : maze) {
-            for (Tiles tile : row) {
-                if (tile instanceof TreasureTile) {
-                    count++;
-                }
-            }
-        }
-        return count;
+        return (int) tiles.stream()
+                .filter(tile -> tile instanceof TreasureTile) // Filter tiles that are TreasureTile
+                .count(); // Count them
     }
 
-    public void replaceTileWith(){
+    public void replaceTileWith(Tile tile){
 
     }
 
@@ -59,9 +43,11 @@ public class Game {
     }
 
     public void startGame() {
-        while (!mapComplete) {
+        Chap tempChap = (Chap)characters.get(0);
+        while (tempChap.getTreasuresCollected() < totalTreasures) {
             //
         }
+
 
         System.out.println("Congratulations! You've completed the level.");
     }

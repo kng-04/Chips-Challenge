@@ -6,7 +6,7 @@ public class Enemy extends Characters {
         this.x = x;
         this.y = y;
     }
-    public void move(int dx, int dy, Tiles[][] maze){
+    public void move(int dx, int dy, Tile[][] maze){
         //implement logic for enemy movement
     }
 

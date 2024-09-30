@@ -1,6 +1,6 @@
 package nz.ac.wgtn.swen225.lc.domain;
 
-public class WallTile extends Tiles{
+public class WallTile extends Tile {
 
     public WallTile() {
         this.canMoveInto = false; // Default is locked

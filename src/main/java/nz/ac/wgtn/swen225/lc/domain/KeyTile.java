@@ -1,7 +1,7 @@
 package nz.ac.wgtn.swen225.lc.domain;
 
 
-public class KeyTile extends Tiles{
+public class KeyTile extends Tile {
 
     private String color;
 

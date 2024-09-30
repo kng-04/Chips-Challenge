@@ -1,6 +1,6 @@
 package nz.ac.wgtn.swen225.lc.domain;
 
-public class LockedDoorTile extends Tiles{
+public class LockedDoorTile extends Tile {
     private String keyColor;
 
     public LockedDoorTile(String keyColor) {
