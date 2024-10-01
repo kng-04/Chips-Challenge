@@ -8,6 +8,9 @@ public class Chap extends Characters{
     private boolean levelCompleted = false;
     private Game game;
 
+    public Chap() {
+    }
+
     public Chap(int startX, int startY, Game game) {
         this.x = startX;
         this.y = startY;

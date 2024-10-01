@@ -5,6 +5,9 @@ public class KeyTile extends Tile {
 
     private String color;
 
+    public KeyTile() {
+    }
+
     public KeyTile(String color) {
         this.color = color;
         this.canMoveInto = true;
