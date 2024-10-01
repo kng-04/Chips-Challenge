@@ -7,6 +7,7 @@ public class Game {
     private int height, width, secondsLeft;
     private List<Characters> characters;
     private List<Tile> inventory, tiles;
+    private boolean mapComplete = false;
 
     public Game(int height, int width, int secondsLeft, List<Characters> characters, List<Tile> inventory, List<Tile> tiles  ) {
         this.height = height;
@@ -36,7 +37,7 @@ public class Game {
 
     public void decrementTotalTreasures(){
         this.totalTreasures--;
-        if(this.totalTreasures){mapComplete=true;}
+        if(this.totalTreasures == 0){mapComplete=true;}
     }
     public int getTotalTreasures(){
         return totalTreasures;
@@ -52,5 +53,31 @@ public class Game {
         System.out.println("Congratulations! You've completed the level.");
     }
 
+    public int getHeight() {
+        return height;
+    }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getSecondsLeft() {
+        return secondsLeft;
+    }
+
+    public List<Characters> getCharacters() {
+        return characters;
+    }
+
+    public List<Tile> getInventory() {
+        return inventory;
+    }
+
+    public List<Tile> getTiles() {
+        return tiles;
+    }
+
+    public boolean isMapComplete() {
+        return mapComplete;
+    }
 }

@@ -12,30 +12,29 @@ import javax.swing.JPanel;
 
 //Importing provided library
 import nz.ac.wgtn.swen225.lc.app.*;
+import nz.ac.wgtn.swen225.lc.domain.Game;
 import nz.ac.wgtn.swen225.lc.persistency.*;
 
 public final class Recorder{
-    private final Persistency presistency;
     private List<String> replay_data;
     private final PlaybackController buttonController;
 
-    public Recorder(Persistency p){
-        assert presistency != null;
+    public Recorder(){
         replay_data = new ArrayList<>();
-        this.presistency = p;
 
         buttonController = new PlaybackController(this);
         buttonController.printAction((e)->printToConsole());
     }
 
-    public void PrintToConsole(){
+    public void printToConsole(){
         IntStream.range(0, replay_data.size()).boxed()
         .forEach(i -> System.out.println("\nSnapshot: "+i+"\t"+replay_data.get(i)));
         System.out.println("\nEnd Of Recording");
     }
 
-    public void takeSnapshot(){
-        replay_data.get(Persistency.getLevelJSON());
+    public void takeSnapshot(Game game) throws IOException {
+//        replay_data.get(Persistency.getLevelJSON());
+        Persistency.saveGame(game, "save.json");
     }
 
     public void saveReplay(String replayName){
@@ -43,7 +42,8 @@ public final class Recorder{
     }
 
     public JPanel getPanel(){
-        return buttonController;
+//        return buttonController;
+        return null;
     }
 
     public void replayLevel(String file_name){
