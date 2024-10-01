@@ -1,101 +1,83 @@
 package nz.ac.wgtn.swen225.lc.domain;
+import java.util.*;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.StringJoiner;
 
 public class Game {
-    int width;
-    int height;
-    int secondsLeft;
-    List<Characters> characters;
-    List<Tile> inventory;
-    // Chap and other characters that can move
-    // static tiles that cannot move
-    List<Tile> tiles;
+    private int totalTreasures;
+    private int height, width, secondsLeft;
+    private List<Characters> characters;
+    private List<Tile> inventory, tiles;
+    private boolean mapComplete = false;
 
-    public Game() {
-    }
-
-    public Game(int width, int height, int secondsLeft, List<Characters> characters, List<Tile> inventory, List<Tile> tiles) {
-        this.width = width;
+    public Game(int height, int width, int secondsLeft, List<Characters> characters, List<Tile> inventory, List<Tile> tiles  ) {
         this.height = height;
+        this.width = width;
         this.secondsLeft = secondsLeft;
-        this.characters = characters;
+        this.characters = characters; //get(0) = chap
         this.inventory = inventory;
         this.tiles = tiles;
+        this.totalTreasures = countTreasuresInMaze();
     }
 
-    public int getWidth() {
-        return width;
+    public Game(){
+
     }
 
-    public void setWidth(int width) {
-        this.width = width;
+
+
+    private int countTreasuresInMaze() {
+        return (int) tiles.stream()
+                .filter(tile -> tile instanceof TreasureTile) // Filter tiles that are TreasureTile
+                .count(); // Count them
+    }
+
+    public void replaceTileWith(Tile tile){
+
+    }
+
+    public void decrementTotalTreasures(){
+        this.totalTreasures--;
+        if(this.totalTreasures == 0){mapComplete=true;}
+    }
+    public int getTotalTreasures(){
+        return totalTreasures;
+    }
+
+    public void startGame() {
+        Chap tempChap = (Chap)characters.get(0);
+        while (tempChap.getTreasuresCollected() < totalTreasures) {
+            //
+        }
+
+
+        System.out.println("Congratulations! You've completed the level.");
     }
 
     public int getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
+    public int getWidth() {
+        return width;
     }
 
     public int getSecondsLeft() {
         return secondsLeft;
     }
 
-    public void setSecondsLeft(int secondsLeft) {
-        this.secondsLeft = secondsLeft;
-    }
-
     public List<Characters> getCharacters() {
         return characters;
-    }
-
-    public void setCharacters(List<Characters> characters) {
-        this.characters = characters;
     }
 
     public List<Tile> getInventory() {
         return inventory;
     }
 
-    public void setInventory(List<Tile> inventory) {
-        this.inventory = inventory;
-    }
-
     public List<Tile> getTiles() {
         return tiles;
     }
 
-    public void setTiles(List<Tile> tiles) {
-        this.tiles = tiles;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Game game = (Game) o;
-        return width == game.width && height == game.height && secondsLeft == game.secondsLeft && Objects.equals(characters, game.characters) && Objects.equals(inventory, game.inventory) && Objects.equals(tiles, game.tiles);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(width, height, secondsLeft, characters, inventory, tiles);
-    }
-
-    @Override
-    public String toString() {
-        return new StringJoiner(", ", Game.class.getSimpleName() + "[", "]")
-                .add("width=" + width)
-                .add("height=" + height)
-                .add("secondsLeft=" + secondsLeft)
-                .add("characters=" + characters)
-                .add("inventory=" + inventory)
-                .add("tiles=" + tiles)
-                .toString();
+    public boolean isMapComplete() {
+        return mapComplete;
     }
 }
