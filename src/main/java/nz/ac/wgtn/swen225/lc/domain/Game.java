@@ -3,20 +3,17 @@ import java.util.*;
 
 
 public class Game {
-    private int totalTreasures;
-    private int height, width, secondsLeft;
+    private int width, height, secondsLeft;
     private List<Characters> characters;
     private List<Tile> inventory, tiles;
-    private boolean mapComplete = false;
 
-    public Game(int height, int width, int secondsLeft, List<Characters> characters, List<Tile> inventory, List<Tile> tiles  ) {
-        this.height = height;
+    public Game(int width, int height, int secondsLeft, List<Characters> characters, List<Tile> inventory, List<Tile> tiles) {
         this.width = width;
+        this.height = height;
         this.secondsLeft = secondsLeft;
         this.characters = characters; //get(0) = chap
         this.inventory = inventory;
         this.tiles = tiles;
-        this.totalTreasures = countTreasuresInMaze();
     }
 
     public Game(){
@@ -24,28 +21,48 @@ public class Game {
     }
 
 
-
-    private int countTreasuresInMaze() {
-        return (int) tiles.stream()
-                .filter(tile -> tile instanceof TreasureTile) // Filter tiles that are TreasureTile
-                .count(); // Count them
-    }
-
     public void replaceTileWith(Tile tile){
 
     }
 
-    public void decrementTotalTreasures(){
-        this.totalTreasures--;
-        if(this.totalTreasures == 0){mapComplete=true;}
+    public long treasuresLeft() {
+        return this.tiles.stream().filter(t-> t instanceof TreasureTile).count();
     }
-    public int getTotalTreasures(){
-        return totalTreasures;
+
+    public Tile findTile(int x, int y) {
+        return this.tiles.stream().filter(t-> t.getX() == x && t.getY() == y).findFirst().orElseThrow();
+    }
+
+    // KeyTile and TreasureTile can be collected
+    public void collectTile(Tile tile) {
+        if (tile instanceof KeyTile || tile instanceof TreasureTile) {
+            // move from tiles to inventory, and create a new FreeTile at original place
+            this.tiles.remove(tile);
+            this.inventory.add(tile);
+            Tile newFreeTile = new FreeTile();
+            newFreeTile.setX(tile.x);
+            newFreeTile.setY(tile.y);
+            this.tiles.add(newFreeTile);
+        } else {
+            throw new IllegalArgumentException(tile.getClass().getSimpleName() + " cannot be collected");
+        }
+    }
+
+    public boolean useKey(Color color){
+        Optional<Tile> opt = this.inventory.stream()
+                .filter(t-> t instanceof KeyTile && ((KeyTile)t).getColor().equals(color))
+                .findFirst();
+        if(opt.isPresent()) {
+            KeyTile keyTile = (KeyTile)opt.get();
+            this.inventory.remove(keyTile);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void startGame() {
-        Chap tempChap = (Chap)characters.get(0);
-        while (tempChap.getTreasuresCollected() < totalTreasures) {
+        while (treasuresLeft() > 0) {
             //
         }
 
@@ -77,7 +94,28 @@ public class Game {
         return tiles;
     }
 
-    public boolean isMapComplete() {
-        return mapComplete;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Game game = (Game) o;
+        return width == game.width && height == game.height && secondsLeft == game.secondsLeft && Objects.equals(characters, game.characters) && Objects.equals(inventory, game.inventory) && Objects.equals(tiles, game.tiles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(width, height, secondsLeft, characters, inventory, tiles);
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Game.class.getSimpleName() + "[", "]")
+                .add("width=" + width)
+                .add("height=" + height)
+                .add("secondsLeft=" + secondsLeft)
+                .add("characters=" + characters)
+                .add("inventory=" + inventory)
+                .add("tiles=" + tiles)
+                .toString();
     }
 }

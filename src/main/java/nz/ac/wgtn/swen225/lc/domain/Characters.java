@@ -12,5 +12,5 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 })
 public abstract class Characters extends CoordinateEntity{
 
-    public abstract void move(int dx, int dy, Tile[][] maze);
+    public abstract void move(int dx, int dy, Game game);
 }
