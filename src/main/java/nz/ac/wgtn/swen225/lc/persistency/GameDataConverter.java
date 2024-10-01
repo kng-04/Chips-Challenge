@@ -3,6 +3,7 @@ package nz.ac.wgtn.swen225.lc.persistency;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import nz.ac.wgtn.swen225.lc.domain.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,8 @@ class GameDataConverter {
 //                System.out.println("Character: " + new String(Character.toChars(codePoint)) + ", Code point: " + codePoint);
                 CoordinateEntity entity = buildCoordinateEntity(codePoint, x, y);
                 if (entity == null) {
-                    break;
+                    charPos += Character.charCount(codePoint);
+                    continue;
                 }
                 if (entity instanceof Characters) {
                     characters.add((Characters) entity);
@@ -57,6 +59,12 @@ class GameDataConverter {
         Game game = gameDataFromTxt(txt);
         return gameDataToJson(game);
     }
+
+    // reformat json using ObjectMapper, so it doesn't contain white spaces etc
+    static String formatJson(String json) throws JsonProcessingException {
+        return MAPPER.writeValueAsString(MAPPER.readTree(json));
+    }
+
 
     private static CoordinateEntity buildCoordinateEntity(int codePoint, int x, int y) throws Exception {
         Color color = null;
@@ -78,7 +86,4 @@ class GameDataConverter {
         }
         return entity;
     }
-
 }
-
-

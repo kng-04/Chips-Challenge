@@ -31,4 +31,14 @@ public class FileUtilTest {
         assertEquals(timestamp, readStr);
     }
 
+
+    @Test
+    void testWriteAndReadTmpDirFile() throws IOException {
+        String timestamp = String.valueOf(System.currentTimeMillis());
+        String fileName = timestamp + ".txt";
+        path = FileUtil.writeToTmpFile(fileName, timestamp);
+        String readStr = FileUtil.readFromTmpFile(fileName);
+        assertEquals(timestamp, readStr);
+    }
+
 }

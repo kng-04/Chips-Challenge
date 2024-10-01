@@ -13,7 +13,7 @@ public class ExitLockTile extends Tile {
 
         @Override
         public void interact(Chap chap, Game game) {
-            if (chap.getTreasuresCollected()==game.getTotalTreasures()) {
+            if (game.treasuresLeft() == 0) {
                 this.canMoveInto = true;
             } else {
                 throw new IllegalStateException("Chap has not picked up all the treasure!");

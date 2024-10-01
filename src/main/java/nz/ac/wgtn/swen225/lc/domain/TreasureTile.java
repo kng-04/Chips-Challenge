@@ -2,7 +2,7 @@ package nz.ac.wgtn.swen225.lc.domain;
 
 public class TreasureTile extends Tile {
     boolean canMoveInto;
-    TreasureTile(){
+    public TreasureTile(){
         this.canMoveInto = true;
     }
 
@@ -11,7 +11,7 @@ public class TreasureTile extends Tile {
     }
 
     public void interact(Chap chap, Game game){
-        chap.collectTreasure(); // Increment Chap's treasure count
+        game.collectTile(this);
         System.out.println("Chap picked up a treasure!");
     }
 }

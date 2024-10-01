@@ -1,7 +1,6 @@
 package nz.ac.wgtn.swen225.lc.domain;
 
 public class Enemy extends Characters {
-    private int x, y;
 
     public Enemy() {
     }
@@ -10,7 +9,7 @@ public class Enemy extends Characters {
         this.x = x;
         this.y = y;
     }
-    public void move(int dx, int dy, Tile[][] maze){
+    public void move(int dx, int dy, Game game){
         //implement logic for enemy movement
     }
 

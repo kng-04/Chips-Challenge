@@ -17,6 +17,12 @@ public class PersistencyTest {
         assertEquals(game, GameDataConverter.gameDataFromJson(json));
     }
 
+    @Test
+    void testSaveAndLoadGameData() throws Exception {
+        Game game = GameDataGenerator.genGameData();
+        String filePath = FileUtil.getTmpPath("swen225_lc.json").toString();
+        Persistency.saveGame(game, filePath);
+        assertEquals(game, Persistency.loadGame(filePath));
+    }
 
 }
-
