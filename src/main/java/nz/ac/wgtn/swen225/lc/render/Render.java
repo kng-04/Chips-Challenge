@@ -21,7 +21,7 @@ public class Render extends JPanel {
     public Render(Game game) {
         this.game = game;
 //        this.load = this.game.getLoad();
-        this.keys = load.getKeys();
+        //this.keys = load.getKeys();
 //        this.treasure = load.getTreasures();
         this.x = game.getWidth();
         this.y = game.getHeight();

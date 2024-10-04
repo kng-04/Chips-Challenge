@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b697583b-8820-4eae-b064-a146f18abd20" name="Changes" comment="" />
+    <list default="true" id="b697583b-8820-4eae-b064-a146f18abd20" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/render/Render.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/render/Render.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,7 +38,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "18-implementations-for-rendering-class",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/kn04/Desktop/Swen225/group-20-project",
@@ -91,6 +93,7 @@
       <workItem from="1727690638654" duration="24000" />
       <workItem from="1727690686811" duration="2016000" />
       <workItem from="1727744437050" duration="7215000" />
+      <workItem from="1728016068093" duration="1510000" />
     </task>
     <servers />
   </component>
