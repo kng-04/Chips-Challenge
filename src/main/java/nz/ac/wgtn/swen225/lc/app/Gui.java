@@ -5,9 +5,13 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class Gui extends JFrame{
+
+    boolean isHelpMenuOpen = false;
+
     Gui() {
         assert SwingUtilities.isEventDispatchThread();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
         loadMenu();
 
         new Controller(this); // Setup controller for keybindings
@@ -95,7 +99,11 @@ public class Gui extends JFrame{
         // Help Submenu
         var help = new JMenu("Help");
         var miHelp = new JMenuItem("Get Help");
-        miHelp.addActionListener(e -> createHelpMenu());
+        miHelp.addActionListener(e -> {
+            if(!isHelpMenuOpen){
+                createHelpMenu();
+            }
+        });
         help.add(miHelp);
 
         // Add menubar items
@@ -108,6 +116,7 @@ public class Gui extends JFrame{
      * Creates a new window containing the rules of the game
      */
     private void createHelpMenu(){
+        isHelpMenuOpen = true;
         var helpScreen = new JFrame("Help Page");
 
         var helpPanel = new JPanel();
@@ -126,12 +135,15 @@ public class Gui extends JFrame{
                 8. UP, DOWN, LEFT, RIGHT ARROWS - Move Chap within the maze.
                 """);
         helpText.setLineWrap(true);
-        helpText.setRows(50);
+        helpText.setRows(30);
         helpText.setColumns(50);
         helpText.setWrapStyleWord(true);
         helpText.setEditable(false);
         var closeHelp = new JButton("Close");
-        closeHelp.addActionListener(e -> helpScreen.dispose());
+        closeHelp.addActionListener(e -> {
+            isHelpMenuOpen = false;
+            helpScreen.dispose();
+        });
         var helpScroll = new JScrollPane(helpText);
 
 
