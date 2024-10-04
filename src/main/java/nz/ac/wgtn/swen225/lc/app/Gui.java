@@ -1,14 +1,17 @@
 package nz.ac.wgtn.swen225.lc.app;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class Gui extends JFrame{
+
+    boolean isHelpMenuOpen = false;
+
     Gui() {
         assert SwingUtilities.isEventDispatchThread();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
         loadMenu();
 
         new Controller(this); // Setup controller for keybindings
@@ -17,9 +20,9 @@ public class Gui extends JFrame{
     }
 
     private void loadMenu(){
-
+        setTitle("Larry Croft's Adventures");
         // Main Screen
-        var gameArea = new JPanel();
+        var gameArea = new JPanel(); // Game will render here
         var title = new JLabel("Game Area");
         gameArea.setBackground(Color.WHITE);
         gameArea.add(title);
@@ -47,7 +50,7 @@ public class Gui extends JFrame{
         }
         sidebar.add(keyInventory);
 
-        new LevelTimer(60, timeLabel); // TODO needs to be started once player first moves?
+        new LevelTimer(60, timeLabel); // TODO needs to be started once player first moves? and on new level
 
         // SplitPane
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, gameArea, sidebar);
@@ -72,8 +75,13 @@ public class Gui extends JFrame{
         var mGame = new JMenu("Game");
         var miQuit= new JMenuItem("Quit");
         var miPause = new JMenuItem("Pause");
-        miQuit.addActionListener(e -> this.dispose());
+        var miPlay = new JMenuItem("Play");
+        miQuit.addActionListener(e -> {
+            // TODO save what level player was on but not level state same as a CTRL-X
+            this.dispose();
+        });
         miPause.addActionListener(null); // TODO add pause
+        mGame.add(miPlay);
         mGame.add(miPause);
         mGame.add(miQuit);
 
@@ -91,11 +99,72 @@ public class Gui extends JFrame{
         // Help Submenu
         var help = new JMenu("Help");
         var miHelp = new JMenuItem("Get Help");
+        miHelp.addActionListener(e -> {
+            if(!isHelpMenuOpen){
+                createHelpMenu();
+            }
+        });
         help.add(miHelp);
 
         // Add menubar items
         menuBar.add(mGame);
         menuBar.add(mLevel);
         menuBar.add(help);
+    }
+
+    /**
+     * Creates a new window containing the rules of the game
+     */
+    private void createHelpMenu(){
+        isHelpMenuOpen = true;
+        var helpScreen = new JFrame("Help Page");
+
+        var helpPanel = new JPanel();
+        var helpText = new JTextArea("""
+                Goal:
+                The goal of Larry Croft's Adventures is to collect all the chips and advance to the next level before the time runs out. To collect all the chips you must overcome various challenges such as finding keys to open locked doors.
+                
+                Controls:
+                1. CTRL-X - Exit the game: The current game state will be lost. The next time the game is started, it will resume from the last unfinished level.
+                2. CTRL-S - Exit the game and save: Saves the game state. The game will resume the next time the application is started.
+                3. CTRL-R - Resume a saved game: Opens a file selector to choose a saved game to be loaded.
+                4. CTRL-1 - Start a new game at level 1.
+                5. CTRL-2 - Start a new game at level 2.
+                6. SPACE - Pause the game and display a “Game is Paused” dialog.
+                7. ESC - Close the “Game is Paused” dialog and resume the game.
+                8. UP, DOWN, LEFT, RIGHT ARROWS - Move Chap within the maze.
+                """);
+        helpText.setLineWrap(true);
+        helpText.setRows(30);
+        helpText.setColumns(50);
+        helpText.setWrapStyleWord(true);
+        helpText.setEditable(false);
+        var closeHelp = new JButton("Close");
+        closeHelp.addActionListener(e -> {
+            isHelpMenuOpen = false;
+            helpScreen.dispose();
+        });
+        var helpScroll = new JScrollPane(helpText);
+
+
+        helpPanel.setLayout(new BorderLayout());
+        helpScreen.add(helpPanel);
+        helpPanel.add(helpScroll, BorderLayout.CENTER);
+        helpScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        helpScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // Text wraps
+        helpScroll.setBorder(new EmptyBorder(10,10,10,10));
+        helpPanel.add(closeHelp, BorderLayout.SOUTH);
+        helpScreen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        //helpScreen.setPreferredSize(new Dimension(800,400));
+        helpScreen.setVisible(true);
+
+        helpScreen.pack();
+    }
+
+    private void pauseGame(){
+        // Stop timer
+        // disable input
+        // stop game logic
+        // show game is paused
     }
 }
