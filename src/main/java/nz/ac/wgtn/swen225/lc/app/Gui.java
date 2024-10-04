@@ -112,20 +112,24 @@ public class Gui extends JFrame{
 
         var helpPanel = new JPanel();
         var helpText = new JTextArea("""
+                Goal:
+                The goal of Larry Croft's Adventures is to collect all the chips and advance to the next level before the time runs out. To collect all the chips you must overcome various challenges such as finding keys to open locked doors.
+                
                 Controls:
-                    1. CTRL-X - Exit the game: The current game state will be lost. The next time the game is started, it will resume from the last unfinished level.
-                    2. CTRL-S - Exit the game and save: Saves the game state. The game will resume the next time the application is started.
-                    3. CTRL-R - Resume a saved game: Opens a file selector to choose a saved game to be loaded.
-                    4. CTRL-1 - Start a new game at level 1.
-                    5. CTRL-2 - Start a new game at level 2.
-                    6. SPACE - Pause the game and display a “Game is Paused” dialog.
-                    7. ESC - Close the “Game is Paused” dialog and resume the game.
-                    8. UP, DOWN, LEFT, RIGHT ARROWS - Move Chap within the maze.
+                1. CTRL-X - Exit the game: The current game state will be lost. The next time the game is started, it will resume from the last unfinished level.
+                2. CTRL-S - Exit the game and save: Saves the game state. The game will resume the next time the application is started.
+                3. CTRL-R - Resume a saved game: Opens a file selector to choose a saved game to be loaded.
+                4. CTRL-1 - Start a new game at level 1.
+                5. CTRL-2 - Start a new game at level 2.
+                6. SPACE - Pause the game and display a “Game is Paused” dialog.
+                7. ESC - Close the “Game is Paused” dialog and resume the game.
+                8. UP, DOWN, LEFT, RIGHT ARROWS - Move Chap within the maze.
                 """);
         helpText.setLineWrap(true);
-        helpText.setRows(10);
+        helpText.setRows(50);
         helpText.setColumns(50);
         helpText.setWrapStyleWord(true);
+        helpText.setEditable(false);
         var closeHelp = new JButton("Close");
         closeHelp.addActionListener(e -> helpScreen.dispose());
         var helpScroll = new JScrollPane(helpText);
@@ -136,6 +140,7 @@ public class Gui extends JFrame{
         helpPanel.add(helpScroll, BorderLayout.CENTER);
         helpScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         helpScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // Text wraps
+        helpScroll.setBorder(new EmptyBorder(10,10,10,10));
         helpPanel.add(closeHelp, BorderLayout.SOUTH);
         helpScreen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         //helpScreen.setPreferredSize(new Dimension(800,400));
