@@ -1,6 +1,7 @@
 package nz.ac.wgtn.swen225.lc.render;
 
 import nz.ac.wgtn.swen225.lc.domain.Game;
+import nz.ac.wgtn.swen225.lc.domain.Item;
 import nz.ac.wgtn.swen225.lc.domain.Tile;
 
 import javax.sound.sampled.Clip;
@@ -11,10 +12,10 @@ public class Render extends JPanel {
     private Tile[][] board;
     private int x;
     private int y;
-//    private List<Item> keys;
-//    private List<Item> treasure;
+    private List<Item> keys;
+    private List<Item> treasure;
     public Game game;
-//    public Load load;
+    //public Load load;
     public Clip clip;
 
     public Render(Game game) {
