@@ -88,6 +88,26 @@ public class Controller {
         });
         // UP, DOWN, LEFT, RIGHT Arrows move chap around maze
         // TODO add player controls
+        inputMap.put(KeyStroke.getKeyStroke("W"), "moveUP");
+        actionMap.put("moveUP", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.print("moving chap up");
+                Gui.game.getCharacters().get(0).move(0,-1,Gui.game);
+                Gui.gamePanel.repaint();
+
+            }
+        });
+        inputMap.put(KeyStroke.getKeyStroke("A"), "moveLEFT");
+        actionMap.put("moveLEFT", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.print("moving chap left");
+                Gui.game.getCharacters().get(0).move(-1,0,Gui.game);
+                Gui.gamePanel.repaint();
+
+            }
+        });
     }
 
 }
