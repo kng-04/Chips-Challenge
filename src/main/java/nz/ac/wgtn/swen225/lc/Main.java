@@ -1,4 +1,4 @@
-package nz.ac.wgtn.swen225.lc;
+/*package nz.ac.wgtn.swen225.lc;
 
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -55,4 +55,4 @@ public class Main extends Application {
         launch(args);
     }
 
-}
+} */

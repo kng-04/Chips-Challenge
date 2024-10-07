@@ -1,13 +1,13 @@
 package nz.ac.wgtn.swen225.lc.persistency;
 
-import javafx.scene.image.Image;
-
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 
 /**
  * File utility that saves or loads file.
@@ -83,9 +83,7 @@ public class FileUtil {
         return file.listFiles();
     }
 
-    public static Image readImage(File file) throws IOException {
-        try (FileInputStream input = new FileInputStream(file)) {
-            return new Image(input);
-        }
+    public static BufferedImage readImage(File file) throws IOException {
+        return ImageIO.read(file);
     }
 }
