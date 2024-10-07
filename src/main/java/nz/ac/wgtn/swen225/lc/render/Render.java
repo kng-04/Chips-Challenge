@@ -68,13 +68,16 @@ public class Render extends JPanel {
 
     // Draw Chap on the screen
     private void drawPlayer(Graphics g) {
-        Chap chap = game.getChap();
         if (chap != null) {
             Image chapImage = images.get("Chap");
             if (chapImage != null) {
-                g.drawImage(chapImage, chap.getX() * 32, chap.getY() * 32, null);
+                g.drawImage(chapImage, chap.getX() * TILE_SIZE, chap.getY() * TILE_SIZE, this);
             }
         }
+    }
+
+    public void updateRender() {
+        repaint(); //refresh the display
     }
 
     public void playBackgroundMusic() {}
