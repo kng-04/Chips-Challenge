@@ -94,7 +94,7 @@ public class Controller {
             public void actionPerformed(ActionEvent e) {
                 System.out.print("moving chap up");
                 Gui.game.getCharacters().get(0).move(0,-1,Gui.game);
-                Gui.gamePanel.repaint();
+                Gui.renderPanel.repaint();
 
             }
         });
@@ -104,7 +104,7 @@ public class Controller {
             public void actionPerformed(ActionEvent e) {
                 System.out.print("moving chap left");
                 Gui.game.getCharacters().get(0).move(-1,0,Gui.game);
-                Gui.gamePanel.repaint();
+                Gui.renderPanel.repaint();
 
             }
         });
