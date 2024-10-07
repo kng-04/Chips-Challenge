@@ -1,6 +1,5 @@
 package nz.ac.wgtn.swen225.lc.app;
 
-import javax.json.JsonWriter;
 import nz.ac.wgtn.swen225.lc.domain.Characters;
 import nz.ac.wgtn.swen225.lc.domain.CoordinateEntity;
 import nz.ac.wgtn.swen225.lc.domain.Game;
