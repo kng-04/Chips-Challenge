@@ -1,4 +1,4 @@
-package nz.ac.wgtn.swen225.lc;
+/*package nz.ac.wgtn.swen225.lc;
 
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import nz.ac.wgtn.swen225.lc.domain.*;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
 
         final Game game = Persistency.loadGame("levels/level1.json");
-        final Map<String, Image> images = Persistency.loadImages();
+        final Map<String, BufferedImage> images = Persistency.loadImages();
         final List<Tile> tiles = game.getTiles();
         final List<Characters> characters = game.getCharacters();
         final List<CoordinateEntity> entities = new ArrayList<>();
@@ -55,4 +56,4 @@ public class Main extends Application {
         launch(args);
     }
 
-}
+}*/
