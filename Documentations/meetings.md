@@ -30,5 +30,8 @@
 - Clear up any concerns
 
 #### Notes from meeting
+- was able to load the images
+- checking errors
+- 
 
 

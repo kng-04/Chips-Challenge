@@ -4,99 +4,62 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b697583b-8820-4eae-b064-a146f18abd20" name="Changes" comment="" />
+    <list default="true" id="eec7c41c-9e39-4ae1-9996-3cab8e84df80" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Documentations/meetings.md" beforeDir="false" afterPath="$PROJECT_DIR$/Documentations/meetings.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Enum" />
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 7
-}</component>
-  <component name="ProjectId" id="2mPjCb7HsiuBoY1Mb0ovQTQgnhf" />
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Application.Main.executor": "Run",
+    "Application.nz.ac.wgtn.swen225.lc.app.Main.executor": "Run",
     "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/kn04/Desktop/Swen225/group-20-project",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
+    "last_opened_file_path": "/Users/kn04/Desktop/Swen225/group-20-project/images",
     "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "C:/Users/Willi/OneDrive/Desktop/SWEN225/Domain/src/Main.java",
-    "vue.rearranger.settings.migration": "true"
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
   }
-}</component>
-  <component name="RecentsManager">
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="nz.ac.wgtn.swen225.lc.domain" />
-    </key>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="Domain" />
+}]]></component>
+  <component name="RunManager" selected="Application.nz.ac.wgtn.swen225.lc.app.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="nz.ac.wgtn.swen225.lc.Main" />
+      <module name="lc" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="nz.ac.wgtn.swen225.lc.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="Domain" />
-      <option name="filePath" />
+    <configuration name="nz.ac.wgtn.swen225.lc.app.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="nz.ac.wgtn.swen225.lc.app.Main" />
+      <module name="lc" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="nz.ac.wgtn.swen225.lc.app.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.nz.ac.wgtn.swen225.lc.app.Main" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
-        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
-      </set>
-    </attachedChunks>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="b697583b-8820-4eae-b064-a146f18abd20" name="Changes" comment="" />
-      <created>1726984982060</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1726984982060</updated>
-      <workItem from="1726984984436" duration="11249000" />
-      <workItem from="1727320994329" duration="13000" />
-      <workItem from="1727321976554" duration="53000" />
-      <workItem from="1727690638654" duration="24000" />
-      <workItem from="1727690686811" duration="2016000" />
-      <workItem from="1727744437050" duration="7215000" />
-      <workItem from="1728016068093" duration="1510000" />
-      <workItem from="1728021882995" duration="517000" />
-    </task>
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
   </component>
 </project>
