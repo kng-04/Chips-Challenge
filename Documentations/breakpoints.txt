@@ -1,0 +1,13 @@
+nz.ac.wgtn.swen225.lc.persistency.Persistency:23  // loadGame calls GameDataConverter.gameDataFromJson (interacts with GameDataConverter module)
+nz.ac.wgtn.swen225.lc.persistency.Persistency:29  // saveGame calls GameDataConverter.gameDataToJson (interacts with GameDataConverter module)
+nz.ac.wgtn.swen225.lc.persistency.Persistency:39  // loadImages interacts with FileUtil to load images
+
+nz.ac.wgtn.swen225.lc.recorder.Recorder:18  // Recorder constructor invokes PlaybackController constructor (interaction with PlaybackController)
+nz.ac.wgtn.swen225.lc.recorder.Recorder:28  // takeSnapshot calls Persistency.saveGame (interaction with Persistency module)
+nz.ac.wgtn.swen225.lc.recorder.Recorder:34  // printToConsole (interaction with recorded game data and console output)
+
+nz.ac.wgtn.swen225.lc.render.Render:21  // Render constructor calls Persistency.loadGame (interacts with Persistency module)
+nz.ac.wgtn.swen225.lc.render.Render:42  // paintComponent interacts with board (rendering logic interaction with Game)
+
+nz.ac.wgtn.swen225.lc.Main:14  // Main loads game via Persistency.loadGame (interaction with Persistency module)
+nz.ac.wgtn.swen225.lc.Main:21  // Main initializes tiles and characters from the Game object (interaction with Game and Tile modules)
