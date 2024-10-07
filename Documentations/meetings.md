@@ -1,6 +1,7 @@
 # Meetings Notes
 
-- Next meeting: 7th of Oct @6pm time on discord
+- Next meeting: TBC
+- 7th of Oct @6pm time on discord
 - 4th of Oct @6pm on zoom/discord
 
 ## Meeting - 4th of Oct
@@ -31,7 +32,13 @@
 
 #### Notes from meeting
 - was able to load the images
-- checking errors
-- 
+- checking errors 
+- we have crated a testing branch which fixed the laoding map problem that we had 
+- Switch with java swing there is no longer any javaFX in code
+- Minor code error changes
+- Displays level 1 on GUI
+- Will have another meeting to discuss the progress
+- agreed to create new issues for bugs in the game
+- managed to get sound files
 
 
