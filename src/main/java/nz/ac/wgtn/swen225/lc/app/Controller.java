@@ -12,22 +12,22 @@ public class Controller {
     }
 
     public void setupKeyBindings() {
-         JPanel panel = (JPanel) frame.getContentPane();
-         InputMap inputMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-         ActionMap actionMap = panel.getActionMap();
+        JPanel panel = (JPanel) frame.getContentPane();
+        InputMap inputMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = panel.getActionMap();
 
-         // CTRL-X exit game on restart go back to last unfinished level
-         inputMap.put(KeyStroke.getKeyStroke("control X"), "exitWithoutSaving");
-         actionMap.put("exitWithoutSaving", new AbstractAction() {
-             @Override
-             public void actionPerformed(ActionEvent e) {
-                 System.out.print("Closing without saving!");
-                 // TODO save level
-                 frame.dispose();
-             }
-         });
+        // CTRL-X exit game on restart go back to last unfinished level
+        inputMap.put(KeyStroke.getKeyStroke("control X"), "exitWithoutSaving");
+        actionMap.put("exitWithoutSaving", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.print("Closing without saving!");
+                // TODO save level
+                frame.dispose();
+            }
+        });
 
-         // CTRL-S save game state then exit game on restart resume from saved game
+        // CTRL-S save game state then exit game on restart resume from saved game
         inputMap.put(KeyStroke.getKeyStroke("control S"), "exitAndSave");
         actionMap.put("exitAndSave", new AbstractAction() {
             @Override
@@ -88,6 +88,26 @@ public class Controller {
         });
         // UP, DOWN, LEFT, RIGHT Arrows move chap around maze
         // TODO add player controls
-    }
+        inputMap.put(KeyStroke.getKeyStroke("W"), "moveUP");
+        actionMap.put("moveUP", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.print("moving chap up");
+                Gui.game.getCharacters().get(0).move(0,-1,Gui.game);
+                Gui.renderPanel.repaint();
 
+            }
+        });
+        inputMap.put(KeyStroke.getKeyStroke("A"), "moveLEFT");
+        actionMap.put("moveLEFT", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.print("moving chap left");
+                Gui.game.getCharacters().get(0).move(-1,0,Gui.game);
+                Gui.renderPanel.repaint();
+
+            }
+        });
+    }
 }
+

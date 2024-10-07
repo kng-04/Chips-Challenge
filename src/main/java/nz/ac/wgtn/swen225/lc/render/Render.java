@@ -1,86 +1,66 @@
 package nz.ac.wgtn.swen225.lc.render;
 
-import nz.ac.wgtn.swen225.lc.domain.*;
+import nz.ac.wgtn.swen225.lc.domain.CoordinateEntity;
+import nz.ac.wgtn.swen225.lc.domain.Game;
+import nz.ac.wgtn.swen225.lc.domain.Tile;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
-import nz.ac.wgtn.swen225.lc.domain.Color;
 
-import javax.imageio.ImageIO;
-import javax.sound.sampled.Clip;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class Render extends JPanel {
-    private Tile[][] board;
-    private int boardWidth;
-    private int boardHeight;
-    public Game game;
+    private final Game game;
+    private final Map<String, BufferedImage> images;
+    private final List<CoordinateEntity> entities = new ArrayList<>();
+    private final int IMG_SIZE = 32;  // 32x32 tile size
 
-    private int focusWidth = 9;  // Focus area width, i.e., 9x9 grid around Chap
-    private int focusHeight = 9;
-    private Chap chap;
-
-    private Map<String, Image> images;
-
-    public Clip clip;
-    private static final int TILE_SIZE = 32;
-
-    public Render(String gameFile) throws IOException {
-        // Load the game using the loadGame method from Persistency
-        this.game = Persistency.loadGame(gameFile);
-
-        // Initialize board dimensions
-        this.boardWidth = game.getWidth();
-        this.boardHeight = game.getHeight();
-        this.board = new Tile[boardHeight][boardWidth];
-
-        //this.chap = game.getChap();
-        loadImages();
-    }
-
-    private void loadImages() throws IOException {
-        //images = Persistency.loadImages(); //javafx needs to be changed to swing
+    public Render(Game game, Map<String, BufferedImage> images) {
+        this.game = game;
+        this.images = images;
+        // Collect all entities (tiles and characters)
+        entities.addAll(game.getTiles());
+        entities.addAll(game.getCharacters());  // Add characters after tiles, so they are drawn on top
     }
 
     @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        drawTiles(g);
-        drawPlayer(g);
-    }
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);  // Clears the panel before painting
 
-    private void drawTiles(Graphics g) {
-        for (int row = 0; row < boardHeight; row++) {
-            for (int col = 0; col < boardWidth; col++) {
-                Tile tile = game.findTile(col, row);
-                if (tile != null) {
-                    Image tileImage = images.get(tile.getClass().getSimpleName());
-                    if (tileImage != null) {
-                        g.drawImage(tileImage, col * 32, row * 32, null); // Assuming tile size is 32x32
-                    }
-                }
+        // Draw background
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, getWidth(), getHeight());
+
+        // Render each entity on the board
+        for (CoordinateEntity entity : entities) {
+            int x = entity.getX() * IMG_SIZE;
+            int y = entity.getY() * IMG_SIZE;
+            String name = entity.getClass().getSimpleName();
+
+            // If entity is a Tile and has a color, append the color to the name
+            if (entity instanceof Tile && ((Tile) entity).getColor() != null) {
+                nz.ac.wgtn.swen225.lc.domain.Color color = ((Tile) entity).getColor();
+                name += "-" + color.toString();
+            }
+
+            // Draw the corresponding image
+            BufferedImage image = images.get(name);
+            if (image != null) {
+                g.drawImage(image, x, y, IMG_SIZE, IMG_SIZE, this);
             }
         }
     }
 
-    // Draw Chap on the screen
-    private void drawPlayer(Graphics g) {
-        if (chap != null) {
-            Image chapImage = images.get("Chap");
-            if (chapImage != null) {
-                g.drawImage(chapImage, chap.getX() * TILE_SIZE, chap.getY() * TILE_SIZE, this);
-            }
-        }
-    }
-
-    public void updateRender() {
-        repaint(); //refresh the display
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(IMG_SIZE * game.getWidth(), IMG_SIZE * game.getHeight());
     }
 
     public void playBackgroundMusic() {}
-
     public void stopBackgroundMusic() {}
 }

@@ -1,10 +1,25 @@
 package nz.ac.wgtn.swen225.lc.app;
 
+import nz.ac.wgtn.swen225.lc.domain.Characters;
+import nz.ac.wgtn.swen225.lc.domain.CoordinateEntity;
+import nz.ac.wgtn.swen225.lc.domain.Game;
+import nz.ac.wgtn.swen225.lc.domain.Tile;
+import nz.ac.wgtn.swen225.lc.persistency.Persistency;
+import nz.ac.wgtn.swen225.lc.render.Render;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Map;
 
 public class Gui extends JFrame{
+
+    public static Game game;  // Holds the game data
+    private Map<String, BufferedImage> images; // Holds the game images
+    private JPanel gameArea; // The panel where the game will render
+    public static Render renderPanel;
 
     boolean isHelpMenuOpen = false;
 
@@ -13,16 +28,37 @@ public class Gui extends JFrame{
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         loadMenu();
+        startGame();
 
         new Controller(this); // Setup controller for keybindings
-
         setVisible(true);
+    }
+
+    private void startGame() {
+        try {
+            game = Persistency.loadGame("levels/level1.json");  // Load game data
+        } catch (IOException e) {
+            throw new RuntimeException("Error loading the game", e);
+        }
+
+        try {
+            images = Persistency.loadImages();  // Load images
+        } catch (IOException e) {
+            throw new RuntimeException("Error loading the images", e);
+        }
+
+        // Create a new GamePanel and add it to the gameArea
+        renderPanel = new Render(game, images);
+        gameArea.removeAll();  // Clear any previous components from the game area
+        gameArea.add(renderPanel);
+        gameArea.revalidate();
+        gameArea.repaint();
     }
 
     private void loadMenu(){
         setTitle("Larry Croft's Adventures");
         // Main Screen
-        var gameArea = new JPanel(); // Game will render here
+        gameArea = new JPanel(); // Game will render here
         var title = new JLabel("Game Area");
         gameArea.setBackground(Color.WHITE);
         gameArea.add(title);
