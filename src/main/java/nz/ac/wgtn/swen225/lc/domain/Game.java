@@ -22,8 +22,23 @@ public class Game {
 
 
     public void replaceTileWith(Tile tile){
-
+        System.out.println(getTiles());
+        Tile temp = null;
+        for(Tile t : tiles){
+            if(t.getX() == tile.getX() && tile.getY() == t.getY()){
+                System.out.println("Tile found");
+                temp = t;
+            }
+        }
+        if(temp!=null){tiles.remove(temp); tiles.add(tile);}
     }
+
+    public void addTile(Tile tile){
+        this.tiles.add(tile);
+    }
+
+
+
 
     public long treasuresLeft() {
         return this.tiles.stream().filter(t-> t instanceof TreasureTile).count();
@@ -32,6 +47,13 @@ public class Game {
     public Tile findTile(int x, int y) {
         return this.tiles.stream().filter(t-> t.getX() == x && t.getY() == y).findFirst().orElseThrow();
     }
+
+        public Tile findTile(Class<?> tileClass) {
+            return this.tiles.stream()
+                    .filter(t -> tileClass.isInstance(t))  // Check if the tile is an instance of the provided class
+                    .findFirst()
+                    .orElseThrow(() -> new NoSuchElementException("No tile found of type: " + tileClass.getSimpleName()));
+        }
 
     // KeyTile and TreasureTile can be collected
     public void collectTile(Tile tile) {
@@ -43,6 +65,9 @@ public class Game {
             newFreeTile.setX(tile.x);
             newFreeTile.setY(tile.y);
             this.tiles.add(newFreeTile);
+            if(tile instanceof TreasureTile && treasuresLeft() == 0){
+                replaceTileWith(new FreeTile(this.findTile(ExitLockTile.class).getX(), this.findTile(ExitLockTile.class).getY()));
+            }
         } else {
             throw new IllegalArgumentException(tile.getClass().getSimpleName() + " cannot be collected");
         }
@@ -55,20 +80,13 @@ public class Game {
         if(opt.isPresent()) {
             KeyTile keyTile = (KeyTile)opt.get();
             this.inventory.remove(keyTile);
+            System.out.println(this.getInventory());
             return true;
         } else {
             return false;
         }
     }
 
-    public void startGame() {
-        while (treasuresLeft() > 0) {
-            //
-        }
-
-
-        System.out.println("Congratulations! You've completed the level.");
-    }
 
     public int getHeight() {
         return height;

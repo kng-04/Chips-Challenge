@@ -33,6 +33,10 @@ public abstract class Tile extends CoordinateEntity {
 
     public abstract boolean canMoveInto();
 
+    public void setCanMoveInto(){this.canMoveInto = true;}
+
+    public void setCannotMoveInto(){this.canMoveInto = false;}
+
     public abstract void interact(Chap chap, Game game); // Handle interactions when Chap steps on the tile
 
     @Override
