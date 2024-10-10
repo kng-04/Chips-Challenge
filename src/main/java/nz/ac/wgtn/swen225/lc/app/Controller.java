@@ -108,6 +108,25 @@ public class Controller {
 
             }
         });
+        inputMap.put(KeyStroke.getKeyStroke("S"), "moveDOWN");
+        actionMap.put("moveDOWN", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.print("moving chap down");
+                Gui.game.getCharacters().get(0).move(0,1,Gui.game);
+                Gui.renderPanel.repaint();
+
+            }
+        });
+        inputMap.put(KeyStroke.getKeyStroke("D"), "moveRIGHT");
+        actionMap.put("moveRIGHT", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.print("moving chap right");
+                Gui.game.getCharacters().get(0).move(1,0,Gui.game);
+                Gui.renderPanel.repaint();
+            }
+        });
     }
 }
 
