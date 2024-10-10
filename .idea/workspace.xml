@@ -5,27 +5,56 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eec7c41c-9e39-4ae1-9996-3cab8e84df80" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/app/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/app/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/app/Gui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/app/Gui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/render/Render.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/render/Render.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/Chap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/Chap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/ExitLockTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/ExitLockTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/FreeTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/FreeTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/KeyTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/KeyTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/LockedDoorTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/LockedDoorTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/Tile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/TreasureTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nz/ac/wgtn/swen225/lc/domain/TreasureTile.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Application.nz.ac.wgtn.swen225.lc.app.Main.executor": "Run",
-    "git-widget-placeholder": "26-integrate-code-into-render",
-    "last_opened_file_path": "/Users/kn04/Desktop/Swen225/group-20-project/images",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2nEvSBDSVV8bEaPDjGozDSmixJr" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.nz.ac.wgtn.swen225.lc.app.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;26-integrate-code-into-render&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/kn04/Desktop/Swen225/group-20-project/images&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.nz.ac.wgtn.swen225.lc.app.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="nz.ac.wgtn.swen225.lc.Main" />
@@ -60,7 +89,27 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="eec7c41c-9e39-4ae1-9996-3cab8e84df80" name="Changes" comment="" />
+      <created>1728551053879</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1728551053879</updated>
+      <workItem from="1728551057713" duration="1197000" />
+      <workItem from="1728552332145" duration="7180000" />
+    </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>

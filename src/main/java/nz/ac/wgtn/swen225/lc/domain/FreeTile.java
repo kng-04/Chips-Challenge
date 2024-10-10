@@ -6,6 +6,12 @@ public class FreeTile extends Tile {
         this.canMoveInto = true;
     }
 
+    public FreeTile(int x, int y){
+        this.x = x;
+        this.y = y;
+        this.canMoveInto = true;
+    }
+
     @Override
     public boolean canMoveInto() {
         return this.canMoveInto;
