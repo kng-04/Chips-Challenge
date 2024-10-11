@@ -12,5 +12,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 })
 public abstract class Characters extends CoordinateEntity{
 
+    /*
+    abstract method move used to move both chap and characters within the game
+     */
     public abstract void move(int dx, int dy, Game game);
 }
