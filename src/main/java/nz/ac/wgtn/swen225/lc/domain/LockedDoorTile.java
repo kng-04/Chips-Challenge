@@ -1,14 +1,20 @@
 package nz.ac.wgtn.swen225.lc.domain;
 
 public class LockedDoorTile extends Tile {
-    private Color color;
 
+    //Color of the LockedDoorTile
+    private Color color;
 
     @Override
     public boolean canMoveInto() {
         return this.canMoveInto;
     }
 
+    /*
+    - Unlocks door and replaces LockedDoorTile with a new Free tile
+    - Ensures other doors of same color are locked if
+    Chap has no more keys with the same color
+     */
     @Override
     public void interact(Chap chap, Game game) {
         System.out.println("locked door interacted" );
@@ -31,7 +37,10 @@ public class LockedDoorTile extends Tile {
     public void setColor(Color color) {
         this.color = color;
     }
-
+    /*
+    Checks if Chap has another key of the same color
+    in order to know whether he can enter another LockedDoorTile of that color or not
+     */
     public void lockDoor(Game game){
         boolean hasMatchingKey = false;
 

@@ -24,18 +24,18 @@ public abstract class Tile extends CoordinateEntity {
 
     public Color getColor() {
         return color;
-    }
+    } //Returns Color of Tile (Key or LockedDoorTile)
 
     public void setColor(Color color){
         this.color = color;
-    }
+    } //Set Tile Color
     protected boolean canMoveInto; // Determines if Chap can move onto the tile
 
-    public abstract boolean canMoveInto();
+    public abstract boolean canMoveInto(); //return whether or not chap can move into this tile
 
-    public void setCanMoveInto(){this.canMoveInto = true;}
+    public void setCanMoveInto(){this.canMoveInto = true;} //Allows chaps movement into this tile
 
-    public void setCannotMoveInto(){this.canMoveInto = false;}
+    public void setCannotMoveInto(){this.canMoveInto = false;} //Limit chaps movement into this tile
 
     public abstract void interact(Chap chap, Game game); // Handle interactions when Chap steps on the tile
 
