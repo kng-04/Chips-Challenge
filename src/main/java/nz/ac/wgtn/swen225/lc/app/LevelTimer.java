@@ -6,6 +6,7 @@ public class LevelTimer {
     private final Timer swingTimer;
     private int remainingSeconds;
     private final JLabel timeLabel;
+    private long startTime;
 
     public LevelTimer(int seconds, JLabel timeLabel) {
         this.remainingSeconds = seconds;
@@ -27,8 +28,25 @@ public class LevelTimer {
         }
     }
 
-    public void stopTimer() {
+    public void start() {
+        startTime = System.currentTimeMillis();
+        swingTimer.start();
+    }
+
+    // Method to stop the timer
+    public void stop() {
         swingTimer.stop();
+    }
+
+    public void reset(int seconds) {
+        stop();
+        this.remainingSeconds = seconds;
+        timeLabel.setText(String.format("Time: %02d", remainingSeconds));
+    }
+
+    public long getElapsedTime() {
+        long currentTime = System.currentTimeMillis();
+        return (currentTime - startTime) / 1000; // Return elapsed time in seconds
     }
 }
 
