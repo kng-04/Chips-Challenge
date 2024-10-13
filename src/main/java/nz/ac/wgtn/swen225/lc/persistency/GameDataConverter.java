@@ -42,8 +42,10 @@ class GameDataConverter {
                     charPos += Character.charCount(codePoint);
                     continue;
                 }
-                if (entity instanceof Characters) {
+                if (entity instanceof Characters) {    //if Character, add FreeTile to tiles list
                     characters.add((Characters) entity);
+                        CoordinateEntity e = buildCoordinateEntity(128307, x, y);
+                        tiles.add((FreeTile) e);
                 } else {
                     tiles.add((Tile) entity);
                 }

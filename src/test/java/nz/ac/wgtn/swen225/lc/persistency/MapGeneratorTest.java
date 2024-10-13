@@ -25,5 +25,4 @@ public class MapGeneratorTest {
         FileUtil.writeStringToFile("src/test/resources/converter-test-1.json", json);
     }
 
-
 }
