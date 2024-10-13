@@ -11,6 +11,10 @@ public class Chap extends Characters{
         this.levelTimer = levelTimer;
     }
 
+    public Chap(){ //Needed for Initialization with Json File
+
+    }
+
     public void move(int dx, int dy, Game game) {
 
         int newX = this.x + dx;
