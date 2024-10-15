@@ -5,7 +5,6 @@
 
 # Members
 - Angus Ng
-- Edison (Alison) Amery-Zwartz
 - Fletcher Bright
 - William Fermanis
 - Lingjun Gui
