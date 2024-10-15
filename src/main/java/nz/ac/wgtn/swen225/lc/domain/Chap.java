@@ -15,6 +15,7 @@ public class Chap extends Characters{
 
     }
 
+
     private int lastX, lastY;
 
     /*
@@ -56,6 +57,7 @@ public class Chap extends Characters{
         this.x = x;
         this.y = y;
     }
+
     public int getLastX(){return this.lastX;}
     public int getLastY(){return this.lastY;}
 
