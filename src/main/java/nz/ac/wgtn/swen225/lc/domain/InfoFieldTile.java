@@ -1,5 +1,7 @@
 package nz.ac.wgtn.swen225.lc.domain;
 
+import javax.swing.*;
+
 public class InfoFieldTile extends Tile {
     /*
     Empty InfoFieldTile contructor
@@ -15,6 +17,13 @@ public class InfoFieldTile extends Tile {
      */
     @Override
     public void interact(Chap chap, Game game) {
-        System.out.println("Hint: Collect the Treasure Chips to unlock the door."); //temporary - display UI.TextBox with hint
+        ImageIcon icon = null;
+        try {icon = new ImageIcon("images/InfoFieldTile.jpg");}
+        catch (Exception e) {e.printStackTrace();}
+
+        JOptionPane.showMessageDialog(null,
+                "Hint:\n Collect the keys to unlock the doors and all the treasure to escape!!!",
+                "Hint", JOptionPane.INFORMATION_MESSAGE, icon);
     }
 }
+
