@@ -5,10 +5,12 @@ import nz.ac.wgtn.swen225.lc.domain.Game;
 import nz.ac.wgtn.swen225.lc.domain.Tile;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +21,12 @@ public class Render extends JPanel {
     private final Map<String, BufferedImage> images;
     private final List<CoordinateEntity> entities = new ArrayList<>();
     private final int IMG_SIZE = 32;  // 32x32 tile size
+    public Clip clip;
 
     public Render(Game game, Map<String, BufferedImage> images) {
         this.game = game;
         this.images = images;
+
         // Collect all entities (tiles and characters)
         entities.addAll(game.getTiles());
         entities.addAll(game.getCharacters());  // Add characters after tiles, so they are drawn on top
@@ -61,6 +65,29 @@ public class Render extends JPanel {
         return new Dimension(IMG_SIZE * game.getWidth(), IMG_SIZE * game.getHeight());
     }
 
-    public void playBackgroundMusic() {}
-    public void stopBackgroundMusic() {}
+    public void playBackgroundMusic() {
+        File audioFile = new File("images/ThemeSong.wav");
+        if (!audioFile.exists()) {
+            System.out.println("Audio file not found: " + audioFile.getAbsolutePath());
+            return;
+        }
+
+        try {
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+            this.clip = AudioSystem.getClip();
+            this.clip.open(audioStream);
+            this.clip.start();
+            this.clip.loop(Clip.LOOP_CONTINUOUSLY);  // Loop the music
+        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void stopBackgroundMusic() {
+        if (this.clip != null && this.clip.isRunning()) {
+            this.clip.stop();
+            this.clip.flush();
+            this.clip.close();
+        }
+    }
 }

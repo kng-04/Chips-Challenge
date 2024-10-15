@@ -30,7 +30,7 @@ public class Gui extends JFrame{
         loadMenu();
         startGame();
 
-        new Controller(this); // Setup controller for keybindings
+        new Controller(this, renderPanel); // Setup controller for keybindings
         setVisible(true);
     }
 
@@ -53,6 +53,9 @@ public class Gui extends JFrame{
         gameArea.add(renderPanel);
         gameArea.revalidate();
         gameArea.repaint();
+
+        // Start playing background music
+        renderPanel.playBackgroundMusic();
     }
 
     private void loadMenu(){
@@ -65,7 +68,7 @@ public class Gui extends JFrame{
 
         // Sidebar
         var sidebar = new JPanel(new GridLayout(4,1));
-        var levelLabel = new JLabel("Level: 0", SwingConstants.CENTER);
+        var levelLabel = new JLabel("Level: 1", SwingConstants.CENTER);
         var timeLabel = new JLabel("Time: 0", SwingConstants.CENTER);
         var scoreLabel = new JLabel("Chips: 0", SwingConstants.CENTER);
 
@@ -120,7 +123,6 @@ public class Gui extends JFrame{
         mGame.add(miPlay);
         mGame.add(miPause);
         mGame.add(miQuit);
-
 
 
         // Level Submenu

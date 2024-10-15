@@ -2,12 +2,15 @@ package nz.ac.wgtn.swen225.lc.app;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import nz.ac.wgtn.swen225.lc.render.Render;
 
 public class Controller {
     private final JFrame frame;
+    private final Render render;
 
-    public Controller(JFrame frame) {
+    public Controller(JFrame frame, Render render) {
         this.frame = frame;
+        this.render = render;
         setupKeyBindings();
     }
 
@@ -73,6 +76,7 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("pausing game");
+                render.stopBackgroundMusic();  // Pause background music
                 // TODO add game pausing
             }
         });
@@ -82,6 +86,7 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("resuming game");
+                render.playBackgroundMusic();
                 // TODO resume game
 
             }
