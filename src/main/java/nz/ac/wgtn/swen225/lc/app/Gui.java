@@ -33,7 +33,7 @@ public class Gui extends JFrame{
         loadMenu();
         startGame();
 
-        new Controller(this); // Setup controller for keybindings
+        new Controller(this, renderPanel); // Setup controller for keybindings
         setVisible(true);
     }
 
@@ -62,6 +62,10 @@ public class Gui extends JFrame{
         gameArea.add(renderPanel);
         gameArea.revalidate();
         gameArea.repaint();
+
+        // Start playing background music
+        renderPanel.playBackgroundMusic();
+
     }
 
     private void loadMenu(){

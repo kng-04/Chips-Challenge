@@ -6,10 +6,12 @@ import nz.ac.wgtn.swen225.lc.app.LevelTimer;
 import nz.ac.wgtn.swen225.lc.domain.*;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +22,9 @@ public class Render extends JPanel {
     private final Map<String, BufferedImage> images;
     private final List<CoordinateEntity> entities = new ArrayList<>();
     private final int IMG_SIZE = 32; // 32x32 tile size
-    private final LevelTimer levelTimer;
+    //private final LevelTimer levelTimer;
     private int currentLevel;
+    public Clip clip;
 
     public Render(Game game, Map<String, BufferedImage> images, int currentLevel) {
         if (game == null || images == null) {
@@ -30,7 +33,7 @@ public class Render extends JPanel {
 
         this.game = game;
         this.images = images;
-        this.levelTimer = levelTimer;
+        //this.levelTimer = levelTimer;
         this.currentLevel = currentLevel;
         updateEntities();
     }
@@ -98,29 +101,52 @@ public class Render extends JPanel {
     }
 
     public void onReachEndTile() {
-        levelTimer.stop();
-        long seconds = levelTimer.getElapsedTime();
+        //levelTimer.stop();
+        //long seconds = levelTimer.getElapsedTime();
 
         // Show win screen with time taken
-        JOptionPane.showMessageDialog(null,
+        /*JOptionPane.showMessageDialog(null,
                 "Level Completed!\n" +
                         "Time taken: " + seconds + " seconds.",
                 "Level Complete",
                 JOptionPane.INFORMATION_MESSAGE
-        );
+        );*/
 
         // Advance to the next level
         if (game.hasNextLevel()) {
             int nextLevel = currentLevel + 1;
             Gui guiInstance = (Gui) SwingUtilities.getWindowAncestor(this);
-            guiInstance.loadLevel(nextLevel);
+            //guiInstance.loadLevel(nextLevel);
         } else {
             // Game finished
             JOptionPane.showMessageDialog(null, "Congratulations! You have completed all levels!");
-            Controller.frame().dispose(); // Close the game window
+            //Controller.frame().dispose(); // Close the game window
         }
     }
 
-    public void playBackgroundMusic() {}
-    public void stopBackgroundMusic() {}
+    public void playBackgroundMusic() {
+        File audioFile = new File("images/ThemeSong.wav");
+        if (!audioFile.exists()) {
+            System.out.println("Audio file not found: " + audioFile.getAbsolutePath());
+            return;
+        }
+
+        try {
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+            this.clip = AudioSystem.getClip();
+            this.clip.open(audioStream);
+            this.clip.start();
+            this.clip.loop(Clip.LOOP_CONTINUOUSLY);  // Loop the music
+        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void stopBackgroundMusic() {
+        if (this.clip != null && this.clip.isRunning()) {
+            this.clip.stop();
+            this.clip.flush();
+            this.clip.close();
+        }
+    }
 }

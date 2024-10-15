@@ -5,11 +5,11 @@ import nz.ac.wgtn.swen225.lc.app.LevelTimer;
 
 public class Chap extends Characters{
     boolean firstMove = true;
-    private final LevelTimer levelTimer;
+    //private final LevelTimer levelTimer;
 
-    public Chap(LevelTimer levelTimer) {
+    /*public Chap(LevelTimer levelTimer) {
         this.levelTimer = levelTimer;
-    }
+    }*/
 
     public Chap(){ //Needed for Initialization with Json File
 
@@ -29,7 +29,7 @@ public class Chap extends Characters{
 
                 // Start timer on the first move
                 if (firstMove) {
-                    levelTimer.start();
+                    //levelTimer.start();
                     firstMove = false;
                 }
 
