@@ -135,7 +135,6 @@ public class Gui extends JFrame{
         mGame.add(miQuit);
 
 
-
         // Level Submenu
         var mLevel = new JMenu("Level");
         var miSave = new JMenuItem("Save");

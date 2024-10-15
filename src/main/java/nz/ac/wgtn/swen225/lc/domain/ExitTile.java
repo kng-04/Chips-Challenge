@@ -14,7 +14,9 @@ public class ExitTile extends Tile {
     public boolean canMoveInto() {
         return this.canMoveInto;
     }
-
+    /*
+    Marks level as complete and moves on to next state
+     */
     @Override
     public void interact(Chap chap, Game game) {
         System.out.println("Chap reached the exit! Level complete.");

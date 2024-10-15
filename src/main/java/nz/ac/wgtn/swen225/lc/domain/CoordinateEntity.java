@@ -3,23 +3,27 @@ package nz.ac.wgtn.swen225.lc.domain;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-public class CoordinateEntity {
-    protected int x;
-    protected int y;
 
-    public int getX() {
+/*
+Coordinate Entity for both characters and tiles
+Contains getter and setter methods applicable to both Tiles and Characters
+ */
+public class CoordinateEntity {
+    protected int x; //x value for this.tile or this.character
+    protected int y; //y value for this.tile or this.character
+    public int getX() { //get x value of this
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(int x) { //set x value of this
         this.x = x;
     }
 
-    public int getY() {
+    public int getY() { //get y value of this
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(int y) { //set y value of this
         this.y = y;
     }
 

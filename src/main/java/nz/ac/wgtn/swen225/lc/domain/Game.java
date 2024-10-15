@@ -109,6 +109,10 @@ public class Game {
     }
 
 
+    public void completeLevel(){
+        //start level 2
+    }
+
     public int getHeight() {
         return height;
     }
