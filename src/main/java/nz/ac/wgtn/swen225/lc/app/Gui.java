@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.Map;
 
 public class Gui extends JFrame{
@@ -20,6 +21,8 @@ public class Gui extends JFrame{
     private Map<String, BufferedImage> images; // Holds the game images
     private JPanel gameArea; // The panel where the game will render
     public static Render renderPanel;
+    private LevelTimer levelTimer;
+    private int currentLevel = 1;
 
     boolean isHelpMenuOpen = false;
 
@@ -34,12 +37,17 @@ public class Gui extends JFrame{
         setVisible(true);
     }
 
-    private void startGame() {
+    private void loadLevel(int level) {
+        String levelPath = "levels/level" + level + ".json"; // Construct the path based on the level
         try {
-            game = Persistency.loadGame("levels/level1.json");  // Load game data
+            game = Persistency.loadGame(levelPath); // Load game data for the specified level
         } catch (IOException e) {
             throw new RuntimeException("Error loading the game", e);
         }
+    }
+
+    private void startGame() {
+        loadLevel(currentLevel);
 
         try {
             images = Persistency.loadImages();  // Load images
@@ -48,14 +56,16 @@ public class Gui extends JFrame{
         }
 
         // Create a new GamePanel and add it to the gameArea
-        renderPanel = new Render(game, images);
-        gameArea.removeAll();  // Clear any previous components from the game area
+        renderPanel = new Render(game, images, currentLevel);
+        levelTimer.reset(60);
+        gameArea.removeAll();
         gameArea.add(renderPanel);
         gameArea.revalidate();
         gameArea.repaint();
 
         // Start playing background music
         renderPanel.playBackgroundMusic();
+
     }
 
     private void loadMenu(){
@@ -89,7 +99,7 @@ public class Gui extends JFrame{
         }
         sidebar.add(keyInventory);
 
-        new LevelTimer(60, timeLabel); // TODO needs to be started once player first moves? and on new level
+        levelTimer = new LevelTimer(60, timeLabel); // TODO needs to be started once player first moves? and on new level
 
         // SplitPane
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, gameArea, sidebar);
@@ -199,10 +209,14 @@ public class Gui extends JFrame{
         helpScreen.pack();
     }
 
+    private boolean isPaused = false;
     private void pauseGame(){
+        if (isPaused) {return;}
+        isPaused = true;
         // Stop timer
         // disable input
         // stop game logic
         // show game is paused
+        JOptionPane.showMessageDialog(this, "Game is Paused", "Paused", JOptionPane.INFORMATION_MESSAGE);
     }
 }

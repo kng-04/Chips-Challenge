@@ -7,6 +7,9 @@ public class Game {
     private List<Characters> characters;
     private List<Tile> inventory, tiles;
 
+    private List<String> levelPaths;
+    private int currentLevelIndex;
+
     public Game(int width, int height, int secondsLeft, List<Characters> characters, List<Tile> inventory, List<Tile> tiles) {
         this.width = width;
         this.height = height;
@@ -14,10 +17,28 @@ public class Game {
         this.characters = characters; //get(0) = chap
         this.inventory = inventory;
         this.tiles = tiles;
+        this.levelPaths = levelPaths;
+        this.currentLevelIndex = 0;
     }
 
     public Game(){
+        this.levelPaths = new ArrayList<>();
+        this.currentLevelIndex = 0;
+    }
 
+    public boolean hasNextLevel() {
+        return currentLevelIndex < levelPaths.size() - 1;
+    }
+
+    public void loadNextLevel() {
+        if (hasNextLevel()) {
+            currentLevelIndex++;
+            String nextLevelPath = levelPaths.get(currentLevelIndex);
+            // Load the next level using the nextLevelPath
+            System.out.println("Loading level: " + nextLevelPath); // Replace with actual loading logic
+        } else {
+            System.out.println("No more levels to load.");
+        }
     }
 
 
@@ -115,6 +136,7 @@ public class Game {
     public List<Tile> getTiles() {
         return tiles;
     }
+
 
     @Override
     public boolean equals(Object o) {

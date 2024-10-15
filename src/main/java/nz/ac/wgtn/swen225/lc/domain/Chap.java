@@ -1,10 +1,22 @@
 package nz.ac.wgtn.swen225.lc.domain;
 
 
-public class Chap extends Characters{
+import nz.ac.wgtn.swen225.lc.app.LevelTimer;
 
+public class Chap extends Characters{
+    game.addTile(new FreeTile(this.x - dx, this.y - dy));
     //on creation set first move to true, after it is false
     boolean firstMove = true;
+    
+    //private final LevelTimer levelTimer;
+
+    /*public Chap(LevelTimer levelTimer) {
+        this.levelTimer = levelTimer;
+    }*/
+
+    public Chap(){ //Needed for Initialization with Json File
+
+    }
 
 
     /*
@@ -25,14 +37,31 @@ public class Chap extends Characters{
                 this.x = newX;
                 this.y = newY;
                 tile.interact(this, game); // Interact with the tile Chap moves onto
+<<<<<<< src/main/java/nz/ac/wgtn/swen225/lc/domain/Chap.java
+
+                // Start timer on the first move
+                if (firstMove) {
+                    //levelTimer.start();
+                    firstMove = false;
+=======
                 if(firstMove){
                     game.addTile(new FreeTile(this.x - dx, this.y - dy));
                     this.firstMove = false;
+>>>>>>> src/main/java/nz/ac/wgtn/swen225/lc/domain/Chap.java
                 }
+
+                // Add FreeTile only if firstMove is true
+                game.addTile(new FreeTile(this.x - dx, this.y - dy));
             } else {
                 System.out.println("Chap cannot move onto that tile!");
             }
         }
     }
+
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
 
 }
