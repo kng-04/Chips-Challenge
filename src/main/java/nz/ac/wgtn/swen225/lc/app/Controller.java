@@ -2,20 +2,17 @@ package nz.ac.wgtn.swen225.lc.app;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import nz.ac.wgtn.swen225.lc.render.Render;
 
 public class Controller {
-    private final JFrame frame;
-    private final Render render;
+    private final Gui gui;
 
-    public Controller(JFrame frame, Render render) {
-        this.frame = frame;
-        this.render = render;
+    public Controller(Gui gui) {
+        this.gui = gui;
         setupKeyBindings();
     }
 
     public void setupKeyBindings() {
-        JPanel panel = (JPanel) frame.getContentPane();
+        JPanel panel = (JPanel) gui.getContentPane();
         InputMap inputMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap actionMap = panel.getActionMap();
 
@@ -26,7 +23,7 @@ public class Controller {
             public void actionPerformed(ActionEvent e) {
                 System.out.print("Closing without saving!");
                 // TODO save level
-                frame.dispose();
+                gui.dispose();
             }
         });
 
@@ -37,7 +34,7 @@ public class Controller {
             public void actionPerformed(ActionEvent e) {
                 System.out.print("Closing and saving!");
                 // TODO add saving
-                frame.dispose();
+                gui.dispose();
             }
         });
 
@@ -76,8 +73,7 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("pausing game");
-                render.stopBackgroundMusic();  // Pause background music
-                // TODO add game pausing
+                gui.pauseGame();
             }
         });
         // ESC resume game
@@ -86,18 +82,15 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("resuming game");
-                render.playBackgroundMusic();
-                // TODO resume game
+                gui.resumeGame();
 
             }
         });
         // UP, DOWN, LEFT, RIGHT Arrows move chap around maze
-        // TODO add player controls
         inputMap.put(KeyStroke.getKeyStroke("W"), "moveUP");
         actionMap.put("moveUP", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("moving chap up");
                 Gui.game.getCharacters().get(0).move(0,-1,Gui.game);
                 Gui.renderPanel.repaint();
 
@@ -107,7 +100,6 @@ public class Controller {
         actionMap.put("moveLEFT", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("moving chap left");
                 Gui.game.getCharacters().get(0).move(-1,0,Gui.game);
                 Gui.renderPanel.repaint();
 
@@ -117,7 +109,6 @@ public class Controller {
         actionMap.put("moveDOWN", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("moving chap down");
                 Gui.game.getCharacters().get(0).move(0,1,Gui.game);
                 Gui.renderPanel.repaint();
 
@@ -127,7 +118,6 @@ public class Controller {
         actionMap.put("moveRIGHT", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("moving chap right");
                 Gui.game.getCharacters().get(0).move(1,0,Gui.game);
                 Gui.renderPanel.repaint();
             }
