@@ -96,7 +96,7 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("switching to level 1");
-                // TODO switch level
+                gui.createGame("levels/level1.json");
 
             }
         });

@@ -34,18 +34,14 @@ public class Gui extends JFrame{
         setVisible(true);
     }
 
-    private void loadLevel(int level) {
+    protected void createGame(String jsonFileName) {
         levelTimer = new LevelTimer(60, timeLabel); //TODO when loading a saved level the time will be reset, should also start after first player move
-        String levelPath = "levels/level" + level + ".json"; // Construct the path based on the level
         try {
-            game = Persistency.loadGame(levelPath); // Load game data for the specified level
+            game = Persistency.loadGame(jsonFileName);
         } catch (IOException e) {
             throw new RuntimeException("Error loading the game", e);
         }
-    }
 
-    private void startGame() {
-        loadLevel(currentLevel);
         // Holds the game images
         Map<String, BufferedImage> images;
         try {
