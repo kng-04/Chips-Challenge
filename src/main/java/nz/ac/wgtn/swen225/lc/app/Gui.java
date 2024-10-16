@@ -20,12 +20,17 @@ public class Gui extends JFrame{
     private int currentLevel = 1;
     private JLabel timeLabel;
     private final Controller controller;
+    protected final JFileChooser fileChooser = new JFileChooser();
 
     boolean isHelpMenuOpen = false;
 
     Gui() {
         assert SwingUtilities.isEventDispatchThread();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        // Make file chooser only show json files
+        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Json", "json"));
+        fileChooser.setFileFilter(fileChooser.getChoosableFileFilters()[1]);
 
         loadMenu();
         startGame();

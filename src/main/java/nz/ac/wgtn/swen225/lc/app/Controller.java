@@ -135,5 +135,35 @@ public class Controller {
     protected void enableUserInput() {
         setupPlayerControls(); // Re-enable player movement
     }
+    protected void saveGame() {
+        gui.pauseGame();
+        int returnVal = gui.fileChooser.showSaveDialog(gui);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+            String fileName = gui.fileChooser.getSelectedFile().toString();
+            if (!fileName.endsWith(".json")){
+                fileName+=".json";
+            }
+            try {
+                Persistency.saveGame(Gui.game, fileName);
+            } catch (IOException e) {
+                throw new RuntimeException("Error saving the game",e);
+            }
+        } else {
+            JOptionPane.showMessageDialog(gui, "Saving Canceled");
+        }
+    }
+    protected void loadGame() {
+        gui.pauseGame();
+        int returnVal = gui.fileChooser.showOpenDialog(gui);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+            String fileName = gui.fileChooser.getSelectedFile().getAbsolutePath();
+            gui.createGame(fileName);
+            gui.resumeGame();
+            gui.pauseGame();
+
+        } else {
+            JOptionPane.showMessageDialog(gui, "Saving Canceled");
+        }
+    }
 }
 
