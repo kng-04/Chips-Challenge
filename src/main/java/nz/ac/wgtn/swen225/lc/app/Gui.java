@@ -1,9 +1,6 @@
 package nz.ac.wgtn.swen225.lc.app;
 
-import nz.ac.wgtn.swen225.lc.domain.Characters;
-import nz.ac.wgtn.swen225.lc.domain.CoordinateEntity;
 import nz.ac.wgtn.swen225.lc.domain.Game;
-import nz.ac.wgtn.swen225.lc.domain.Tile;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 import nz.ac.wgtn.swen225.lc.render.Render;
 
@@ -12,17 +9,17 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.time.Duration;
 import java.util.Map;
 
 public class Gui extends JFrame{
 
     public static Game game;  // Holds the game data
-    private Map<String, BufferedImage> images; // Holds the game images
     private JPanel gameArea; // The panel where the game will render
     public static Render renderPanel;
-    private LevelTimer levelTimer;
+    protected LevelTimer levelTimer;
     private int currentLevel = 1;
+    private JLabel timeLabel;
+    private final Controller controller;
 
     boolean isHelpMenuOpen = false;
 
@@ -33,11 +30,12 @@ public class Gui extends JFrame{
         loadMenu();
         startGame();
 
-        new Controller(this, renderPanel); // Setup controller for keybindings
+        controller = new Controller(this); // Setup controller for keybindings
         setVisible(true);
     }
 
     private void loadLevel(int level) {
+        levelTimer = new LevelTimer(60, timeLabel); //TODO when loading a saved level the time will be reset, should also start after first player move
         String levelPath = "levels/level" + level + ".json"; // Construct the path based on the level
         try {
             game = Persistency.loadGame(levelPath); // Load game data for the specified level
@@ -48,7 +46,8 @@ public class Gui extends JFrame{
 
     private void startGame() {
         loadLevel(currentLevel);
-
+        // Holds the game images
+        Map<String, BufferedImage> images;
         try {
             images = Persistency.loadImages();  // Load images
         } catch (IOException e) {
@@ -57,7 +56,6 @@ public class Gui extends JFrame{
 
         // Create a new GamePanel and add it to the gameArea
         renderPanel = new Render(game, images, currentLevel);
-        levelTimer.reset(60);
         gameArea.removeAll();
         gameArea.add(renderPanel);
         gameArea.revalidate();
@@ -79,7 +77,7 @@ public class Gui extends JFrame{
         // Sidebar
         var sidebar = new JPanel(new GridLayout(4,1));
         var levelLabel = new JLabel("Level: 1", SwingConstants.CENTER);
-        var timeLabel = new JLabel("Time: 0", SwingConstants.CENTER);
+        timeLabel = new JLabel("Time: 0", SwingConstants.CENTER);
         var scoreLabel = new JLabel("Chips: 0", SwingConstants.CENTER);
 
         sidebar.setBackground(Color.GRAY);
@@ -99,13 +97,11 @@ public class Gui extends JFrame{
         }
         sidebar.add(keyInventory);
 
-        levelTimer = new LevelTimer(60, timeLabel); // TODO needs to be started once player first moves? and on new level
-
         // SplitPane
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, gameArea, sidebar);
         splitPane.setResizeWeight(0.67);
         splitPane.setOneTouchExpandable(false);
-        splitPane.setEnabled(false); // So user can not resize
+        splitPane.setEnabled(false); // Disable user resizing
         add(splitPane);
 
         createMenuBar();
@@ -129,7 +125,8 @@ public class Gui extends JFrame{
             // TODO save what level player was on but not level state same as a CTRL-X
             this.dispose();
         });
-        miPause.addActionListener(null); // TODO add pause
+        miPause.addActionListener(e -> pauseGame());
+        miPlay.addActionListener(e -> resumeGame());
         mGame.add(miPlay);
         mGame.add(miPause);
         mGame.add(miQuit);
@@ -210,13 +207,24 @@ public class Gui extends JFrame{
     }
 
     private boolean isPaused = false;
-    private void pauseGame(){
+
+    protected void pauseGame(){
         if (isPaused) {return;}
         isPaused = true;
-        // Stop timer
-        // disable input
-        // stop game logic
-        // show game is paused
-        JOptionPane.showMessageDialog(this, "Game is Paused", "Paused", JOptionPane.INFORMATION_MESSAGE);
+
+        controller.disableUserInput();
+        renderPanel.stopBackgroundMusic();
+        renderPanel.pauseRender();
+        levelTimer.stop();
+
+    }
+    protected void resumeGame(){
+        if(!isPaused){return;}
+        isPaused = false;
+
+        controller.enableUserInput();
+        renderPanel.playBackgroundMusic();
+        renderPanel.unpauseRender();
+        levelTimer.start();
     }
 }

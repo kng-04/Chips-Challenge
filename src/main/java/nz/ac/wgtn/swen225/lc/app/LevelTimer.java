@@ -42,6 +42,7 @@ public class LevelTimer {
         stop();
         this.remainingSeconds = seconds;
         timeLabel.setText(String.format("Time: %02d", remainingSeconds));
+        start();
     }
 
     public long getElapsedTime() {
