@@ -65,6 +65,11 @@ public class Game {
         return this.tiles.stream().filter(t-> t instanceof TreasureTile).count();
     }
 
+    //returns amount of treasures picked up by chap
+    public long treasuresPickedUp(){
+        return this.inventory.stream().filter(t-> t instanceof TreasureTile).count();
+    }
+
     public Tile findTile(int x, int y) {
         return this.tiles.stream().filter(t-> t.getX() == x && t.getY() == y).findFirst().orElseThrow();
     }
