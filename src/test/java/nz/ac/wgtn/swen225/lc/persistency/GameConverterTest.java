@@ -39,7 +39,7 @@ public class GameConverterTest {
         assertEquals(DEFAULT_TIME_SECONDS, gameJson.getSecondsLeft());
         assertEquals(2, gameJson.getCharacters().size());
         assertEquals(0, gameJson.getInventory().size());
-        assertEquals(10, gameJson.getTiles().size());
+        assertEquals(10 + 2, gameJson.getTiles().size());
 
         List<CoordinateEntity> entities = new ArrayList<>();
         entities.addAll(gameJson.getCharacters());
