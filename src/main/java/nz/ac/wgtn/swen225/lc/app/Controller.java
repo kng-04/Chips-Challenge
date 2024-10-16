@@ -1,7 +1,10 @@
 package nz.ac.wgtn.swen225.lc.app;
 
+import nz.ac.wgtn.swen225.lc.persistency.Persistency;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 public class Controller {
     private final Gui gui;
@@ -76,8 +79,9 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("Closing and saving!");
-                // TODO add saving
+                saveGame();
                 gui.dispose();
+                // TODO set previous save
             }
         });
 
@@ -87,7 +91,7 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("loading game");
-                // TODO add loading
+                loadGame();
             }
         });
         // CTRL-1 start new game at level 1
@@ -106,7 +110,8 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("switching to level 2");
-                // TODO switch level
+                //gui.createGame("levels/level2.json");
+                // TODO level2 is broken and needs to be fixed
 
             }
         });

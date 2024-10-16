@@ -6,6 +6,7 @@ import nz.ac.wgtn.swen225.lc.render.Render;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -33,7 +34,7 @@ public class Gui extends JFrame{
         fileChooser.setFileFilter(fileChooser.getChoosableFileFilters()[1]);
 
         loadMenu();
-        startGame();
+        createGame("levels/level1.json");
 
         controller = new Controller(this); // Setup controller for keybindings
         setVisible(true);
@@ -64,7 +65,6 @@ public class Gui extends JFrame{
 
         // Start playing background music
         renderPanel.playBackgroundMusic();
-
     }
 
     private void loadMenu(){
@@ -138,6 +138,10 @@ public class Gui extends JFrame{
         var miSave = new JMenuItem("Save");
         var miLoad = new JMenuItem("Load");
         var miRestart = new JMenuItem("Restart");
+        miSave.addActionListener(e -> controller.saveGame());
+        miLoad.addActionListener(e -> {
+            controller.loadGame();
+        });
         mLevel.add(miSave);
         mLevel.add(miLoad);
         mLevel.add(miRestart);
