@@ -139,9 +139,7 @@ public class Gui extends JFrame{
         var miLoad = new JMenuItem("Load");
         var miRestart = new JMenuItem("Restart");
         miSave.addActionListener(e -> controller.saveGame());
-        miLoad.addActionListener(e -> {
-            controller.loadGame();
-        });
+        miLoad.addActionListener(e -> controller.loadGame());
         mLevel.add(miSave);
         mLevel.add(miLoad);
         mLevel.add(miRestart);
