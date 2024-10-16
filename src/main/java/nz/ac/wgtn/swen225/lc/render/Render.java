@@ -25,6 +25,7 @@ public class Render extends JPanel {
     //private final LevelTimer levelTimer;
     private int currentLevel;
     public Clip clip;
+    JPanel pauseLabelPanel;
 
     public Render(Game game, Map<String, BufferedImage> images, int currentLevel) {
         if (game == null || images == null) {
@@ -35,6 +36,7 @@ public class Render extends JPanel {
         this.images = images;
         //this.levelTimer = levelTimer;
         this.currentLevel = currentLevel;
+        setupPauseLabel();
         updateEntities();
     }
 
@@ -42,6 +44,18 @@ public class Render extends JPanel {
         entities.clear();
         entities.addAll(game.getTiles());
         entities.addAll(game.getCharacters());
+    }
+
+    // Creates a simple label telling the user the game is paused
+    private void setupPauseLabel(){
+        pauseLabelPanel = new JPanel();
+        pauseLabelPanel.setBackground(Color.WHITE);
+        var pauseLabel = new JLabel("Game Is Paused! Press ESC to resume");
+        pauseLabel.setForeground(Color.RED);
+        pauseLabel.setFont(new Font("Sans", Font.BOLD, 24));
+        pauseLabelPanel.add(pauseLabel);
+        this.add(pauseLabelPanel);
+        pauseLabelPanel.setVisible(false);
     }
 
     @Override
@@ -76,7 +90,6 @@ public class Render extends JPanel {
             }
         }
     }
-
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(IMG_SIZE * game.getWidth(), IMG_SIZE * game.getHeight());
@@ -88,6 +101,13 @@ public class Render extends JPanel {
     public void updateRender() {
         updateEntities();
         repaint();
+    }
+
+    public void pauseRender() {
+        pauseLabelPanel.setVisible(true);
+    }
+    public void unpauseRender() {
+        pauseLabelPanel.setVisible(false);
     }
 
     public void resetChapPosition() {

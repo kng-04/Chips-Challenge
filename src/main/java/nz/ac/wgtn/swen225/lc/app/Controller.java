@@ -5,17 +5,60 @@ import java.awt.event.ActionEvent;
 
 public class Controller {
     private final Gui gui;
+    private final InputMap inputMap;
+    private final ActionMap actionMap;
 
     public Controller(Gui gui) {
         this.gui = gui;
-        setupKeyBindings();
+        JPanel panel = (JPanel) gui.getContentPane();
+        inputMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        actionMap = panel.getActionMap();
+        setupInterfaceControls();
+        setupPlayerControls();
     }
 
-    public void setupKeyBindings() {
-        JPanel panel = (JPanel) gui.getContentPane();
-        InputMap inputMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        ActionMap actionMap = panel.getActionMap();
+    // Player controls get disabled when the game is paused
+    public void setupPlayerControls(){
+        // UP, DOWN, LEFT, RIGHT Arrows move chap around maze
+        inputMap.put(KeyStroke.getKeyStroke("W"), "moveUP");
+        actionMap.put("moveUP", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Gui.game.getCharacters().get(0).move(0,-1,Gui.game);
+                Gui.renderPanel.repaint();
 
+            }
+        });
+        inputMap.put(KeyStroke.getKeyStroke("A"), "moveLEFT");
+        actionMap.put("moveLEFT", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Gui.game.getCharacters().get(0).move(-1,0,Gui.game);
+                Gui.renderPanel.repaint();
+
+            }
+        });
+        inputMap.put(KeyStroke.getKeyStroke("S"), "moveDOWN");
+        actionMap.put("moveDOWN", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Gui.game.getCharacters().get(0).move(0,1,Gui.game);
+                Gui.renderPanel.repaint();
+
+            }
+        });
+        inputMap.put(KeyStroke.getKeyStroke("D"), "moveRIGHT");
+        actionMap.put("moveRIGHT", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Gui.game.getCharacters().get(0).move(1,0,Gui.game);
+                Gui.renderPanel.repaint();
+            }
+        });
+    }
+
+    // Interface controls are always available
+    public void setupInterfaceControls() {
         // CTRL-X exit game on restart go back to last unfinished level
         inputMap.put(KeyStroke.getKeyStroke("control X"), "exitWithoutSaving");
         actionMap.put("exitWithoutSaving", new AbstractAction() {
@@ -72,7 +115,6 @@ public class Controller {
         actionMap.put("pauseGame", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("pausing game");
                 gui.pauseGame();
             }
         });
@@ -81,47 +123,17 @@ public class Controller {
         actionMap.put("resumeGame", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("resuming game");
                 gui.resumeGame();
 
             }
         });
-        // UP, DOWN, LEFT, RIGHT Arrows move chap around maze
-        inputMap.put(KeyStroke.getKeyStroke("W"), "moveUP");
-        actionMap.put("moveUP", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Gui.game.getCharacters().get(0).move(0,-1,Gui.game);
-                Gui.renderPanel.repaint();
-
-            }
-        });
-        inputMap.put(KeyStroke.getKeyStroke("A"), "moveLEFT");
-        actionMap.put("moveLEFT", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Gui.game.getCharacters().get(0).move(-1,0,Gui.game);
-                Gui.renderPanel.repaint();
-
-            }
-        });
-        inputMap.put(KeyStroke.getKeyStroke("S"), "moveDOWN");
-        actionMap.put("moveDOWN", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Gui.game.getCharacters().get(0).move(0,1,Gui.game);
-                Gui.renderPanel.repaint();
-
-            }
-        });
-        inputMap.put(KeyStroke.getKeyStroke("D"), "moveRIGHT");
-        actionMap.put("moveRIGHT", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Gui.game.getCharacters().get(0).move(1,0,Gui.game);
-                Gui.renderPanel.repaint();
-            }
-        });
+    }
+    protected void disableUserInput() {
+        inputMap.clear(); // remove all binds
+        setupInterfaceControls(); // bring back interface controls but leave game controls disabled
+    }
+    protected void enableUserInput() {
+        setupPlayerControls(); // Re-enable player movement
     }
 }
 

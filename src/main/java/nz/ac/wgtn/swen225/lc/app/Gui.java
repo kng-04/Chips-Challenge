@@ -14,12 +14,12 @@ import java.util.Map;
 public class Gui extends JFrame{
 
     public static Game game;  // Holds the game data
-    private Map<String, BufferedImage> images; // Holds the game images
     private JPanel gameArea; // The panel where the game will render
     public static Render renderPanel;
     protected LevelTimer levelTimer;
     private int currentLevel = 1;
     private JLabel timeLabel;
+    private final Controller controller;
 
     boolean isHelpMenuOpen = false;
 
@@ -30,7 +30,7 @@ public class Gui extends JFrame{
         loadMenu();
         startGame();
 
-        new Controller(this); // Setup controller for keybindings
+        controller = new Controller(this); // Setup controller for keybindings
         setVisible(true);
     }
 
@@ -46,6 +46,8 @@ public class Gui extends JFrame{
 
     private void startGame() {
         loadLevel(currentLevel);
+        // Holds the game images
+        Map<String, BufferedImage> images;
         try {
             images = Persistency.loadImages();  // Load images
         } catch (IOException e) {
@@ -205,24 +207,24 @@ public class Gui extends JFrame{
     }
 
     private boolean isPaused = false;
+
     protected void pauseGame(){
         if (isPaused) {return;}
         isPaused = true;
-        // Stop timer
-        // disable input
-        // stop game logic
-        // show game is paused
+
+        controller.disableUserInput();
         renderPanel.stopBackgroundMusic();
+        renderPanel.pauseRender();
         levelTimer.stop();
-        JOptionPane.showMessageDialog(this, "Game is Paused", "Paused", JOptionPane.INFORMATION_MESSAGE); // Stops execution until closed
-        resumeGame();
 
     }
     protected void resumeGame(){
         if(!isPaused){return;}
         isPaused = false;
 
+        controller.enableUserInput();
         renderPanel.playBackgroundMusic();
+        renderPanel.unpauseRender();
         levelTimer.start();
     }
 }
