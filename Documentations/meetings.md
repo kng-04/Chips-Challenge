@@ -42,3 +42,17 @@
 - managed to get sound files
 
 
+## Meeting - 17th of Oct
+
+### Notes from meeting
+William & Krystal
+- What we still need to do?
+- Chips currently starts off with 0 so will need to change that according to how many chips there are on level 1 and 2 and each level would have its own chips counter.
+- Chips will be for each level and chips will restart once level restarts or moves to the next level
+- only display the keys in inventory and even if its the same colour it will just display the keys as he picks them up
+- William started npc on level 2
+- get changes from main into branch 40-update-inventory-when-chap-collects-chips
+- Fixing the implementations on exit tile in level 1. When chap reaches the exit tile it should move to level 2 and once level 2 is completed it will display a Game over screen and will be able to exit game there as well using Fletcher's exit implementation
+- add some testing
+
+
