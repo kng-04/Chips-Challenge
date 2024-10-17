@@ -7,6 +7,7 @@ import nz.ac.wgtn.swen225.lc.render.Render;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -16,40 +17,57 @@ import java.util.Map;
 public class Gui extends JFrame{
 
     public static Game game;  // Holds the game data
-    private JPanel gameArea; // The panel where the game will render
     public static Render renderPanel;
-    protected LevelTimer levelTimer;
-    private int currentLevel = 1;
-    private JLabel timeLabel;
+    public SaveManager saveManager;
     private final Controller controller;
 
+    private JPanel gameArea; // The panel where the game will render
+    protected LevelTimer levelTimer;
+    protected int currentLevel = 1; // TODO needs to be updated
+    private JLabel timeLabel;
+
     private JPanel keyInventory;
+
+    protected final JFileChooser fileChooser = new JFileChooser();
 
     boolean isHelpMenuOpen = false;
 
     Gui() {
         assert SwingUtilities.isEventDispatchThread();
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        saveManager = new SaveManager(this);
+        controller = new Controller(this, saveManager); // Setup controller for keybindings
+
+        // Make file chooser only show json files
+        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Json", "json"));
+        fileChooser.setFileFilter(fileChooser.getChoosableFileFilters()[1]);
+
+        fileChooser.setCurrentDirectory(new File("levels/saves")); // set to directory the program is run in
 
         loadMenu();
-        startGame();
+        saveManager.readConfig();
+        if(saveManager.fileToLoad != null){
+            System.out.println("loading previous");
+            createGame(saveManager.fileToLoad);
+        }
+        else {
+            createGame("levels/level1.json");
+        }
 
-        controller = new Controller(this); // Setup controller for keybindings
         setVisible(true);
     }
 
-    private void loadLevel(int level) {
+    protected void createGame(String jsonFileName) {
         levelTimer = new LevelTimer(60, timeLabel); //TODO when loading a saved level the time will be reset, should also start after first player move
-        String levelPath = "levels/level" + level + ".json"; // Construct the path based on the level
         try {
-            game = Persistency.loadGame(levelPath); // Load game data for the specified level
+            game = Persistency.loadGame(jsonFileName);
         } catch (IOException e) {
-            throw new RuntimeException("Error loading the game", e);
+            JOptionPane.showMessageDialog(this, "Unable to load save file. Loading level 1 instead", "Error", JOptionPane.ERROR_MESSAGE);
+            saveManager.writeConfig(""); // remove the invalid file name
+            createGame("levels/level1.json");
         }
-    }
 
-    private void startGame() {
-        loadLevel(currentLevel);
         // Holds the game images
         Map<String, BufferedImage> images;
         try {
@@ -67,7 +85,6 @@ public class Gui extends JFrame{
 
         // Start playing background music
         renderPanel.playBackgroundMusic();
-
     }
 
     private void loadMenu(){
@@ -133,10 +150,7 @@ public class Gui extends JFrame{
         var miQuit= new JMenuItem("Quit");
         var miPause = new JMenuItem("Pause");
         var miPlay = new JMenuItem("Play");
-        miQuit.addActionListener(e -> {
-            // TODO save what level player was on but not level state same as a CTRL-X
-            this.dispose();
-        });
+        miQuit.addActionListener(e -> saveManager.exitWithoutSaving());
         miPause.addActionListener(e -> pauseGame());
         miPlay.addActionListener(e -> resumeGame());
         mGame.add(miPlay);
@@ -149,6 +163,12 @@ public class Gui extends JFrame{
         var miSave = new JMenuItem("Save");
         var miLoad = new JMenuItem("Load");
         var miRestart = new JMenuItem("Restart");
+        miSave.addActionListener(e -> {
+            saveManager.autoSave();
+            JOptionPane.showMessageDialog(this, "Game was saved");
+        });
+        miLoad.addActionListener(e -> saveManager.loadSaveFilePicker());
+        miRestart.addActionListener(e -> createGame("levels/level"+currentLevel+".json"));
         mLevel.add(miSave);
         mLevel.add(miLoad);
         mLevel.add(miRestart);

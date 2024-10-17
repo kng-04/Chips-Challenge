@@ -7,9 +7,11 @@ public class Controller {
     private final Gui gui;
     private final InputMap inputMap;
     private final ActionMap actionMap;
+    private final SaveManager saveManager;
 
-    public Controller(Gui gui) {
+    public Controller(Gui gui, SaveManager saveManager) {
         this.gui = gui;
+        this.saveManager = saveManager;
         JPanel panel = (JPanel) gui.getContentPane();
         inputMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         actionMap = panel.getActionMap();
@@ -65,8 +67,7 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("Closing without saving!");
-                // TODO save level
-                gui.dispose();
+                saveManager.exitWithoutSaving();
             }
         });
 
@@ -76,18 +77,17 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("Closing and saving!");
-                // TODO add saving
-                gui.dispose();
+                saveManager.exitAndSave();
             }
         });
 
         // CTRL-R open load game menu
-        inputMap.put(KeyStroke.getKeyStroke("control R"), "loadGame");
-        actionMap.put("loadGame", new AbstractAction() {
+        inputMap.put(KeyStroke.getKeyStroke("control R"), "loadSaveFilePicker");
+        actionMap.put("loadSaveFilePicker", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("loading game");
-                // TODO add loading
+                saveManager.loadSaveFilePicker();
             }
         });
         // CTRL-1 start new game at level 1
@@ -96,7 +96,7 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("switching to level 1");
-                // TODO switch level
+                gui.createGame("levels/level1.json");
 
             }
         });
@@ -106,7 +106,8 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("switching to level 2");
-                // TODO switch level
+                //gui.createGame("levels/level2.json");
+                // TODO level2 is broken and needs to be fixed
 
             }
         });
