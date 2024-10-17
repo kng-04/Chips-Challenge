@@ -67,8 +67,7 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("Closing without saving!");
-                saveManager.writeConfig("levels/level"+gui.currentLevel+".json"); // Loads the level the player quit on
-                gui.dispose();
+                saveManager.exitWithoutSaving();
             }
         });
 
@@ -78,20 +77,17 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("Closing and saving!");
-                saveManager.autoSave();
-                saveManager.writeConfig(saveManager.fileToLoad);
-                gui.dispose();
-                // TODO set previous save
+                saveManager.exitAndSave();
             }
         });
 
         // CTRL-R open load game menu
-        inputMap.put(KeyStroke.getKeyStroke("control R"), "loadGame");
-        actionMap.put("loadGame", new AbstractAction() {
+        inputMap.put(KeyStroke.getKeyStroke("control R"), "loadSaveFilePicker");
+        actionMap.put("loadSaveFilePicker", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("loading game");
-                saveManager.loadGame();
+                saveManager.loadSaveFilePicker();
             }
         });
         // CTRL-1 start new game at level 1

@@ -31,7 +31,7 @@ public class Gui extends JFrame{
 
     Gui() {
         assert SwingUtilities.isEventDispatchThread();
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         saveManager = new SaveManager(this);
         controller = new Controller(this, saveManager); // Setup controller for keybindings
@@ -60,13 +60,9 @@ public class Gui extends JFrame{
         try {
             game = Persistency.loadGame(jsonFileName);
         } catch (IOException e) {
-            if(!jsonFileName.contains("levels/level")){
-                JOptionPane.showMessageDialog(this, "Unable to load save file. Loading level 1 instead", "Error", JOptionPane.ERROR_MESSAGE);
-                createGame("levels/level1.json");
-            }
-            else {
-                throw new RuntimeException("Error loading the game", e);
-            }
+            JOptionPane.showMessageDialog(this, "Unable to load save file. Loading level 1 instead", "Error", JOptionPane.ERROR_MESSAGE);
+            saveManager.writeConfig(""); // remove the invalid file name
+            createGame("levels/level1.json");
         }
 
         // Holds the game images
@@ -143,11 +139,7 @@ public class Gui extends JFrame{
         var miQuit= new JMenuItem("Quit");
         var miPause = new JMenuItem("Pause");
         var miPlay = new JMenuItem("Play");
-        miQuit.addActionListener(e -> {
-            // TODO save what level player was on but not level state same as a CTRL-X
-
-            this.dispose();
-        });
+        miQuit.addActionListener(e -> saveManager.exitWithoutSaving());
         miPause.addActionListener(e -> pauseGame());
         miPlay.addActionListener(e -> resumeGame());
         mGame.add(miPlay);
@@ -160,8 +152,12 @@ public class Gui extends JFrame{
         var miSave = new JMenuItem("Save");
         var miLoad = new JMenuItem("Load");
         var miRestart = new JMenuItem("Restart");
-        miSave.addActionListener(e -> saveManager.autoSave());
-        miLoad.addActionListener(e -> saveManager.loadGame());
+        miSave.addActionListener(e -> {
+            saveManager.autoSave();
+            JOptionPane.showMessageDialog(this, "Game was saved");
+        });
+        miLoad.addActionListener(e -> saveManager.loadSaveFilePicker());
+        miRestart.addActionListener(e -> createGame("levels/level"+currentLevel+".json"));
         mLevel.add(miSave);
         mLevel.add(miLoad);
         mLevel.add(miRestart);
