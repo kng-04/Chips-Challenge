@@ -26,6 +26,8 @@ public class Gui extends JFrame{
     protected int currentLevel = 1; // TODO needs to be updated
     private JLabel timeLabel;
 
+    private JPanel keyInventory;
+
     protected final JFileChooser fileChooser = new JFileChooser();
 
     boolean isHelpMenuOpen = false;
