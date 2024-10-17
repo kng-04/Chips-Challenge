@@ -78,7 +78,7 @@ public class Gui extends JFrame{
         }
 
         // Create a new GamePanel and add it to the gameArea
-        renderPanel = new Render(game, images, currentLevel);
+        renderPanel = new Render(game, images);
         gameArea.removeAll();
         gameArea.add(renderPanel);
         gameArea.revalidate();
@@ -87,7 +87,7 @@ public class Gui extends JFrame{
         // Start playing background music
         renderPanel.playBackgroundMusic();
 
-        pauseGame();
+        //pauseGame();
     }
 
     private void loadMenu(){
