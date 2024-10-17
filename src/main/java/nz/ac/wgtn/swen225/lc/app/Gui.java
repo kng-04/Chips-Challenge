@@ -9,18 +9,22 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
 public class Gui extends JFrame{
 
     public static Game game;  // Holds the game data
-    private JPanel gameArea; // The panel where the game will render
     public static Render renderPanel;
-    protected LevelTimer levelTimer;
-    private int currentLevel = 1;
-    private JLabel timeLabel;
+    public SaveManager saveManager;
     private final Controller controller;
+
+    private JPanel gameArea; // The panel where the game will render
+    protected LevelTimer levelTimer;
+    protected int currentLevel = 1; // TODO needs to be updated
+    private JLabel timeLabel;
+
     protected final JFileChooser fileChooser = new JFileChooser();
 
     boolean isHelpMenuOpen = false;
@@ -29,14 +33,25 @@ public class Gui extends JFrame{
         assert SwingUtilities.isEventDispatchThread();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
+        saveManager = new SaveManager(this);
+        controller = new Controller(this, saveManager); // Setup controller for keybindings
+
         // Make file chooser only show json files
         fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Json", "json"));
         fileChooser.setFileFilter(fileChooser.getChoosableFileFilters()[1]);
 
-        loadMenu();
-        createGame("levels/level1.json");
+        fileChooser.setCurrentDirectory(new File("levels/saves")); // set to directory the program is run in
 
-        controller = new Controller(this); // Setup controller for keybindings
+        loadMenu();
+        saveManager.readConfig();
+        if(saveManager.fileToLoad != null){
+            System.out.println("loading previous");
+            createGame(saveManager.fileToLoad);
+        }
+        else {
+            createGame("levels/level1.json");
+        }
+
         setVisible(true);
     }
 
@@ -45,7 +60,13 @@ public class Gui extends JFrame{
         try {
             game = Persistency.loadGame(jsonFileName);
         } catch (IOException e) {
-            throw new RuntimeException("Error loading the game", e);
+            if(!jsonFileName.contains("levels/level")){
+                JOptionPane.showMessageDialog(this, "Unable to load save file. Loading level 1 instead", "Error", JOptionPane.ERROR_MESSAGE);
+                createGame("levels/level1.json");
+            }
+            else {
+                throw new RuntimeException("Error loading the game", e);
+            }
         }
 
         // Holds the game images
@@ -124,6 +145,7 @@ public class Gui extends JFrame{
         var miPlay = new JMenuItem("Play");
         miQuit.addActionListener(e -> {
             // TODO save what level player was on but not level state same as a CTRL-X
+
             this.dispose();
         });
         miPause.addActionListener(e -> pauseGame());
@@ -138,8 +160,8 @@ public class Gui extends JFrame{
         var miSave = new JMenuItem("Save");
         var miLoad = new JMenuItem("Load");
         var miRestart = new JMenuItem("Restart");
-        miSave.addActionListener(e -> controller.saveGame());
-        miLoad.addActionListener(e -> controller.loadGame());
+        miSave.addActionListener(e -> saveManager.autoSave());
+        miLoad.addActionListener(e -> saveManager.loadGame());
         mLevel.add(miSave);
         mLevel.add(miLoad);
         mLevel.add(miRestart);

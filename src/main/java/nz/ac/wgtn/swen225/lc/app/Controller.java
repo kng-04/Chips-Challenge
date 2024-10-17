@@ -10,9 +10,11 @@ public class Controller {
     private final Gui gui;
     private final InputMap inputMap;
     private final ActionMap actionMap;
+    private final SaveManager saveManager;
 
-    public Controller(Gui gui) {
+    public Controller(Gui gui, SaveManager saveManager) {
         this.gui = gui;
+        this.saveManager = saveManager;
         JPanel panel = (JPanel) gui.getContentPane();
         inputMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         actionMap = panel.getActionMap();
@@ -68,7 +70,7 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("Closing without saving!");
-                // TODO save level
+                saveManager.writeConfig("levels/level"+gui.currentLevel+".json"); // Loads the level the player quit on
                 gui.dispose();
             }
         });
@@ -79,7 +81,8 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("Closing and saving!");
-                saveGame();
+                saveManager.autoSave();
+                saveManager.writeConfig(saveManager.fileToLoad);
                 gui.dispose();
                 // TODO set previous save
             }
@@ -91,7 +94,7 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("loading game");
-                loadGame();
+                saveManager.loadGame();
             }
         });
         // CTRL-1 start new game at level 1
@@ -139,36 +142,6 @@ public class Controller {
     }
     protected void enableUserInput() {
         setupPlayerControls(); // Re-enable player movement
-    }
-    protected void saveGame() {
-        gui.pauseGame();
-        int returnVal = gui.fileChooser.showSaveDialog(gui);
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
-            String fileName = gui.fileChooser.getSelectedFile().toString();
-            if (!fileName.endsWith(".json")){
-                fileName+=".json";
-            }
-            try {
-                Persistency.saveGame(Gui.game, fileName);
-            } catch (IOException e) {
-                throw new RuntimeException("Error saving the game",e);
-            }
-        } else {
-            JOptionPane.showMessageDialog(gui, "Saving Canceled");
-        }
-    }
-    protected void loadGame() {
-        gui.pauseGame();
-        int returnVal = gui.fileChooser.showOpenDialog(gui);
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
-            String fileName = gui.fileChooser.getSelectedFile().getAbsolutePath();
-            gui.createGame(fileName);
-            gui.resumeGame();
-            gui.pauseGame();
-
-        } else {
-            JOptionPane.showMessageDialog(gui, "Saving Canceled");
-        }
     }
 }
 
