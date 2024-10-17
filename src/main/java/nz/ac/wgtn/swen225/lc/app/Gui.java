@@ -46,6 +46,8 @@ public class Gui extends JFrame{
         fileChooser.setCurrentDirectory(new File("levels/saves")); // set to directory the program is run in
 
         loadMenu();
+        levelTimer = new LevelTimer(60, timeLabel);
+        levelTimer.stop();
         saveManager.readConfig();
         if(saveManager.fileToLoad != null){
             System.out.println("loading previous");
@@ -59,7 +61,6 @@ public class Gui extends JFrame{
     }
 
     protected void createGame(String jsonFileName) {
-        levelTimer = new LevelTimer(60, timeLabel); //TODO when loading a saved level the time will be reset, should also start after first player move
         try {
             game = Persistency.loadGame(jsonFileName);
         } catch (IOException e) {
@@ -67,7 +68,7 @@ public class Gui extends JFrame{
             saveManager.writeConfig(""); // remove the invalid file name
             createGame("levels/level1.json");
         }
-
+        levelTimer.reset(game.getSecondsLeft());
         // Holds the game images
         Map<String, BufferedImage> images;
         try {
@@ -85,6 +86,8 @@ public class Gui extends JFrame{
 
         // Start playing background music
         renderPanel.playBackgroundMusic();
+
+        pauseGame();
     }
 
     private void loadMenu(){
@@ -168,7 +171,7 @@ public class Gui extends JFrame{
             JOptionPane.showMessageDialog(this, "Game was saved");
         });
         miLoad.addActionListener(e -> saveManager.loadSaveFilePicker());
-        miRestart.addActionListener(e -> createGame("levels/level"+currentLevel+".json"));
+        miRestart.addActionListener(e -> saveManager.resetLevel());
         mLevel.add(miSave);
         mLevel.add(miLoad);
         mLevel.add(miRestart);

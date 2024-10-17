@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class SaveManager {
@@ -19,6 +20,7 @@ public class SaveManager {
     // saves using date and time instead of file picker
     public void autoSave(){
         gui.pauseGame();
+        Gui.game.setSecondsLeft(gui.levelTimer.getRemainingSeconds());
         LocalDateTime time = LocalDateTime.now();
         String fileName = time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
         fileName = "save_" + fileName + ".json";
@@ -41,11 +43,8 @@ public class SaveManager {
 
             // Use try-with-resources to ensure the writer is closed automatically
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(configFile, false))) {
-                if (fileName != null) {
-                    writer.write(fileName);
-                } else {
-                    writer.write("");  // Write an empty string if previousSave is null
-                }
+                // Write an empty string if previousSave is null
+                writer.write(Objects.requireNonNullElse(fileName, ""));
             }
         } catch (IOException e) {
             throw new RuntimeException("Unable to write to config file", e);
@@ -89,5 +88,9 @@ public class SaveManager {
         } else {
             JOptionPane.showMessageDialog(gui, "Loading Canceled");
         }
+    }
+    public void resetLevel(){
+        gui.levelTimer.stop();
+        gui.createGame("levels/level"+gui.currentLevel+".json");
     }
 }

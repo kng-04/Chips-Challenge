@@ -6,7 +6,6 @@ public class LevelTimer {
     private final Timer swingTimer;
     private int remainingSeconds;
     private final JLabel timeLabel;
-    private long startTime;
 
     public LevelTimer(int seconds, JLabel timeLabel) {
         this.remainingSeconds = seconds;
@@ -29,7 +28,6 @@ public class LevelTimer {
     }
 
     public void start() {
-        startTime = System.currentTimeMillis();
         swingTimer.start();
     }
 
@@ -45,9 +43,8 @@ public class LevelTimer {
         start();
     }
 
-    public long getElapsedTime() {
-        long currentTime = System.currentTimeMillis();
-        return (currentTime - startTime) / 1000; // Return elapsed time in seconds
+    public int getRemainingSeconds() {
+        return remainingSeconds;
     }
 }
 
