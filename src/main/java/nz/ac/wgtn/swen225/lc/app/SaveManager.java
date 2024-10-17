@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class SaveManager {
@@ -42,11 +43,8 @@ public class SaveManager {
 
             // Use try-with-resources to ensure the writer is closed automatically
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(configFile, false))) {
-                if (fileName != null) {
-                    writer.write(fileName);
-                } else {
-                    writer.write("");  // Write an empty string if previousSave is null
-                }
+                // Write an empty string if previousSave is null
+                writer.write(Objects.requireNonNullElse(fileName, ""));
             }
         } catch (IOException e) {
             throw new RuntimeException("Unable to write to config file", e);
