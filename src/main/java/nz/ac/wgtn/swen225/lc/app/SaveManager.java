@@ -4,6 +4,7 @@ import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 
 import javax.swing.*;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -42,7 +43,7 @@ public class SaveManager {
             }
 
             // Use try-with-resources to ensure the writer is closed automatically
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(configFile, false))) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(configFile, StandardCharsets.UTF_8,false))) {
                 // Write an empty string if previousSave is null
                 writer.write(Objects.requireNonNullElse(fileName, ""));
             }
@@ -58,11 +59,11 @@ public class SaveManager {
             throw new RuntimeException("Unable to generate config file",e);
         }
         try {
-            Scanner sc = new Scanner(configFile);
+            Scanner sc = new Scanner(configFile, StandardCharsets.UTF_8);
             if(sc.hasNextLine()){
                 fileToLoad = sc.nextLine();
             }
-        } catch(FileNotFoundException e) {
+        } catch(IOException e) {
             throw new RuntimeException("Unable to find config file",e);
         }
     }
