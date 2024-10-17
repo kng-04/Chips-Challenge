@@ -19,6 +19,7 @@ import java.util.Map;
 
 public class Render extends JPanel {
     private Game game;
+    private Gui gui;
     private final Map<String, BufferedImage> images;
     private final List<CoordinateEntity> entities = new ArrayList<>();
     private final int IMG_SIZE = 32; // 32x32 tile size
@@ -27,8 +28,8 @@ public class Render extends JPanel {
     public Clip clip;
     JPanel pauseLabelPanel;
 
-    public Render(Game game, Map<String, BufferedImage> images, int currentLevel) {
-        if (game == null || images == null) {
+    public Render(Game game, Map<String, BufferedImage> images, int currentLevel, Gui gui) {
+        if (game == null || images == null || gui == null) {
             throw new IllegalArgumentException("Game and images must not be null");
         }
 
@@ -36,6 +37,7 @@ public class Render extends JPanel {
         this.images = images;
         //this.levelTimer = levelTimer;
         this.currentLevel = currentLevel;
+        this.gui = gui;
         setupPauseLabel();
         updateEntities();
     }
@@ -44,6 +46,8 @@ public class Render extends JPanel {
         entities.clear();
         entities.addAll(game.getTiles());
         entities.addAll(game.getCharacters());
+        gui.getKeyNames();
+        gui.updateKeyImages();
     }
 
     // Creates a simple label telling the user the game is paused

@@ -1,6 +1,7 @@
 package nz.ac.wgtn.swen225.lc.app;
 
 import nz.ac.wgtn.swen225.lc.domain.Game;
+import nz.ac.wgtn.swen225.lc.domain.Tile;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 import nz.ac.wgtn.swen225.lc.render.Render;
 
@@ -11,6 +12,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Gui extends JFrame{
@@ -23,7 +26,7 @@ public class Gui extends JFrame{
     private JLabel timeLabel;
     private final Controller controller;
 
-    private JPanel keyInventory;
+    private JPanel keyInventory, sidebar;
 
     boolean isHelpMenuOpen = false;
 
@@ -37,6 +40,8 @@ public class Gui extends JFrame{
         controller = new Controller(this); // Setup controller for keybindings
         setVisible(true);
     }
+
+    public Game getGame(){return this.game;}
 
     private void loadLevel(int level) {
         levelTimer = new LevelTimer(60, timeLabel); //TODO when loading a saved level the time will be reset, should also start after first player move
@@ -59,7 +64,7 @@ public class Gui extends JFrame{
         }
 
         // Create a new GamePanel and add it to the gameArea
-        renderPanel = new Render(game, images, currentLevel);
+        renderPanel = new Render(game, images, currentLevel, this);
         gameArea.removeAll();
         gameArea.add(renderPanel);
         gameArea.revalidate();
@@ -79,7 +84,7 @@ public class Gui extends JFrame{
         gameArea.add(title);
 
         // Sidebar
-        var sidebar = new JPanel(new GridLayout(4,1));
+        sidebar = new JPanel(new GridLayout(4,1));
         var levelLabel = new JLabel("Level: 1", SwingConstants.CENTER);
         timeLabel = new JLabel("Time: 0", SwingConstants.CENTER);
         var scoreLabel = new JLabel("Chips Left: 0", SwingConstants.CENTER);
@@ -95,17 +100,7 @@ public class Gui extends JFrame{
         keyInventory.setBackground(Color.GRAY);
 
         for (int i = 0; i < 8; i++) {
-            // Load the FreeTile image directly when creating the icon
-            BufferedImage freeTileImage = null;
-            try {freeTileImage = ImageIO.read(new File("images/FreeTile.jpg"));
-            } catch (IOException e) {e.printStackTrace();}
-
-            Image scaledImage = freeTileImage.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-
-            var tileSlot = new JLabel(new ImageIcon(scaledImage));
-            tileSlot.setHorizontalAlignment(SwingConstants.CENTER);
-            tileSlot.setPreferredSize(new Dimension(70, 70));
-            keyInventory.add(tileSlot);
+            loadTile();
         }
         sidebar.add(keyInventory);
 
@@ -122,6 +117,72 @@ public class Gui extends JFrame{
         pack();
     }
 
+    //gets the latest list of key names using inventory
+    public ArrayList<String> getKeyNames(){
+        System.out.println("getting key names");
+        System.out.println("geting key names");
+
+        ArrayList<String> keyNames = new ArrayList<>();
+       for(Tile t : game.keysPickedUp()){
+           String tempName = t.getClass().getSimpleName() + "-" + t.getColor() + ".jpg";
+           System.out.println("tests");
+           if(!keyNames.contains(tempName)){
+               keyNames.add(tempName);
+               System.out.println(tempName);
+           }
+           System.out.println("done tests");
+
+       }
+       return keyNames;
+    }
+
+    public void loadTile(){
+        // Load the FreeTile image directly when creating the icon
+        BufferedImage freeTileImage = null;
+        try {freeTileImage = ImageIO.read(new File("images/FreeTile.jpg"));
+        } catch (IOException e) {e.printStackTrace();}
+
+        Image scaledImage = freeTileImage.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+
+        var tileSlot = new JLabel(new ImageIcon(scaledImage));
+        tileSlot.setHorizontalAlignment(SwingConstants.CENTER);
+        tileSlot.setPreferredSize(new Dimension(70, 70));
+        keyInventory.add(tileSlot);
+    }
+
+
+    //Updates images of keys
+    public void updateKeyImages(){
+        keyInventory.removeAll();
+        sidebar.remove(keyInventory);
+        ArrayList<String> keys = getKeyNames();
+        int i = 0;
+        if(keys!=null && !keys.isEmpty()) {
+            for (String key : keys) {
+                BufferedImage TileImage = null;
+                try {
+                    TileImage = ImageIO.read(new File(key));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Image scaledImage = TileImage.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+
+                var tileSlot = new JLabel(new ImageIcon(scaledImage));
+                tileSlot.setHorizontalAlignment(SwingConstants.CENTER);
+                tileSlot.setPreferredSize(new Dimension(70, 70));
+                keyInventory.add(tileSlot);
+                i++;
+            }
+        }
+        if(i<8){
+            for(int j = i; j < 8 ; j++){
+                loadTile();
+            }
+        }
+        sidebar.add(keyInventory);
+        repaint();
+    }
     // Creates all elements relating to the menubar
     private void createMenuBar(){
         // MenuBar

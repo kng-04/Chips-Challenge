@@ -1,4 +1,6 @@
 package nz.ac.wgtn.swen225.lc.domain;
+import nz.ac.wgtn.swen225.lc.app.Gui;
+
 import java.util.*;
 
 
@@ -9,6 +11,7 @@ public class Game {
 
     private List<String> levelPaths;
     private int currentLevelIndex;
+
 
     public Game(int width, int height, int secondsLeft, List<Characters> characters, List<Tile> inventory, List<Tile> tiles) {
         this.width = width;
@@ -70,6 +73,14 @@ public class Game {
         return this.inventory.stream().filter(t-> t instanceof TreasureTile).count();
     }
 
+    public List<Tile> keysPickedUp(){
+        List<Tile> keys = this.inventory.stream()
+                .filter(t-> t instanceof KeyTile)
+                .toList();
+        System.out.println("Keys = "+ keys);
+        return keys;
+    }
+
     public Tile findTile(int x, int y) {
         return this.tiles.stream().filter(t-> t.getX() == x && t.getY() == y).findFirst().orElseThrow();
     }
@@ -90,7 +101,12 @@ public class Game {
             Tile newFreeTile = new FreeTile();
             newFreeTile.setX(tile.x);
             newFreeTile.setY(tile.y);
+            System.out.println(keysPickedUp());
             this.tiles.add(newFreeTile);
+            if(tile instanceof KeyTile){
+
+            }
+
             if(tile instanceof TreasureTile && treasuresLeft() == 0){
                 replaceTileWith(new FreeTile(this.findTile(ExitLockTile.class).getX(), this.findTile(ExitLockTile.class).getY()));
             }
