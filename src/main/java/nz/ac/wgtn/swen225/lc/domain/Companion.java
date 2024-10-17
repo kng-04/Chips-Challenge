@@ -19,6 +19,9 @@ public class Companion extends Characters{
     }
 
 
+    /* iterate through companion's surrounding blocks to see if Chap is present
+       if chap is present 'wake up' companion
+    */
     boolean checkSpace(Game game){
         int [][]space = {
                 {this.x - 1, this.y -1}, {this.x, this.y-1}, {this.x+1, this.y-1}, //top left, top middle, top right
