@@ -168,7 +168,7 @@ public class Gui extends JFrame{
             JOptionPane.showMessageDialog(this, "Game was saved");
         });
         miLoad.addActionListener(e -> saveManager.loadSaveFilePicker());
-        miRestart.addActionListener(e -> createGame("levels/level"+currentLevel+".json"));
+        miRestart.addActionListener(e -> saveManager.resetLevel());
         mLevel.add(miSave);
         mLevel.add(miLoad);
         mLevel.add(miRestart);

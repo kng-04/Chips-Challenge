@@ -90,4 +90,8 @@ public class SaveManager {
             JOptionPane.showMessageDialog(gui, "Loading Canceled");
         }
     }
+    public void resetLevel(){
+        gui.levelTimer.stop();
+        gui.createGame("levels/level"+gui.currentLevel+".json");
+    }
 }
