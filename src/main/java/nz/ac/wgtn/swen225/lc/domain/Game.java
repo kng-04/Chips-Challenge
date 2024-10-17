@@ -97,16 +97,7 @@ public class Game {
     }
 
     public void completeLevel() {
-        currentLevel++; // Move to the next level
-        String nextLevelFile = "levels/level" + currentLevel + ".json"; // Construct the next level's file name
-
-        // Load the next level
-        try {
-            Persistency.loadGame(nextLevelFile);
-        } catch (IOException e) {
-            //JOptionPane.showMessageDialog(this, "Unable to load level " + currentLevel, "Error", JOptionPane.ERROR_MESSAGE);
-            currentLevel--; // Revert to the previous level on failure
-        }
+        //start level 2
     }
 
 
