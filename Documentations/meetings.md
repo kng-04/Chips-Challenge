@@ -55,4 +55,9 @@ William & Krystal
 - Fixing the implementations on exit tile in level 1. When chap reaches the exit tile it should move to level 2 and once level 2 is completed it will display a Game over screen and will be able to exit game there as well using Fletcher's exit implementation
 - add some testing
 
+### Task Allowcation until 18/10 meeting
+- William will be working on the npc for level 2 and also the inventory.
+- Krystal will be working on the moving to the next level, exitTile implementations, gameover screen for when level 2 is complete. 
+- Fletcher will be working on the controls and testing for controls.
+
 
