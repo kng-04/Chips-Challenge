@@ -85,6 +85,8 @@ public class Gui extends JFrame{
 
         // Start playing background music
         renderPanel.playBackgroundMusic();
+
+        pauseGame();
     }
 
     private void loadMenu(){
