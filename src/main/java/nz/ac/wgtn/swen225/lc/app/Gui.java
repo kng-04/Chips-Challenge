@@ -4,6 +4,7 @@ import nz.ac.wgtn.swen225.lc.domain.Game;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 import nz.ac.wgtn.swen225.lc.render.Render;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -96,7 +97,7 @@ public class Gui extends JFrame{
         var sidebar = new JPanel(new GridLayout(4,1));
         var levelLabel = new JLabel("Level: 1", SwingConstants.CENTER);
         timeLabel = new JLabel("Time: 0", SwingConstants.CENTER);
-        var scoreLabel = new JLabel("Chips: 0", SwingConstants.CENTER);
+        var scoreLabel = new JLabel("Chips Left: 0", SwingConstants.CENTER);
 
         sidebar.setBackground(Color.GRAY);
         sidebar.add(levelLabel);
@@ -104,14 +105,22 @@ public class Gui extends JFrame{
         sidebar.add(scoreLabel);
 
         // Key inventory
-        var keyInventory = new JPanel(new GridLayout(2,4,20,20));
-        keyInventory.setBorder(new EmptyBorder(10,10,10,10));
+        keyInventory = new JPanel(new GridLayout(2, 4,-45,-75));
+        keyInventory.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         keyInventory.setBackground(Color.GRAY);
-        for(int i=0; i<8; i++){
-            var emptySlot = new JPanel();
-            emptySlot.setBackground(Color.red);
-            emptySlot.setPreferredSize(new Dimension(1,1));
-            keyInventory.add(emptySlot, SwingConstants.CENTER);
+
+        for (int i = 0; i < 8; i++) {
+            // Load the FreeTile image directly when creating the icon
+            BufferedImage freeTileImage = null;
+            try {freeTileImage = ImageIO.read(new File("images/FreeTile.jpg"));
+            } catch (IOException e) {e.printStackTrace();}
+
+            Image scaledImage = freeTileImage.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+
+            var tileSlot = new JLabel(new ImageIcon(scaledImage));
+            tileSlot.setHorizontalAlignment(SwingConstants.CENTER);
+            tileSlot.setPreferredSize(new Dimension(70, 70));
+            keyInventory.add(tileSlot);
         }
         sidebar.add(keyInventory);
 
