@@ -19,6 +19,7 @@ public class SaveManager {
     // saves using date and time instead of file picker
     public void autoSave(){
         gui.pauseGame();
+        Gui.game.setSecondsLeft(gui.levelTimer.getRemainingSeconds());
         LocalDateTime time = LocalDateTime.now();
         String fileName = time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
         fileName = "save_" + fileName + ".json";
