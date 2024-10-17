@@ -1,6 +1,9 @@
 package nz.ac.wgtn.swen225.lc.domain;
 import nz.ac.wgtn.swen225.lc.app.Gui;
+import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 
+import javax.swing.*;
+import java.io.IOException;
 import java.util.*;
 
 
@@ -93,9 +96,17 @@ public class Game {
         }
     }
 
+    public void completeLevel() {
+        currentLevel++; // Move to the next level
+        String nextLevelFile = "levels/level" + currentLevel + ".json"; // Construct the next level's file name
 
-    public void completeLevel(){
-        //start level 2
+        // Load the next level
+        try {
+            Persistency.loadGame(nextLevelFile);
+        } catch (IOException e) {
+            //JOptionPane.showMessageDialog(this, "Unable to load level " + currentLevel, "Error", JOptionPane.ERROR_MESSAGE);
+            currentLevel--; // Revert to the previous level on failure
+        }
     }
 
 
