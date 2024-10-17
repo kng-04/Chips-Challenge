@@ -26,8 +26,8 @@ public class Controller {
         actionMap.put("moveUP", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Gui.game.getCharacters().get(0).move(0,-1,Gui.game);
-                Gui.renderPanel.repaint();
+                gui.game.getCharacters().get(0).move(0,-1,gui.game);
+                gui.renderPanel.repaint();
 
             }
         });
@@ -35,8 +35,8 @@ public class Controller {
         actionMap.put("moveLEFT", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Gui.game.getCharacters().get(0).move(-1,0,Gui.game);
-                Gui.renderPanel.repaint();
+                gui.game.getCharacters().get(0).move(-1,0,gui.game);
+                gui.renderPanel.repaint();
 
             }
         });
@@ -44,8 +44,8 @@ public class Controller {
         actionMap.put("moveDOWN", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Gui.game.getCharacters().get(0).move(0,1,Gui.game);
-                Gui.renderPanel.repaint();
+                gui.game.getCharacters().get(0).move(0,1,gui.game);
+                gui.renderPanel.repaint();
 
             }
         });
@@ -53,8 +53,8 @@ public class Controller {
         actionMap.put("moveRIGHT", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Gui.game.getCharacters().get(0).move(1,0,Gui.game);
-                Gui.renderPanel.repaint();
+                gui.game.getCharacters().get(0).move(1,0,gui.game);
+                gui.renderPanel.repaint();
             }
         });
     }

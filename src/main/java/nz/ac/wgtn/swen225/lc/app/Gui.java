@@ -16,8 +16,8 @@ import java.util.Map;
 
 public class Gui extends JFrame{
 
-    public static Game game;  // Holds the game data
-    public static Render renderPanel;
+    public Game game;  // Holds the game data
+    public Render renderPanel;
     public SaveManager saveManager;
     private final Controller controller;
 
