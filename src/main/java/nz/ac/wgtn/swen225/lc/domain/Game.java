@@ -129,6 +129,7 @@ public class Game {
     public int getSecondsLeft() {
         return secondsLeft;
     }
+    public void setSecondsLeft(int seconds) { secondsLeft = seconds;}
 
     public List<Characters> getCharacters() {
         return characters;
