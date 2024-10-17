@@ -1,9 +1,9 @@
 package nz.ac.wgtn.swen225.lc.domain;
 import nz.ac.wgtn.swen225.lc.app.Gui;
-import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 
 import javax.swing.*;
-import java.io.IOException;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.*;
 
 
@@ -13,6 +13,7 @@ public class Game {
     private List<Tile> inventory, tiles;
 
     private int currentLevel;
+    private Gui gui;
 
     public Game(int width, int height, int secondsLeft, List<Characters> characters, List<Tile> inventory, List<Tile> tiles) {
         this.width = width;
@@ -24,7 +25,8 @@ public class Game {
         this.currentLevel = 1;
     }
 
-    public Game(){
+    public Game(Gui gui){
+        this.gui = gui;
         this.currentLevel = 1;
     }
 
@@ -97,9 +99,25 @@ public class Game {
     }
 
     public void completeLevel() {
-        //start level 2
-    }
+        currentLevel++;
+        String nextLevelFile = "levels/level" + currentLevel + ".json";
 
+        // Attempt to load the next level
+        try {
+            File levelFile = new File(nextLevelFile);
+            if (levelFile.exists()) {
+                if (gui != null) {
+                    gui.createGame(nextLevelFile);
+                }
+            } else {
+                JOptionPane.showMessageDialog(gui, "You have completed all levels!", "Game Finished", JOptionPane.INFORMATION_MESSAGE);
+                //currentLevel--;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(gui, "Error loading next level. Try again.", "Error", JOptionPane.ERROR_MESSAGE);
+            //currentLevel--;
+        }
+    }
 
     public int getHeight() {
         return height;

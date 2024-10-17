@@ -60,15 +60,18 @@ public class Gui extends JFrame{
         setVisible(true);
     }
 
-    protected void createGame(String jsonFileName) {
+    public void createGame(String jsonFileName) {
         try {
             game = Persistency.loadGame(jsonFileName);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Unable to load save file. Loading level 1 instead", "Error", JOptionPane.ERROR_MESSAGE);
             saveManager.writeConfig(""); // remove the invalid file name
             createGame("levels/level1.json");
+            return;
         }
+
         levelTimer.reset(game.getSecondsLeft());
+
         // Holds the game images
         Map<String, BufferedImage> images;
         try {
@@ -87,7 +90,7 @@ public class Gui extends JFrame{
         // Start playing background music
         renderPanel.playBackgroundMusic();
 
-        //pauseGame();
+        resumeGame();
     }
 
     private void loadMenu(){
