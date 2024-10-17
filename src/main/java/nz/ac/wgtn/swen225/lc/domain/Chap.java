@@ -15,6 +15,7 @@ public class Chap extends Characters{
 
     }
 
+    private int lastX, lastY;
 
     /*
     Move Chap in direction x and direction y on game map
@@ -31,6 +32,8 @@ public class Chap extends Characters{
         if (newX >= 0 && newX < game.getWidth() && newY >= 0 && newY < game.getHeight()) {
             Tile tile = game.findTile(newX, newY);
             if (tile.canMoveInto()) {
+                lastX = this.x;
+                lastY = this.y;
                 this.x = newX;
                 this.y = newY;
                 tile.interact(this, game); // Interact with the tile Chap moves onto
@@ -53,4 +56,7 @@ public class Chap extends Characters{
         this.x = x;
         this.y = y;
     }
+    public int getLastX(){return this.lastX;}
+    public int getLastY(){return this.lastY;}
+
 }

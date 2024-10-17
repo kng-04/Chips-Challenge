@@ -143,6 +143,16 @@ public class Game {
     }
 
 
+    public Chap getChap() {
+
+        return characters.stream()
+                .filter(t -> t instanceof Chap)
+                .map(t -> (Chap) t)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No Chap found!"));  // Handle if no Chap is found
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
