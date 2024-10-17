@@ -1,10 +1,7 @@
 package nz.ac.wgtn.swen225.lc.app;
 
-import nz.ac.wgtn.swen225.lc.persistency.Persistency;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
 
 public class Controller {
     private final Gui gui;

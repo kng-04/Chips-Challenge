@@ -6,8 +6,6 @@ import javax.swing.*;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Scanner;
 
 public class SaveManager {
