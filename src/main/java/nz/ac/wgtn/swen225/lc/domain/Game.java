@@ -170,6 +170,7 @@ public class Game {
     public int getSecondsLeft() { return secondsLeft; }
     public void setSecondsLeft(int seconds) { secondsLeft = seconds;}
 
+    public int getCurrentLevel() { return currentLevel; }
     public List<Characters> getCharacters() { return characters; }
     public List<Tile> getInventory() { return inventory; }
 
