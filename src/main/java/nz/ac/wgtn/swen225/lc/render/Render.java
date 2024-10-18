@@ -140,7 +140,7 @@ public class Render extends JPanel {
     public void playBackgroundMusic() {
         File audioFile = new File("images/ThemeSong.wav");
         if (!audioFile.exists()) {
-            System.out.println("Audio file not found: " + audioFile.getAbsolutePath());
+            //System.out.println("Audio file not found: " + audioFile.getAbsolutePath());
             return;
         }
 

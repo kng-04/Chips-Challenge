@@ -34,7 +34,6 @@ public class KeyTile extends Tile {
         game.collectTile(this);
         unlockDoor(game);
         game.replaceTileWith(new FreeTile(this.x, this.y));
-        System.out.println("Chap picked up a " + color + " key.");
     }
 
     @Override
