@@ -124,7 +124,7 @@ public class Gui extends JFrame{
 
         ArrayList<String> keyNames = new ArrayList<>();
        for(Tile t : game.keysPickedUp()){
-           String tempName = t.getClass().getSimpleName() + "-" + t.getColor() + ".jpg";
+           String tempName = "images/" + t.getClass().getSimpleName() + "-" + t.getColor() + ".jpg";
            System.out.println("tests");
            if(!keyNames.contains(tempName)){
                keyNames.add(tempName);
