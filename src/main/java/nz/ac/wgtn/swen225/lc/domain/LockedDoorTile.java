@@ -17,9 +17,7 @@ public class LockedDoorTile extends Tile {
      */
     @Override
     public void interact(Chap chap, Game game) {
-        System.out.println("locked door interacted" );
         if (game.useKey(this.color)) {
-            System.out.println("Door unlocked with " + color + " key!");
             game.replaceTileWith(new FreeTile(this.x, this.y));
             lockDoor(game); //Used to lock doors of same color after key is used
 
@@ -57,7 +55,6 @@ public class LockedDoorTile extends Tile {
             for (Tile t : game.getTiles()) {
                 if (t instanceof LockedDoorTile && t.getColor().equals(this.color)) {
                     t.setCannotMoveInto();  // Lock the door (set canMoveInto to false)
-                    System.out.println("Locked door at (" + t.getX() + ", " + t.getY() + ")");
                 }
             }
         }

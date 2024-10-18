@@ -13,9 +13,9 @@ public class MapGeneratorTest {
 
     @Test
     void genLevel1() throws Exception {
-        String txt = FileUtil.readFileAsString("levels/level1.txt");
+        String txt = FileUtil.readFileAsString("levels/level2.txt");
         String json = txtToJson(txt);
-        FileUtil.writeStringToFile("levels/level1.json", json);
+        FileUtil.writeStringToFile("levels/level2.json", json);
     }
 
     @Test

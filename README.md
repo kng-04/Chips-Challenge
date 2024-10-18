@@ -41,3 +41,8 @@ Symbol List:
 - 🔏: LockedDoor (Yellow)
 - 💎: Treasure
 - 🧱: WallTile
+
+# Run Application from Maven
+```shell
+mvn exec:java
+```

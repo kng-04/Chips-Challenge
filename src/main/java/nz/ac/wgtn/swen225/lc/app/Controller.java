@@ -66,7 +66,6 @@ public class Controller {
         actionMap.put("exitWithoutSaving", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("Closing without saving!");
                 saveManager.exitWithoutSaving();
             }
         });
@@ -76,7 +75,6 @@ public class Controller {
         actionMap.put("exitAndSave", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("Closing and saving!");
                 saveManager.exitAndSave();
             }
         });
@@ -86,7 +84,6 @@ public class Controller {
         actionMap.put("loadSaveFilePicker", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("loading game");
                 saveManager.loadSaveFilePicker();
             }
         });
@@ -95,8 +92,8 @@ public class Controller {
         actionMap.put("switchLevel1", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("switching to level 1");
                 gui.createGame("levels/level1.json");
+                gui.setCurrentLevel(1);
 
             }
         });
@@ -105,10 +102,8 @@ public class Controller {
         actionMap.put("switchLevel2", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("switching to level 2");
-                //gui.createGame("levels/level2.json");
-                // TODO level2 is broken and needs to be fixed
-
+                gui.createGame("levels/level2.json");
+                gui.setCurrentLevel(2);
             }
         });
         // SPACE pause game
@@ -116,7 +111,7 @@ public class Controller {
         actionMap.put("pauseGame", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gui.pauseGame();
+                gui.pauseGame(false);
             }
         });
         // ESC resume game

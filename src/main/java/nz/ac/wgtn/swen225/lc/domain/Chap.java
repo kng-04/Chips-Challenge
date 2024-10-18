@@ -51,7 +51,6 @@ public class Chap extends Characters{
                     firstMove = false;
                     game.setGame();
                 }
-
                 // Add FreeTile only if firstMove is true
                 game.addTile(new FreeTile(this.x - dx, this.y - dy));
             } else {
