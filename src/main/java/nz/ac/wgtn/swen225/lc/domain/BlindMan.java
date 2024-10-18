@@ -22,7 +22,7 @@ public class BlindMan extends Characters{
         startMovement();
     }
 
-    public void setGame(Game game){this.game = game;System.out.println(game.getCharacters());}
+    public void setGame(Game game){this.game = game;}
 
     public void startMovement(){
 
@@ -70,7 +70,6 @@ public class BlindMan extends Characters{
             if (game.getChap().getX() == tempX && game.getChap().getY() == tempY) {
                 interacted = true;
                 blindManTimer.stop();
-                System.out.println("Chap has connected ");
                 return true;  // Chap is found on a surrounding tile
             }
         }
