@@ -95,7 +95,6 @@ public class Controller {
         actionMap.put("switchLevel1", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("switching to level 1");
                 gui.createGame("levels/level1.json");
 
             }
@@ -105,7 +104,6 @@ public class Controller {
         actionMap.put("switchLevel2", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("switching to level 2");
                 gui.createGame("levels/level2.json");
 
             }
