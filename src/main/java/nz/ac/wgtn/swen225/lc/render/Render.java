@@ -150,6 +150,12 @@ public class Render extends JPanel {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
             this.clip = AudioSystem.getClip();
             this.clip.open(audioStream);
+
+            //skips over the 4 secs that are silent in audio file
+            float frameRate = clip.getFormat().getFrameRate();
+            float framesToSkip = frameRate * 4;
+            clip.setFramePosition((int) framesToSkip);
+
             this.clip.start();
             this.clip.loop(Clip.LOOP_CONTINUOUSLY);  // Loop the music
         } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
