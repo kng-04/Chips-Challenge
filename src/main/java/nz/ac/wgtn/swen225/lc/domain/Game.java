@@ -13,6 +13,7 @@ public class Game {
     private List<Tile> inventory, tiles;
 
     private int currentLevel;
+    private static final int[] LEVEL_TIMES = {60, 100};
 
     /**
      * Constructs a Game instance with specified parameters.
@@ -131,8 +132,13 @@ public class Game {
      * Updates the game state with the new level data.
      */
     public void completeLevel(Gui currentGui) {
-        if (currentLevel == 2) {
+        if (currentLevel == 1) {
+            currentLevel++;
+            // Proceed to next level...
+        } else
+            if (currentLevel == 2) {
             currentGui.close();
+
             // Show the game over screen after completing level 2
             SwingUtilities.invokeLater(() -> {
                 Gui newGui = new Gui();
@@ -140,7 +146,6 @@ public class Game {
             });
             return;
         }
-        currentLevel++;
 
         String nextLevelFile = "levels/level" + currentLevel + ".json";
         try {
@@ -180,6 +185,13 @@ public class Game {
     public List<Tile> getInventory() { return inventory; }
 
     public List<Tile> getTiles() { return tiles; }
+
+    public int getLevelTimeLimit(int level) {
+        if (level <= LEVEL_TIMES.length && level > 0) {
+            return LEVEL_TIMES[level - 1];
+        }
+        return 60; //default
+    }
 
     @Override
     public boolean equals(Object o) {

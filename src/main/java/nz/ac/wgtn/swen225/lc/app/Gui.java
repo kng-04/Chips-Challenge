@@ -29,9 +29,10 @@ public class Gui extends JFrame{
     private JPanel sidebar;
 
     protected LevelTimer levelTimer;
+    private JLabel timeLabel;
+
     protected int currentLevel;
     protected JLabel levelLabel;
-    private JLabel timeLabel;
 
     private JLabel scoreLabel;
 
@@ -378,11 +379,18 @@ public class Gui extends JFrame{
         levelLabel.setText("Level: " + currentLevel);
     }
 
+    public void resetAndStartTimer(int seconds) {
+        levelTimer.reset(seconds);
+        levelTimer.start();
+    }
+
     /**
      * Displays the "Game Over" screen with a congratulatory message, buttons for restarting or exiting,
      * and stops the background music. It also removes any sidebar and clears the game area.
      */
     public void showGameOverScreen() {
+        levelTimer.stop();
+
         // Clear the game area completely
         gameArea.removeAll();
         gameArea.revalidate();
@@ -402,7 +410,7 @@ public class Gui extends JFrame{
         JLabel messageLabel = new JLabel("-- Game Over --", SwingConstants.CENTER);
         messageLabel.setFont(new Font("Sans", Font.BOLD, 40));
         messageLabel.setForeground(Color.WHITE);
-        messageLabel.setBorder(BorderFactory.createEmptyBorder(260, 0, 0, 0)); //padding
+        messageLabel.setBorder(BorderFactory.createEmptyBorder(260, 0, 0, 0)); // padding
 
         // Create end game message
         String congratMessages = "<html><div style='text-align: center;'>Well done, adventurer!<br>" +
@@ -413,16 +421,16 @@ public class Gui extends JFrame{
         JLabel congratLabel = new JLabel(congratMessages, SwingConstants.CENTER);
         congratLabel.setFont(new Font("Sans", Font.PLAIN, 15));
         congratLabel.setForeground(Color.WHITE);
-        congratLabel.setBorder(BorderFactory.createEmptyBorder(-150, 0, 0, 0)); //padding
+        congratLabel.setBorder(BorderFactory.createEmptyBorder(-150, 0, 0, 0)); // padding
 
         // Create buttonPanel
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(Color.BLACK);
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 25, 0)); //padding
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 25, 0)); // padding
 
         // Buttons for exiting
         JButton exitButton = new JButton("Exit");
-        exitButton.setPreferredSize(new Dimension(140, 50)); //size of button
+        exitButton.setPreferredSize(new Dimension(140, 50)); // size of button
         exitButton.setFont(new Font("Sans", Font.BOLD, 20));
         exitButton.addActionListener(e -> System.exit(0));
 
