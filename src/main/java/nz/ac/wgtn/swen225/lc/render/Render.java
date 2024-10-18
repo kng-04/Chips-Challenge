@@ -1,6 +1,5 @@
 package nz.ac.wgtn.swen225.lc.render;
 
-import nz.ac.wgtn.swen225.lc.app.Gui;
 import nz.ac.wgtn.swen225.lc.domain.*;
 
 import javax.sound.sampled.*;
@@ -26,6 +25,14 @@ public class Render extends JPanel {
     private JPanel startLevelLabelPanel;
 
 
+    /**
+     * Constructs a Render object with the specified game, images, and current level.
+     *
+     * @param game        the game instance containing the game state
+     * @param images      a map of image names to their corresponding BufferedImages
+     * @param currentLevel the current level of the game
+     * @throws IllegalArgumentException if game or images is null
+     */
     public Render(Game game, Map<String, BufferedImage> images, int currentLevel) {
         if (game == null || images == null) {
             throw new IllegalArgumentException("Game and images must not be null");
@@ -33,20 +40,25 @@ public class Render extends JPanel {
 
         this.game = game;
         this.images = images;
-        //this.levelTimer = levelTimer;
-        this.currentLevel = currentLevel;
         setupPauseLabel();
         setupStartLevelLabel();
         updateEntities();
     }
 
+    /**
+     * Updates the list of entities to be rendered by clearing the current list
+     * and adding the latest tiles and characters from the game.
+     */
     private void updateEntities() {
         entities.clear();
         entities.addAll(game.getTiles());
         entities.addAll(game.getCharacters());
     }
 
-    // Creates a simple label telling the user the game is paused
+    /**
+     * Sets up the panel that displays the paused game label.
+     * The label informs the player that the game is currently paused.
+     */
     private void setupPauseLabel(){
         pauseLabelPanel = new JPanel();
         pauseLabelPanel.setBackground(Color.WHITE);
@@ -57,7 +69,10 @@ public class Render extends JPanel {
         this.add(pauseLabelPanel);
         pauseLabelPanel.setVisible(false);
     }
-    // Creates a simple label telling the user to press ECS to start the game
+    /**
+     * Sets up the panel that displays the start level label.
+     * The label informs the player that the level has not started.
+     */
     private void setupStartLevelLabel(){
         startLevelLabelPanel = new JPanel();
         startLevelLabelPanel.setBackground(Color.WHITE);
@@ -101,6 +116,7 @@ public class Render extends JPanel {
             }
         }
     }
+
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(IMG_SIZE * game.getWidth(), IMG_SIZE * game.getHeight());
@@ -114,49 +130,15 @@ public class Render extends JPanel {
         repaint();
     }
 
-    public void showPauseRenderLabel() {
-        pauseLabelPanel.setVisible(true);
-    }
-    public void hidePauseRenderLabel() {
-        pauseLabelPanel.setVisible(false);
-    }
-    public void showStartLevelLabel(){startLevelLabelPanel.setVisible(true);}
-    public void hideStartLevelLabel(){startLevelLabelPanel.setVisible(false);}
+    public void showPauseRenderLabel() {pauseLabelPanel.setVisible(true);}
+    public void hidePauseRenderLabel() {pauseLabelPanel.setVisible(false);}
+    public void showStartLevelLabel() {startLevelLabelPanel.setVisible(true);}
+    public void hideStartLevelLabel() {startLevelLabelPanel.setVisible(false);}
 
-    public void resetChapPosition() {
-        // Assuming Chap is a single instance in the game.
-        Characters character = game.getCharacters().get(0); // Get the Chap instance from the game
-        if (character instanceof Chap) {
-            Chap chap = (Chap) character;
-            chap.setPosition(0, 0); // Reset position to (0, 0) or to the starting position of the level
-            updateRender(); // Update the render to reflect the new position
-        }
-    }
-
-    public void onReachEndTile() {
-        //levelTimer.stop();
-        //long seconds = levelTimer.getElapsedTime();
-
-        // Show win screen with time taken
-        /*JOptionPane.showMessageDialog(null,
-                "Level Completed!\n" +
-                        "Time taken: " + seconds + " seconds.",
-                "Level Complete",
-                JOptionPane.INFORMATION_MESSAGE
-        );*/
-
-        // Advance to the next level
-        if (game.hasNextLevel()) {
-            int nextLevel = currentLevel + 1;
-            Gui guiInstance = (Gui) SwingUtilities.getWindowAncestor(this);
-            //guiInstance.loadLevel(nextLevel);
-        } else {
-            // Game finished
-            JOptionPane.showMessageDialog(null, "Congratulations! You have completed all levels!");
-            //Controller.frame().dispose(); // Close the game window
-        }
-    }
-
+    /**
+     * Plays the background music for the game.
+     * The music will loop continuously until stopped.
+     */
     public void playBackgroundMusic() {
         File audioFile = new File("images/ThemeSong.wav");
         if (!audioFile.exists()) {
@@ -175,6 +157,9 @@ public class Render extends JPanel {
         }
     }
 
+    /**
+     * Stops the background music if it is currently playing.
+     */
     public void stopBackgroundMusic() {
         if (this.clip != null && this.clip.isRunning()) {
             this.clip.stop();
