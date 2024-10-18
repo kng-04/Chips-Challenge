@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Objects;
 
 public class Gui extends JFrame{
 
@@ -65,13 +66,7 @@ public class Gui extends JFrame{
         levelTimer.stop();
         saveManager.readConfig();
 
-        if(saveManager.fileToLoad != null){
-            System.out.println("loading previous");
-            createGame(saveManager.fileToLoad);
-        }
-        else {
-            createGame("levels/level1.json");
-        }
+        createGame(Objects.requireNonNullElse(saveManager.fileToLoad, "levels/level1.json"));
 
         setVisible(true);
     }
@@ -221,7 +216,6 @@ public class Gui extends JFrame{
 
         }
         for(KeyTile kt : game.getKeyInventory()){
-            System.out.println(kt.toString());
             keyInventory.remove(index);
             if(kt.getColor().equals(nz.ac.wgtn.swen225.lc.domain.Color.Green)){
                 var greenTileSlot = new JLabel(new ImageIcon(scaledGreenKeyImage));

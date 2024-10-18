@@ -44,11 +44,9 @@ public class Game {
     //================================Tiles Operations========================================
 
     public void replaceTileWith(Tile tile){
-        System.out.println(getTiles());
         Tile temp = null;
         for(Tile t : tiles){
             if(t.getX() == tile.getX() && tile.getY() == t.getY()){
-                System.out.println("Tile found");
                 temp = t;
             }
         }
@@ -101,7 +99,6 @@ public class Game {
         if(opt.isPresent()) {
             KeyTile keyTile = (KeyTile)opt.get();
             this.inventory.remove(keyTile);
-            System.out.println(this.getInventory());
             return true;
         } else {
             return false;
