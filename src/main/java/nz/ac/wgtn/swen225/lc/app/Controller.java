@@ -106,7 +106,7 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("switching to level 2");
-                //gui.createGame("levels/level2.json");
+                gui.createGame("levels/level2.json");
                 // TODO level2 is broken and needs to be fixed
 
             }

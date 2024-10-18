@@ -7,6 +7,11 @@
             "type": ".Chap",
             "x": 17,
             "y": 1
+        },
+        {
+            "type": ".Enemy",
+            "x": 6,
+            "y": 12
         }
     ],
     "inventory": [],
