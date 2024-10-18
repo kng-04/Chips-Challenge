@@ -88,7 +88,7 @@ public class Gui extends JFrame{
         }
 
         currentLevel = game.getCurrentLevel();
-        timeLabel.setForeground(Color.BLACK);
+        timeLabel.setForeground(Color.DARK_GRAY);
         levelTimer.reset(game.getSecondsLeft());
         updateLabels();
 
@@ -171,18 +171,8 @@ public class Gui extends JFrame{
     private JPanel createSidebar() {
         JPanel sidebar = new JPanel(new GridLayout(4, 1));
         levelLabel = new JLabel("Level: " + currentLevel, SwingConstants.CENTER);
-        var labelFont = new Font("Sans", Font.BOLD, 20);
         timeLabel = new JLabel("Time: 000", SwingConstants.CENTER);
         scoreLabel = new JLabel("Chips Left: 0", SwingConstants.CENTER);
-
-        levelLabel.setFont(labelFont);
-        timeLabel.setFont(labelFont);
-        scoreLabel.setFont(labelFont);
-
-        levelLabel.setForeground(Color.black);
-        timeLabel.setForeground(Color.black);
-        scoreLabel.setForeground(Color.black);
-
 
         sidebar.setBackground(Color.GRAY);
         sidebar.add(levelLabel);
