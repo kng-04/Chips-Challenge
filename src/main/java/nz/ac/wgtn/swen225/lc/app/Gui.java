@@ -53,7 +53,7 @@ public class Gui extends JFrame{
         fileChooser.setCurrentDirectory(new File("levels/saves")); // set to directory the program is run in
 
         loadMenu();
-        levelTimer = new LevelTimer(60, timeLabel);
+        levelTimer = new LevelTimer(this,60, timeLabel);
         levelTimer.stop();
         saveManager.readConfig();
         if(saveManager.fileToLoad != null){
@@ -84,6 +84,7 @@ public class Gui extends JFrame{
 
         currentLevel = game.getCurrentLevel();
         levelLabel.setText("Level: "+ currentLevel);
+        timeLabel.setForeground(Color.BLACK);
         levelTimer.reset(game.getSecondsLeft());
 
         // Holds the game images
