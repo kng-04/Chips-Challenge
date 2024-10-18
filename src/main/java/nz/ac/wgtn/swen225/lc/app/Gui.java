@@ -31,9 +31,6 @@ public class Gui extends JFrame{
     protected JLabel levelLabel;
     private JLabel timeLabel;
 
-    protected int currentLevel;
-    private JLabel levelLabel;
-
     private JLabel scoreLabel;
 
     private JPanel keyInventory;
@@ -145,6 +142,12 @@ public class Gui extends JFrame{
         pack();
     }
 
+    public void updateLabels(){
+        scoreLabel.setText("Chips Remaining: " + game.treasuresLeft());
+        levelLabel.setText("Level: " + game.getCurrentLevel());
+    }
+
+
     /**
      * Creates the sidebar panel containing game information.
      * The sidebar includes labels for the current level, time elapsed,
@@ -156,7 +159,7 @@ public class Gui extends JFrame{
         JPanel sidebar = new JPanel(new GridLayout(4, 1));
         levelLabel = new JLabel("Level: " + currentLevel, SwingConstants.CENTER);
         timeLabel = new JLabel("Time: 000", SwingConstants.CENTER);
-        var scoreLabel = new JLabel("Chips Left: 0", SwingConstants.CENTER);
+        scoreLabel = new JLabel("Chips Left: 0", SwingConstants.CENTER);
 
         sidebar.setBackground(Color.GRAY);
         sidebar.add(levelLabel);
