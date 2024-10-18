@@ -5,11 +5,6 @@ import nz.ac.wgtn.swen225.lc.app.LevelTimer;
 
 public class Chap extends Characters{
     boolean firstMove = true;
-    //private final LevelTimer levelTimer;
-
-    /*public Chap(LevelTimer levelTimer) {
-        this.levelTimer = levelTimer;
-    }*/
 
     public Chap(){ //Needed for Initialization with Json File
 
@@ -45,10 +40,5 @@ public class Chap extends Characters{
                 System.out.println("Chap cannot move onto that tile!");
             }
         }
-    }
-
-    public void setPosition(int x, int y) {
-        this.x = x;
-        this.y = y;
     }
 }

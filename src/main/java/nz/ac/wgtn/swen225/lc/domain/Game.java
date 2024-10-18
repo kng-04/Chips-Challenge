@@ -1,4 +1,11 @@
 package nz.ac.wgtn.swen225.lc.domain;
+import nz.ac.wgtn.swen225.lc.app.Gui;
+import nz.ac.wgtn.swen225.lc.persistency.Persistency;
+
+import javax.swing.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 
@@ -7,8 +14,7 @@ public class Game {
     private List<Characters> characters;
     private List<Tile> inventory, tiles;
 
-    private List<String> levelPaths;
-    private int currentLevelIndex;
+    private int currentLevel;
 
     public Game(int width, int height, int secondsLeft, List<Characters> characters, List<Tile> inventory, List<Tile> tiles) {
         this.width = width;
@@ -17,28 +23,10 @@ public class Game {
         this.characters = characters; //get(0) = chap
         this.inventory = inventory;
         this.tiles = tiles;
-        this.levelPaths = levelPaths;
-        this.currentLevelIndex = 0;
+        this.currentLevel = 1;
     }
-
     public Game(){
-        this.levelPaths = new ArrayList<>();
-        this.currentLevelIndex = 0;
-    }
-
-    public boolean hasNextLevel() {
-        return currentLevelIndex < levelPaths.size() - 1;
-    }
-
-    public void loadNextLevel() {
-        if (hasNextLevel()) {
-            currentLevelIndex++;
-            String nextLevelPath = levelPaths.get(currentLevelIndex);
-            // Load the next level using the nextLevelPath
-            System.out.println("Loading level: " + nextLevelPath); // Replace with actual loading logic
-        } else {
-            System.out.println("No more levels to load.");
-        }
+        this.currentLevel = 1;
     }
 
 
@@ -57,9 +45,6 @@ public class Game {
     public void addTile(Tile tile){
         this.tiles.add(tile);
     }
-
-
-
 
     public long treasuresLeft() {
         return this.tiles.stream().filter(t-> t instanceof TreasureTile).count();
@@ -113,9 +98,24 @@ public class Game {
         }
     }
 
-
-    public void completeLevel(){
-        //start level 2
+    public void completeLevel() {
+        currentLevel++;
+        String nextLevelFile = "levels/level" + currentLevel + ".json";
+        try {
+            Game nextGame = Persistency.loadGame(nextLevelFile);  // Load the next level game data
+            // Update game state with the new level data
+            this.width = nextGame.width;
+            this.height = nextGame.height;
+            this.secondsLeft = nextGame.secondsLeft;
+            this.characters = nextGame.characters;
+            this.inventory = nextGame.inventory;
+            this.tiles = nextGame.tiles;
+        } catch (IOException e) {
+            System.out.println("Unable to load next level (Game): " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Unable to load level (Game)" + currentLevel, "Error", JOptionPane.ERROR_MESSAGE);
+            // Reset the level to avoid proceeding if there's an error
+            currentLevel--;
+        }
     }
 
     public int getHeight() {

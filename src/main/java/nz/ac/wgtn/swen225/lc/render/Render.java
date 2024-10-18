@@ -1,10 +1,6 @@
 package nz.ac.wgtn.swen225.lc.render;
 
-import nz.ac.wgtn.swen225.lc.app.Gui;
-import nz.ac.wgtn.swen225.lc.app.Controller;
-import nz.ac.wgtn.swen225.lc.app.LevelTimer;
 import nz.ac.wgtn.swen225.lc.domain.*;
-import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -22,8 +18,6 @@ public class Render extends JPanel {
     private final Map<String, BufferedImage> images;
     private final List<CoordinateEntity> entities = new ArrayList<>();
     private final int IMG_SIZE = 32; // 32x32 tile size
-    //private final LevelTimer levelTimer;
-    private int currentLevel;
     public Clip clip;
     JPanel pauseLabelPanel;
 
@@ -34,8 +28,6 @@ public class Render extends JPanel {
 
         this.game = game;
         this.images = images;
-        //this.levelTimer = levelTimer;
-        this.currentLevel = currentLevel;
         setupPauseLabel();
         updateEntities();
     }
@@ -108,40 +100,6 @@ public class Render extends JPanel {
     }
     public void unpauseRender() {
         pauseLabelPanel.setVisible(false);
-    }
-
-    public void resetChapPosition() {
-        // Assuming Chap is a single instance in the game.
-        Characters character = game.getCharacters().get(0); // Get the Chap instance from the game
-        if (character instanceof Chap) {
-            Chap chap = (Chap) character;
-            chap.setPosition(0, 0); // Reset position to (0, 0) or to the starting position of the level
-            updateRender(); // Update the render to reflect the new position
-        }
-    }
-
-    public void onReachEndTile() {
-        //levelTimer.stop();
-        //long seconds = levelTimer.getElapsedTime();
-
-        // Show win screen with time taken
-        /*JOptionPane.showMessageDialog(null,
-                "Level Completed!\n" +
-                        "Time taken: " + seconds + " seconds.",
-                "Level Complete",
-                JOptionPane.INFORMATION_MESSAGE
-        );*/
-
-        // Advance to the next level
-        if (game.hasNextLevel()) {
-            int nextLevel = currentLevel + 1;
-            Gui guiInstance = (Gui) SwingUtilities.getWindowAncestor(this);
-            //guiInstance.loadLevel(nextLevel);
-        } else {
-            // Game finished
-            JOptionPane.showMessageDialog(null, "Congratulations! You have completed all levels!");
-            //Controller.frame().dispose(); // Close the game window
-        }
     }
 
     public void playBackgroundMusic() {

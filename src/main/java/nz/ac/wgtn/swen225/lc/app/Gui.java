@@ -67,8 +67,11 @@ public class Gui extends JFrame{
             JOptionPane.showMessageDialog(this, "Unable to load save file. Loading level 1 instead", "Error", JOptionPane.ERROR_MESSAGE);
             saveManager.writeConfig(""); // remove the invalid file name
             createGame("levels/level1.json");
+            return;
         }
+
         levelTimer.reset(game.getSecondsLeft());
+
         // Holds the game images
         Map<String, BufferedImage> images;
         try {
@@ -100,7 +103,7 @@ public class Gui extends JFrame{
 
         // Sidebar
         var sidebar = new JPanel(new GridLayout(4,1));
-        var levelLabel = new JLabel("Level: 1", SwingConstants.CENTER);
+        var levelLabel = new JLabel("Level: " + currentLevel, SwingConstants.CENTER);
         timeLabel = new JLabel("Time: 0", SwingConstants.CENTER);
         var scoreLabel = new JLabel("Chips Left: 0", SwingConstants.CENTER);
 
@@ -110,6 +113,23 @@ public class Gui extends JFrame{
         sidebar.add(scoreLabel);
 
         // Key inventory
+        createKeyInvent();
+        sidebar.add(keyInventory);
+
+        // SplitPane
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, gameArea, sidebar);
+        splitPane.setResizeWeight(0.67);
+        splitPane.setOneTouchExpandable(false);
+        splitPane.setEnabled(false); // Disable user resizing
+        add(splitPane);
+
+        createMenuBar();
+
+        setPreferredSize(new Dimension(1200,800));
+        pack();
+    }
+
+    private void createKeyInvent(){
         keyInventory = new JPanel(new GridLayout(2, 4,-45,-75));
         keyInventory.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         keyInventory.setBackground(Color.GRAY);
@@ -127,19 +147,6 @@ public class Gui extends JFrame{
             tileSlot.setPreferredSize(new Dimension(70, 70));
             keyInventory.add(tileSlot);
         }
-        sidebar.add(keyInventory);
-
-        // SplitPane
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, gameArea, sidebar);
-        splitPane.setResizeWeight(0.67);
-        splitPane.setOneTouchExpandable(false);
-        splitPane.setEnabled(false); // Disable user resizing
-        add(splitPane);
-
-        createMenuBar();
-
-        setPreferredSize(new Dimension(1200,800));
-        pack();
     }
 
     // Creates all elements relating to the menubar
