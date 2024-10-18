@@ -142,12 +142,16 @@ public class Gui extends JFrame{
         sidebar = createSidebar();
         gameArea.add(sidebar);
 
+        // Button panel
+        JPanel buttonPanel = createButtonPanel();
+
         // SplitPane
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, gameArea, sidebar);
         splitPane.setResizeWeight(0.67);
         splitPane.setOneTouchExpandable(false);
         splitPane.setEnabled(false); // Disable user resizing
         add(splitPane);
+        add(buttonPanel, BorderLayout.SOUTH);
 
         createMenuBar();
 
@@ -363,6 +367,61 @@ public class Gui extends JFrame{
 
         helpScreen.pack();
     }
+
+
+    private JButton pauseButton;
+    private JButton resumeButton;
+
+    private JPanel createButtonPanel() {
+        JPanel buttonPanel = new JPanel(); // Create a new panel for buttons
+        buttonPanel.setLayout(new FlowLayout()); // Set layout to FlowLayout for horizontal alignment
+
+        // Create buttons
+        JButton saveButton = new JButton("Save");
+        saveButton.addActionListener(e -> {
+            saveManager.autoSave();
+            JOptionPane.showMessageDialog(this, "Game saved successfully!");
+        });
+
+        JButton loadButton = new JButton("Load");
+        loadButton.addActionListener(e -> {
+            saveManager.loadSaveFilePicker();
+        });
+
+        pauseButton = new JButton("Pause");
+        resumeButton = new JButton("Resume");
+
+        // Initially, disable both buttons
+        pauseButton.setEnabled(false);
+        resumeButton.setEnabled(false);
+
+        pauseButton.addActionListener(e -> {
+            pauseGame(false);
+            pauseButton.setEnabled(false); // Disable Pause button after clicking
+            resumeButton.setEnabled(true); // Enable Resume button
+        });
+        resumeButton.addActionListener(e -> {
+            resumeGame();
+            resumeButton.setEnabled(false); // Disable Resume button after clicking
+            pauseButton.setEnabled(true); // Enable Pause button
+        });
+
+        JButton exitButton = new JButton("Exit");
+        exitButton.addActionListener(e -> {
+            saveManager.exitWithoutSaving();
+            System.exit(0); // Exit the application
+        });
+
+        // Add buttons to the panel
+        buttonPanel.add(saveButton);
+        buttonPanel.add(loadButton);
+        buttonPanel.add(pauseButton);
+        buttonPanel.add(resumeButton);
+        buttonPanel.add(exitButton);
+
+        return buttonPanel; // Return the button panel
+    }
+
 
     /**
      * Pauses the game and disables user input.
