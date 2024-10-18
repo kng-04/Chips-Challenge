@@ -23,6 +23,7 @@ public class LevelTimer {
         } else {
             swingTimer.stop(); // Stop the timer when it reaches 0
             timeLabel.setText("Time: 000");
+            timeLabel.setForeground(Color.RED);
             // TODO restart level when timer stops
         }
     }
