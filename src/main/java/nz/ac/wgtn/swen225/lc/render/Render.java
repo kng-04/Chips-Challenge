@@ -18,8 +18,12 @@ public class Render extends JPanel {
     private final Map<String, BufferedImage> images;
     private final List<CoordinateEntity> entities = new ArrayList<>();
     private final int IMG_SIZE = 32; // 32x32 tile size
+    //private final LevelTimer levelTimer;
+    private int currentLevel;
     public Clip clip;
-    JPanel pauseLabelPanel;
+    private JPanel pauseLabelPanel;
+    private JPanel startLevelLabelPanel;
+
 
     /**
      * Constructs a Render object with the specified game, images, and current level.
@@ -37,6 +41,7 @@ public class Render extends JPanel {
         this.game = game;
         this.images = images;
         setupPauseLabel();
+        setupStartLevelLabel();
         updateEntities();
     }
 
@@ -63,6 +68,20 @@ public class Render extends JPanel {
         pauseLabelPanel.add(pauseLabel);
         this.add(pauseLabelPanel);
         pauseLabelPanel.setVisible(false);
+    }
+    /**
+     * Sets up the panel that displays the start level label.
+     * The label informs the player that the level has not started.
+     */
+    private void setupStartLevelLabel(){
+        startLevelLabelPanel = new JPanel();
+        startLevelLabelPanel.setBackground(Color.WHITE);
+        var startLevelLabel = new JLabel("Press ESC to start the level");
+        startLevelLabel.setForeground(Color.RED);
+        startLevelLabel.setFont(new Font("Sans", Font.BOLD, 24));
+        startLevelLabelPanel.add(startLevelLabel);
+        this.add(startLevelLabelPanel);
+        startLevelLabelPanel.setVisible(false);
     }
 
     @Override
@@ -111,12 +130,10 @@ public class Render extends JPanel {
         repaint();
     }
 
-    public void pauseRender() {
-        pauseLabelPanel.setVisible(true);
-    }
-    public void unpauseRender() {
-        pauseLabelPanel.setVisible(false);
-    }
+    public void showPauseRenderLabel() {pauseLabelPanel.setVisible(true);}
+    public void hidePauseRenderLabel() {pauseLabelPanel.setVisible(false);}
+    public void showStartLevelLabel() {startLevelLabelPanel.setVisible(true);}
+    public void hideStartLevelLabel() {startLevelLabelPanel.setVisible(false);}
 
     /**
      * Plays the background music for the game.

@@ -1,6 +1,7 @@
 package nz.ac.wgtn.swen225.lc.app;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class LevelTimer {
     private final Timer swingTimer;
@@ -19,10 +20,11 @@ public class LevelTimer {
     private void updateTimer() {
         if (remainingSeconds > 0) {
             remainingSeconds--;
-            timeLabel.setText(String.format("Time: %02d", remainingSeconds));
+            timeLabel.setText(String.format("Time: %03d", remainingSeconds));
         } else {
             swingTimer.stop(); // Stop the timer when it reaches 0
             timeLabel.setText("Time: 000");
+            timeLabel.setForeground(Color.RED);
             // TODO restart level when timer stops
         }
     }
@@ -39,7 +41,7 @@ public class LevelTimer {
     public void reset(int seconds) {
         stop();
         this.remainingSeconds = seconds;
-        timeLabel.setText(String.format("Time: %02d", remainingSeconds));
+        timeLabel.setText(String.format("Time: %03d", remainingSeconds));
         start();
     }
 

@@ -19,7 +19,7 @@ public class SaveManager {
 
     // saves using date and time instead of file picker
     public void autoSave(){
-        gui.pauseGame();
+        gui.pauseGame(false);
         Gui.game.setSecondsLeft(gui.levelTimer.getRemainingSeconds());
         LocalDateTime time = LocalDateTime.now();
         String fileName = time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
@@ -77,13 +77,13 @@ public class SaveManager {
         System.exit(0);
     }
     public void loadSaveFilePicker() {
-        gui.pauseGame();
+        gui.pauseGame(false);
         int returnVal = gui.fileChooser.showOpenDialog(gui);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
             String fileName = gui.fileChooser.getSelectedFile().getAbsolutePath();
             gui.createGame(fileName);
             gui.resumeGame();
-            gui.pauseGame();
+            gui.pauseGame(true);
 
         } else {
             JOptionPane.showMessageDialog(gui, "Loading Canceled");
@@ -92,5 +92,7 @@ public class SaveManager {
     public void resetLevel(){
         gui.levelTimer.stop();
         gui.createGame("levels/level"+gui.currentLevel+".json");
+        gui.resumeGame();
+        gui.pauseGame(true);
     }
 }

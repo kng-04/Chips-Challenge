@@ -99,7 +99,7 @@ public class Gui extends JFrame{
         // Start playing background music
         renderPanel.playBackgroundMusic();
 
-        pauseGame();
+        pauseGame(true);
     }
 
     /**
@@ -116,7 +116,7 @@ public class Gui extends JFrame{
         // Sidebar
         var sidebar = new JPanel(new GridLayout(4,1));
         var levelLabel = new JLabel("Level: " + currentLevel, SwingConstants.CENTER);
-        timeLabel = new JLabel("Time: 0", SwingConstants.CENTER);
+        timeLabel = new JLabel("Time: 000", SwingConstants.CENTER);
         var scoreLabel = new JLabel("Chips Left: 0", SwingConstants.CENTER);
 
         sidebar.setBackground(Color.GRAY);
@@ -178,7 +178,7 @@ public class Gui extends JFrame{
         var miPause = new JMenuItem("Pause");
         var miPlay = new JMenuItem("Play");
         miQuit.addActionListener(e -> saveManager.exitWithoutSaving());
-        miPause.addActionListener(e -> pauseGame());
+        miPause.addActionListener(e -> pauseGame(false));
         miPlay.addActionListener(e -> resumeGame());
         mGame.add(miPlay);
         mGame.add(miPause);
@@ -269,13 +269,18 @@ public class Gui extends JFrame{
      * Pauses the game and disables user input.
      */
     private boolean isPaused = false;
-    protected void pauseGame(){
+    protected void pauseGame(boolean isNewLevel){
         if (isPaused) {return;}
         isPaused = true;
 
         controller.disableUserInput();
         renderPanel.stopBackgroundMusic();
-        renderPanel.pauseRender();
+        if(isNewLevel){
+            renderPanel.showStartLevelLabel();
+        } else {
+            renderPanel.showPauseRenderLabel();
+        }
+
         levelTimer.stop();
 
     }
@@ -289,7 +294,8 @@ public class Gui extends JFrame{
 
         controller.enableUserInput();
         renderPanel.playBackgroundMusic();
-        renderPanel.unpauseRender();
+        renderPanel.hidePauseRenderLabel();
+        renderPanel.hideStartLevelLabel();
         levelTimer.start();
     }
 }

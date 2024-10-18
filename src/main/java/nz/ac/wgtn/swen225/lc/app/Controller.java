@@ -116,7 +116,7 @@ public class Controller {
         actionMap.put("pauseGame", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gui.pauseGame();
+                gui.pauseGame(false);
             }
         });
         // ESC resume game
