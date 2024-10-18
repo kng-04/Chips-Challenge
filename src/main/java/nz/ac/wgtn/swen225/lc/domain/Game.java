@@ -168,6 +168,13 @@ public class Game {
     public int getHeight() { return height; }
     public int getWidth() { return width; }
 
+    public List<KeyTile> getKeyInventory(){
+        return this.inventory.stream()
+                .filter(t-> t instanceof KeyTile)
+                .map(t -> (KeyTile) t)
+                .toList();
+    }
+
     public int getSecondsLeft() { return secondsLeft; }
     public void setSecondsLeft(int seconds) { secondsLeft = seconds;}
 
