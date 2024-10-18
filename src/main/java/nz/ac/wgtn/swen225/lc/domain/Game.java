@@ -134,6 +134,7 @@ public class Game {
      */
     public void completeLevel() {
         currentLevel++;
+
         String nextLevelFile = "levels/level" + currentLevel + ".json";
         try {
             Game nextGame = Persistency.loadGame(nextLevelFile);  // Load the next level game data
@@ -165,6 +166,8 @@ public class Game {
         return secondsLeft;
     }
     public void setSecondsLeft(int seconds) { secondsLeft = seconds;}
+
+    public int getCurrentLevel(){return currentLevel;}
 
     public List<Characters> getCharacters() {
         return characters;
