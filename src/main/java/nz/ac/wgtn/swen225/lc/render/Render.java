@@ -18,8 +18,6 @@ public class Render extends JPanel {
     private final Map<String, BufferedImage> images;
     private final List<CoordinateEntity> entities = new ArrayList<>();
     private final int IMG_SIZE = 32; // 32x32 tile size
-    //private final LevelTimer levelTimer;
-    private int currentLevel;
     public Clip clip;
     private JPanel pauseLabelPanel;
     private JPanel startLevelLabelPanel;
@@ -145,6 +143,8 @@ public class Render extends JPanel {
             System.out.println("Audio file not found: " + audioFile.getAbsolutePath());
             return;
         }
+
+        if (this.clip != null && this.clip.isRunning()) { return; }
 
         try {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
