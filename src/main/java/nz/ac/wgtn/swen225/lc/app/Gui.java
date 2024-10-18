@@ -98,7 +98,7 @@ public class Gui extends JFrame{
 
         // Start playing background music
         renderPanel.playBackgroundMusic();
-
+        resumeGame();
         pauseGame(true);
     }
 
