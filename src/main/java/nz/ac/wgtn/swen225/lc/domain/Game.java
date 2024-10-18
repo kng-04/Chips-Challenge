@@ -1,4 +1,5 @@
 package nz.ac.wgtn.swen225.lc.domain;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 
 import javax.swing.*;
@@ -10,7 +11,7 @@ public class Game {
     private int width, height, secondsLeft;
     private List<Characters> characters;
     private List<Tile> inventory, tiles;
-
+    @JsonIgnore
     private int currentLevel;
 
     /**
