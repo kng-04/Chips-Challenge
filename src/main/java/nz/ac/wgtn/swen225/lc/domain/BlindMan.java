@@ -3,7 +3,7 @@ package nz.ac.wgtn.swen225.lc.domain;
 import nz.ac.wgtn.swen225.lc.app.Gui;
 
 import java.util.Random;
-import javax.swing.Timer;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

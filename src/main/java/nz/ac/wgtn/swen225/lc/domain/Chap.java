@@ -3,6 +3,7 @@ package nz.ac.wgtn.swen225.lc.domain;
 
 import nz.ac.wgtn.swen225.lc.app.LevelTimer;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,9 @@ public class Chap extends Characters{
                 this.x = newX;
                 this.y = newY;
                 tile.interact(this, game); // Interact with the tile Chap moves onto
-                if(blindMan!=null){blindMan.interact();}
+                if(blindMan!=null){
+                    blindMan.interact();
+                }
 
                 // Start timer on the first move
                 if (firstMove) {
@@ -52,7 +55,18 @@ public class Chap extends Characters{
                 // Add FreeTile only if firstMove is true
                 game.addTile(new FreeTile(this.x - dx, this.y - dy));
             } else {
+
                 System.out.println("Chap cannot move onto that tile!");
+            }
+        }else{
+            if(blindManPresent){ //If a BlindMan is in the tile
+                ImageIcon icon = null;
+                try {icon = new ImageIcon("images/BlindMan.jpg");}
+                catch (Exception e) {e.printStackTrace();}
+
+                JOptionPane.showMessageDialog(null,
+                        "Blind Man Sam:\n I've never seen this place in my life, I'm going to rest now.",
+                        "Conversation", JOptionPane.INFORMATION_MESSAGE, icon);
             }
         }
     }
