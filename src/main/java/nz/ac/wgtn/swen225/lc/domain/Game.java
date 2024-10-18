@@ -1,10 +1,7 @@
 package nz.ac.wgtn.swen225.lc.domain;
-import nz.ac.wgtn.swen225.lc.app.Gui;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 
 import javax.swing.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -16,6 +13,16 @@ public class Game {
 
     private int currentLevel;
 
+    /**
+     * Constructs a Game instance with specified parameters.
+     *
+     * @param width       the width of the game board
+     * @param height      the height of the game board
+     * @param secondsLeft the initial time left for the game
+     * @param characters  the list of characters in the game
+     * @param inventory   the initial inventory of the player
+     * @param tiles       the list of tiles present in the game
+     */
     public Game(int width, int height, int secondsLeft, List<Characters> characters, List<Tile> inventory, List<Tile> tiles) {
         this.width = width;
         this.height = height;
@@ -25,10 +32,15 @@ public class Game {
         this.tiles = tiles;
         this.currentLevel = 1;
     }
+
+    /**
+     * Default constructor initializing the game with the first level.
+     */
     public Game(){
         this.currentLevel = 1;
     }
 
+    //================================Tiles Operations========================================
 
     public void replaceTileWith(Tile tile){
         System.out.println(getTiles());
@@ -44,15 +56,6 @@ public class Game {
 
     public void addTile(Tile tile){
         this.tiles.add(tile);
-    }
-
-    public long treasuresLeft() {
-        return this.tiles.stream().filter(t-> t instanceof TreasureTile).count();
-    }
-
-    //returns amount of treasures picked up by chap
-    public long treasuresPickedUp(){
-        return this.inventory.stream().filter(t-> t instanceof TreasureTile).count();
     }
 
     public Tile findTile(int x, int y) {
@@ -84,6 +87,12 @@ public class Game {
         }
     }
 
+    /**
+     * Uses a key of a specified color from the inventory.
+     *
+     * @param color the color of the key to use
+     * @return true if the key was successfully used, false otherwise
+     */
     public boolean useKey(Color color){
         Optional<Tile> opt = this.inventory.stream()
                 .filter(t-> t instanceof KeyTile && ((KeyTile)t).getColor().equals(color))
@@ -98,6 +107,31 @@ public class Game {
         }
     }
 
+    //================================Treasures Operations========================================
+    /**
+     * Counts the number of TreasureTiles left in the game.
+     *
+     * @return the count of TreasureTiles still present
+     */
+    public long treasuresLeft() {
+        return this.tiles.stream().filter(t-> t instanceof TreasureTile).count();
+    }
+
+    /**
+     * Returns the number of TreasureTiles collected by the player.
+     *
+     * @return the count of TreasureTiles in the inventory
+     */
+    public long treasuresPickedUp(){
+        return this.inventory.stream().filter(t-> t instanceof TreasureTile).count();
+    }
+
+    //================================Level Operations========================================
+
+    /**
+     * Completes the current level and loads the next level.
+     * Updates the game state with the new level data.
+     */
     public void completeLevel() {
         currentLevel++;
         String nextLevelFile = "levels/level" + currentLevel + ".json";
@@ -118,10 +152,11 @@ public class Game {
         }
     }
 
+    //================================Getters Operations========================================
+
     public int getHeight() {
         return height;
     }
-
     public int getWidth() {
         return width;
     }

@@ -32,6 +32,10 @@ public class Gui extends JFrame{
 
     boolean isHelpMenuOpen = false;
 
+    /**
+     * Constructor for the Gui class, setting up the main game window.
+     * Initializes game components, file chooser, and loads the main menu.
+     */
     Gui() {
         assert SwingUtilities.isEventDispatchThread();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,6 +64,11 @@ public class Gui extends JFrame{
         setVisible(true);
     }
 
+    /**
+     * Creates a new game from a given JSON file.
+     *
+     * @param jsonFileName the JSON file containing the level data.
+     */
     protected void createGame(String jsonFileName) {
         try {
             game = Persistency.loadGame(jsonFileName);
@@ -93,6 +102,9 @@ public class Gui extends JFrame{
         pauseGame();
     }
 
+    /**
+     * Loads the main menu layout and UI components.
+     */
     private void loadMenu(){
         setTitle("Larry Croft's Adventures");
         // Main Screen
@@ -129,6 +141,9 @@ public class Gui extends JFrame{
         pack();
     }
 
+    /**
+     * Creates the key inventory panel.
+     */
     private void createKeyInvent(){
         keyInventory = new JPanel(new GridLayout(2, 4,-45,-75));
         keyInventory.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -149,7 +164,9 @@ public class Gui extends JFrame{
         }
     }
 
-    // Creates all elements relating to the menubar
+    /**
+     * Creates the menu bar, including game, level, and help submenus.
+     */
     private void createMenuBar(){
         // MenuBar
         var menuBar = new JMenuBar();
@@ -248,8 +265,10 @@ public class Gui extends JFrame{
         helpScreen.pack();
     }
 
+    /**
+     * Pauses the game and disables user input.
+     */
     private boolean isPaused = false;
-
     protected void pauseGame(){
         if (isPaused) {return;}
         isPaused = true;
@@ -260,6 +279,10 @@ public class Gui extends JFrame{
         levelTimer.stop();
 
     }
+
+    /**
+     * Resumes the game and enables user input.
+     */
     protected void resumeGame(){
         if(!isPaused){return;}
         isPaused = false;
