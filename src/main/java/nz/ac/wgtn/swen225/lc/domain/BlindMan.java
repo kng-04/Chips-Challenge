@@ -3,7 +3,7 @@ package nz.ac.wgtn.swen225.lc.domain;
 import nz.ac.wgtn.swen225.lc.app.Gui;
 
 import java.util.Random;
-import javax.swing.Timer;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,7 +22,7 @@ public class BlindMan extends Characters{
         startMovement();
     }
 
-    public void setGame(Game game){this.game = game;System.out.println(game.getCharacters());}
+    public void setGame(Game game){this.game = game;}
 
     public void startMovement(){
 
@@ -70,7 +70,6 @@ public class BlindMan extends Characters{
             if (game.getChap().getX() == tempX && game.getChap().getY() == tempY) {
                 interacted = true;
                 blindManTimer.stop();
-                System.out.println("Chap has connected ");
                 return true;  // Chap is found on a surrounding tile
             }
         }
