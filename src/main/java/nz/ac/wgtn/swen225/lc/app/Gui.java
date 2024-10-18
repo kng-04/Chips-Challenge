@@ -31,9 +31,6 @@ public class Gui extends JFrame{
     protected JLabel levelLabel;
     private JLabel timeLabel;
 
-    protected int currentLevel;
-    private JLabel levelLabel;
-
     private JPanel keyInventory;
 
     protected final JFileChooser fileChooser = new JFileChooser();
