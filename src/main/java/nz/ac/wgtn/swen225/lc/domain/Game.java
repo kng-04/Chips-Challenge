@@ -1,4 +1,5 @@
 package nz.ac.wgtn.swen225.lc.domain;
+import nz.ac.wgtn.swen225.lc.app.Gui;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 
 import javax.swing.*;
@@ -132,7 +133,16 @@ public class Game {
      * Completes the current level and loads the next level.
      * Updates the game state with the new level data.
      */
-    public void completeLevel() {
+    public void completeLevel(Gui currentGui) {
+        if (currentLevel == 2) {
+            currentGui.close();
+            // Show the game over screen after completing level 2
+            SwingUtilities.invokeLater(() -> {
+                Gui newGui = new Gui();
+                newGui.showGameOverScreen();
+            });
+            return;
+        }
         currentLevel++;
         String nextLevelFile = "levels/level" + currentLevel + ".json";
         try {
@@ -154,30 +164,16 @@ public class Game {
 
     //================================Getters Operations========================================
 
-    public int getHeight() {
-        return height;
-    }
-    public int getWidth() {
-        return width;
-    }
+    public int getHeight() { return height; }
+    public int getWidth() { return width; }
 
-    public int getSecondsLeft() {
-        return secondsLeft;
-    }
+    public int getSecondsLeft() { return secondsLeft; }
     public void setSecondsLeft(int seconds) { secondsLeft = seconds;}
 
-    public List<Characters> getCharacters() {
-        return characters;
-    }
+    public List<Characters> getCharacters() { return characters; }
+    public List<Tile> getInventory() { return inventory; }
 
-    public List<Tile> getInventory() {
-        return inventory;
-    }
-
-    public List<Tile> getTiles() {
-        return tiles;
-    }
-
+    public List<Tile> getTiles() { return tiles; }
 
     @Override
     public boolean equals(Object o) {

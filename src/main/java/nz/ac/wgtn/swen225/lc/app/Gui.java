@@ -21,9 +21,13 @@ public class Gui extends JFrame{
     public SaveManager saveManager;
     private final Controller controller;
 
+    private static Gui currentInstance;
+
     private JPanel gameArea; // The panel where the game will render
+    private JPanel sidebar;
+
     protected LevelTimer levelTimer;
-    protected int currentLevel = 1; // TODO needs to be updated
+    protected int currentLevel = 1;// TODO needs to be updated
     private JLabel timeLabel;
 
     private JPanel keyInventory;
@@ -36,8 +40,9 @@ public class Gui extends JFrame{
      * Constructor for the Gui class, setting up the main game window.
      * Initializes game components, file chooser, and loads the main menu.
      */
-    Gui() {
+    public Gui() {
         assert SwingUtilities.isEventDispatchThread();
+        currentInstance = this;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         saveManager = new SaveManager(this);
@@ -53,6 +58,7 @@ public class Gui extends JFrame{
         levelTimer = new LevelTimer(60, timeLabel);
         levelTimer.stop();
         saveManager.readConfig();
+
         if(saveManager.fileToLoad != null){
             System.out.println("loading previous");
             createGame(saveManager.fileToLoad);
@@ -114,7 +120,31 @@ public class Gui extends JFrame{
         gameArea.add(title);
 
         // Sidebar
-        var sidebar = new JPanel(new GridLayout(4,1));
+        sidebar = createSidebar();
+        gameArea.add(sidebar);
+
+        // SplitPane
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, gameArea, sidebar);
+        splitPane.setResizeWeight(0.67);
+        splitPane.setOneTouchExpandable(false);
+        splitPane.setEnabled(false); // Disable user resizing
+        add(splitPane);
+
+        createMenuBar();
+
+        setPreferredSize(new Dimension(1200,800));
+        pack();
+    }
+
+    /**
+     * Creates the sidebar panel containing game information.
+     * The sidebar includes labels for the current level, time elapsed,
+     * chips left, and a key inventory panel.
+     *
+     * @return a JPanel containing the sidebar components.
+     */
+    private JPanel createSidebar() {
+        JPanel sidebar = new JPanel(new GridLayout(4, 1));
         var levelLabel = new JLabel("Level: " + currentLevel, SwingConstants.CENTER);
         timeLabel = new JLabel("Time: 0", SwingConstants.CENTER);
         var scoreLabel = new JLabel("Chips Left: 0", SwingConstants.CENTER);
@@ -128,17 +158,7 @@ public class Gui extends JFrame{
         createKeyInvent();
         sidebar.add(keyInventory);
 
-        // SplitPane
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, gameArea, sidebar);
-        splitPane.setResizeWeight(0.67);
-        splitPane.setOneTouchExpandable(false);
-        splitPane.setEnabled(false); // Disable user resizing
-        add(splitPane);
-
-        createMenuBar();
-
-        setPreferredSize(new Dimension(1200,800));
-        pack();
+        return sidebar;
     }
 
     /**
@@ -292,4 +312,94 @@ public class Gui extends JFrame{
         renderPanel.unpauseRender();
         levelTimer.start();
     }
+
+    /**
+     * Displays the "Game Over" screen with a congratulatory message, buttons for restarting or exiting,
+     * and stops the background music. It also removes any sidebar and clears the game area.
+     */
+    public void showGameOverScreen() {
+        // Clear the game area completely
+        gameArea.removeAll();
+        gameArea.revalidate();
+
+        // Remove sidebar from gameOver screen
+        if (sidebar != null && sidebar.getParent() != null) {
+            Container parent = sidebar.getParent();
+            parent.remove(sidebar);
+        }
+
+        // Stop the background music
+        if (renderPanel != null) { renderPanel.stopBackgroundMusic(); }
+
+        // Create the game over panel
+        JPanel gameOverPanel = new JPanel(new BorderLayout());
+        gameOverPanel.setBackground(Color.BLACK);
+        gameOverPanel.setPreferredSize(new Dimension(1300, 730));
+
+        // Create Title: -- Game Over --
+        JLabel messageLabel = new JLabel("-- Game Over --", SwingConstants.CENTER);
+        messageLabel.setFont(new Font("Sans", Font.BOLD, 40));
+        messageLabel.setForeground(Color.WHITE);
+        messageLabel.setBorder(BorderFactory.createEmptyBorder(260, 0, 0, 0)); //padding
+
+        // Create end game message
+        String congratMessages = "<html><div style='text-align: center;'>Well done, adventurer!<br>" +
+                "Congratulations on completing the level!<br>" +
+                "You've collected all the keys and treasures and escaped!<br>" +
+                "You did it! On to the next adventure!</div></html>";
+
+        JLabel congratLabel = new JLabel(congratMessages, SwingConstants.CENTER);
+        congratLabel.setFont(new Font("Sans", Font.PLAIN, 15));
+        congratLabel.setForeground(Color.WHITE);
+        congratLabel.setBorder(BorderFactory.createEmptyBorder(-150, 0, 0, 0)); //padding
+
+        // Create buttonPanel
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(Color.BLACK);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 25, 0)); //padding
+
+        // Buttons for restarting
+        JButton restartButton = new JButton("Restart");
+        restartButton.setPreferredSize(new Dimension(140, 50)); //size of button
+        restartButton.setFont(new Font("Sans", Font.BOLD, 20));
+        restartButton.addActionListener(e -> resetGame());
+
+        // Buttons for exiting
+        JButton exitButton = new JButton("Exit");
+        exitButton.setPreferredSize(new Dimension(140, 50)); //size of button
+        exitButton.setFont(new Font("Sans", Font.BOLD, 20));
+        exitButton.addActionListener(e -> System.exit(0));
+
+        buttonPanel.add(restartButton);
+        buttonPanel.add(exitButton);
+        gameOverPanel.add(messageLabel, BorderLayout.NORTH);
+        gameOverPanel.add(congratLabel);
+        gameOverPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        gameArea.add(gameOverPanel); // Add the game over panel to the game area
+        gameArea.revalidate(); // Refresh the game area to show the new components
+        gameArea.repaint();
+    }
+
+    private void resetGame() {
+        gameArea.removeAll();
+
+        // Create and add the sidebar
+        sidebar = createSidebar();
+        gameArea.add(sidebar);
+
+        // Reset the current level and clear the game data
+        currentLevel = 1;
+        game = new Game();
+        levelTimer.reset(60);
+
+        createGame("levels/level1.json"); // Start a new game with the initial level
+
+        gameArea.revalidate();
+        gameArea.repaint();
+    }
+
+    public void close() { this.dispose(); }
+    public static Gui getCurrentInstance() { return currentInstance; }
+
 }
