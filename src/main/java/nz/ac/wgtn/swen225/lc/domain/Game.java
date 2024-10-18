@@ -39,7 +39,7 @@ public class Game {
      * Default constructor initializing the game with the first level.
      */
     public Game(){
-        this.currentLevel = 1;
+        this(0, 0, 60, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     }
 
     //================================Tiles Operations========================================
@@ -133,23 +133,18 @@ public class Game {
      */
     public void completeLevel(Gui currentGui) {
         if (currentLevel == 1) {
-            currentLevel++;
-            // Proceed to next level...
-        } else
-            if (currentLevel == 2) {
-            currentGui.close();
+            currentLevel++; // Switch to Level 2
 
-            // Show the game over screen after completing level 2
-            SwingUtilities.invokeLater(() -> {
-                Gui newGui = new Gui();
-                newGui.showGameOverScreen();
-            });
-            return;
+            secondsLeft = getLevelTimeLimit(currentLevel);
+            loadLevelData(currentGui, "levels/level" + currentLevel + ".json");
+        } else if (currentLevel == 2) {
+            currentGui.showGameOverScreen();
         }
+    }
 
-        String nextLevelFile = "levels/level" + currentLevel + ".json";
+    private void loadLevelData(Gui currentGui, String levelFile) {
         try {
-            Game nextGame = Persistency.loadGame(nextLevelFile);  // Load the next level game data
+            Game nextGame = Persistency.loadGame(levelFile);
             // Update game state with the new level data
             this.width = nextGame.width;
             this.height = nextGame.height;
@@ -158,10 +153,9 @@ public class Game {
             this.inventory = nextGame.inventory;
             this.tiles = nextGame.tiles;
         } catch (IOException e) {
-            System.out.println("Unable to load next level (Game): " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "Unable to load level (Game)" + currentLevel, "Error", JOptionPane.ERROR_MESSAGE);
-            // Reset the level to avoid proceeding if there's an error
-            currentLevel--;
+            System.out.println("Unable to load next level: " + e.getMessage());
+            JOptionPane.showMessageDialog(currentGui, "Unable to load level " + currentLevel, "Error", JOptionPane.ERROR_MESSAGE);
+            currentLevel--; // Reset to previous level on error
         }
     }
 
@@ -181,6 +175,8 @@ public class Game {
     public void setSecondsLeft(int seconds) { secondsLeft = seconds;}
 
     public int getCurrentLevel() { return currentLevel; }
+    public void setCurrentLevel(int level) { this.currentLevel = level; }
+
     public List<Characters> getCharacters() { return characters; }
     public List<Tile> getInventory() { return inventory; }
 

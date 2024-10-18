@@ -88,6 +88,8 @@ public class Gui extends JFrame{
         }
 
         currentLevel = game.getCurrentLevel();
+        setCurrentLevel(currentLevel);
+
         timeLabel.setForeground(Color.BLACK);
         levelTimer.reset(game.getSecondsLeft());
         updateLabels();
