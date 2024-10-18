@@ -70,6 +70,7 @@ public class Render extends JPanel {
         List<CoordinateEntity> entities = new ArrayList<>();
         entities.addAll(game.getTiles());
         entities.addAll(game.getCharacters());
+        System.out.println("get Characters = " + game.getCharacters());
 
         // Render each entity on the board
         for (CoordinateEntity entity : entities) {

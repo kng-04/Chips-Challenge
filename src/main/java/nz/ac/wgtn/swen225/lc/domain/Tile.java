@@ -39,6 +39,7 @@ public abstract class Tile extends CoordinateEntity {
 
     public abstract void interact(Chap chap, Game game); // Handle interactions when Chap steps on the tile
 
+
     @Override
     public String toString() {
         return new StringJoiner(", ", Tile.class.getSimpleName() + "[", "]")

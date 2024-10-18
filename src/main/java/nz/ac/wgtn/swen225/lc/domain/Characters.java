@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonTypeInfo(use = JsonTypeInfo.Id.MINIMAL_CLASS, property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(Chap.class),
-        @JsonSubTypes.Type(Enemy.class)
+        @JsonSubTypes.Type(BlindMan.class)
 })
 public abstract class Characters extends CoordinateEntity{
 

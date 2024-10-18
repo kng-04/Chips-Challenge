@@ -152,6 +152,32 @@ public class Game {
                 .orElseThrow(() -> new IllegalArgumentException("No Chap found!"));  // Handle if no Chap is found
     }
 
+    public void setGame(){
+        for(Characters ch : characters){
+            if(ch instanceof BlindMan){
+                ((BlindMan) ch).setGame(this);
+                ((BlindMan) ch).startMovement();
+                this.getChap().addBlindMan((BlindMan)ch);
+            }
+        }
+    }
+
+    public void disableNPC(){
+        for(Characters ch : characters){
+            if(ch instanceof BlindMan){
+                ((BlindMan) ch).setCannotMove();
+            }
+        }
+    }
+
+    public void enableNPC(){
+        for(Characters ch : characters){
+            if(ch instanceof BlindMan){
+                ((BlindMan) ch).setCanMove();
+            }
+        }
+    }
+
 
     @Override
     public boolean equals(Object o) {

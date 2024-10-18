@@ -3,14 +3,13 @@ package nz.ac.wgtn.swen225.lc.domain;
 
 import nz.ac.wgtn.swen225.lc.app.LevelTimer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Chap extends Characters{
     boolean firstMove = true;
     //private final LevelTimer levelTimer;
-
-    /*public Chap(LevelTimer levelTimer) {
-        this.levelTimer = levelTimer;
-    }*/
-
+    private BlindMan blindMan;
     public Chap(){ //Needed for Initialization with Json File
 
     }
@@ -26,23 +25,28 @@ public class Chap extends Characters{
     If first move replace chap tile on initialization with new Free Tile
      */
     public void move(int dx, int dy, Game game) {
-
+        boolean blindManPresent = false;
         int newX = this.x + dx;
         int newY = this.y + dy;
+        if(blindMan!=null){
+             blindManPresent = (blindMan.getX() == newX && blindMan.getY()== newY);
+        }
 
-        if (newX >= 0 && newX < game.getWidth() && newY >= 0 && newY < game.getHeight()) {
+        if (newX >= 0 && newX < game.getWidth() && newY >= 0 && newY < game.getHeight() && !blindManPresent) {
             Tile tile = game.findTile(newX, newY);
-            if (tile.canMoveInto()) {
+            if (tile.canMoveInto() ) {
                 lastX = this.x;
                 lastY = this.y;
                 this.x = newX;
                 this.y = newY;
                 tile.interact(this, game); // Interact with the tile Chap moves onto
+                if(blindMan!=null){blindMan.interact();}
 
                 // Start timer on the first move
                 if (firstMove) {
                     //levelTimer.start();
                     firstMove = false;
+                    game.setGame();
                 }
 
                 // Add FreeTile only if firstMove is true
@@ -57,6 +61,8 @@ public class Chap extends Characters{
         this.x = x;
         this.y = y;
     }
+
+    public void addBlindMan(BlindMan b){this.blindMan = b;}
 
     public int getLastX(){return this.lastX;}
     public int getLastY(){return this.lastY;}
