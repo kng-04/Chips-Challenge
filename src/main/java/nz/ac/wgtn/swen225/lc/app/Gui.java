@@ -269,7 +269,7 @@ public class Gui extends JFrame{
      * Pauses the game and disables user input.
      */
     private boolean isPaused = false;
-    protected void pauseGame(){
+    protected void pauseGame(boolean isNewLevel){
         if (isPaused) {return;}
         isPaused = true;
 
