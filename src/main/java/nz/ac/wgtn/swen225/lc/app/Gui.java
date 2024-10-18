@@ -119,7 +119,21 @@ public class Gui extends JFrame{
     private void loadMenu(){
         setTitle("Larry Croft's Adventures");
         // Main Screen
-        gameArea = new JPanel(); // Game will render here
+        BufferedImage backgroundImage = null;
+        try {
+            backgroundImage = ImageIO.read(new File("images/background.jpg"));
+        } catch (IOException ignored) {
+        }
+        BufferedImage finalBackgroundImage = backgroundImage;
+        gameArea = new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g){
+                super.paintComponent(g);
+                if (finalBackgroundImage != null) {
+                    g.drawImage(finalBackgroundImage, 0, 0, this);
+                }
+            }
+        }; // Game will render here
         var title = new JLabel("Game Area");
         gameArea.setBackground(Color.WHITE);
         gameArea.add(title);
