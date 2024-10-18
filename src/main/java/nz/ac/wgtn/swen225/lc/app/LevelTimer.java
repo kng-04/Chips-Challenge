@@ -1,6 +1,7 @@
 package nz.ac.wgtn.swen225.lc.app;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class LevelTimer {
     private final Timer swingTimer;
