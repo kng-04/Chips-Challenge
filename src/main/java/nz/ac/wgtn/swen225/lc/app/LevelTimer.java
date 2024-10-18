@@ -23,6 +23,7 @@ public class LevelTimer {
         if (remainingSeconds > 0) {
             remainingSeconds--;
             gui.updateLabels();
+            gui.updateKeyInventory();
             timeLabel.setText(String.format("Time: %03d", remainingSeconds));
         } else {
             swingTimer.stop(); // Stop the timer when it reaches 0

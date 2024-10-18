@@ -1,6 +1,7 @@
 package nz.ac.wgtn.swen225.lc.app;
 
 import nz.ac.wgtn.swen225.lc.domain.Game;
+import nz.ac.wgtn.swen225.lc.domain.KeyTile;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 import nz.ac.wgtn.swen225.lc.render.Render;
 
@@ -13,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Objects;
 
 public class Gui extends JFrame{
 
@@ -35,6 +37,8 @@ public class Gui extends JFrame{
     private JLabel scoreLabel;
 
     private JPanel keyInventory;
+
+    private Image scaledImage, scaledGreenKeyImage, scaledYellowKeyImage;
 
     protected final JFileChooser fileChooser = new JFileChooser();
 
@@ -63,13 +67,7 @@ public class Gui extends JFrame{
         levelTimer.stop();
         saveManager.readConfig();
 
-        if(saveManager.fileToLoad != null){
-            System.out.println("loading previous");
-            createGame(saveManager.fileToLoad);
-        }
-        else {
-            createGame("levels/level1.json");
-        }
+        createGame(Objects.requireNonNullElse(saveManager.fileToLoad, "levels/level1.json"));
 
         setVisible(true);
     }
@@ -168,7 +166,7 @@ public class Gui extends JFrame{
         sidebar.add(scoreLabel);
 
         // Key inventory
-        createKeyInvent();
+        createKeyInventory();
         sidebar.add(keyInventory);
 
         return sidebar;
@@ -177,23 +175,67 @@ public class Gui extends JFrame{
     /**
      * Creates the key inventory panel.
      */
-    private void createKeyInvent(){
+    private void createKeyInventory(){
         keyInventory = new JPanel(new GridLayout(2, 4,-45,-75));
         keyInventory.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         keyInventory.setBackground(Color.GRAY);
+        BufferedImage keyGreenTileImage = null;
+        try {keyGreenTileImage = ImageIO.read(new File("images/KeyTile-Green.jpg"));
+        } catch (IOException e) {e.printStackTrace();}
+        scaledGreenKeyImage = keyGreenTileImage.getScaledInstance(50,50,Image.SCALE_SMOOTH);
 
+
+        BufferedImage keyYellowTileImage = null;
+        try {keyYellowTileImage = ImageIO.read(new File("images/KeyTile-Yellow.jpg"));
+        } catch (IOException e) {e.printStackTrace();}
+        scaledYellowKeyImage = keyYellowTileImage.getScaledInstance(50,50,Image.SCALE_SMOOTH);
+        BufferedImage freeTileImage = null;
+        try {freeTileImage = ImageIO.read(new File("images/FreeTile.jpg"));
+        } catch (IOException e) {e.printStackTrace();}
+        scaledImage = freeTileImage.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         for (int i = 0; i < 8; i++) {
             // Load the FreeTile image directly when creating the icon
-            BufferedImage freeTileImage = null;
-            try {freeTileImage = ImageIO.read(new File("images/FreeTile.jpg"));
-            } catch (IOException e) {e.printStackTrace();}
-
-            Image scaledImage = freeTileImage.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-
             var tileSlot = new JLabel(new ImageIcon(scaledImage));
             tileSlot.setHorizontalAlignment(SwingConstants.CENTER);
             tileSlot.setPreferredSize(new Dimension(70, 70));
             keyInventory.add(tileSlot);
+
+
+        }
+    }
+
+    public void updateKeyInventory(){
+        int index = 0;
+        keyInventory.removeAll();
+        for (int i = 0; i < 8; i++) {
+            // Load the FreeTile image directly when creating the icon
+            var tileSlot = new JLabel(new ImageIcon(scaledImage));
+            tileSlot.setHorizontalAlignment(SwingConstants.CENTER);
+            tileSlot.setPreferredSize(new Dimension(70, 70));
+            keyInventory.add(tileSlot);
+
+
+        }
+        for(KeyTile kt : game.getKeyInventory()){
+            keyInventory.remove(index);
+            if(kt.getColor().equals(nz.ac.wgtn.swen225.lc.domain.Color.Green)){
+                var greenTileSlot = new JLabel(new ImageIcon(scaledGreenKeyImage));
+                greenTileSlot.setHorizontalAlignment(SwingConstants.CENTER);
+                greenTileSlot.setPreferredSize(new Dimension(70, 70));
+                keyInventory.add(greenTileSlot, index);
+            }
+            else if (kt.getColor().equals(nz.ac.wgtn.swen225.lc.domain.Color.Yellow)) {
+                var yellowTileSlot = new JLabel(new ImageIcon(scaledYellowKeyImage));
+                yellowTileSlot.setHorizontalAlignment(SwingConstants.CENTER);
+                yellowTileSlot.setPreferredSize(new Dimension(70, 70));
+                keyInventory.add(yellowTileSlot, index);
+            } else {
+                var tileSlot = new JLabel(new ImageIcon(scaledImage));
+                tileSlot.setHorizontalAlignment(SwingConstants.CENTER);
+                tileSlot.setPreferredSize(new Dimension(70, 70));
+                keyInventory.add(tileSlot, index);
+            }
+            index++;
         }
     }
 

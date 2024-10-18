@@ -66,7 +66,6 @@ public class Controller {
         actionMap.put("exitWithoutSaving", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("Closing without saving!");
                 saveManager.exitWithoutSaving();
             }
         });
@@ -76,7 +75,6 @@ public class Controller {
         actionMap.put("exitAndSave", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("Closing and saving!");
                 saveManager.exitAndSave();
             }
         });
@@ -86,7 +84,6 @@ public class Controller {
         actionMap.put("loadSaveFilePicker", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("loading game");
                 saveManager.loadSaveFilePicker();
             }
         });

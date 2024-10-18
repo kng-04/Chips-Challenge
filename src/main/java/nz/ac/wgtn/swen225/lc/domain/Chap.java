@@ -35,9 +35,6 @@ public class Chap extends Characters{
                     //levelTimer.start();
                     firstMove = false;
                 }
-
-            } else {
-                System.out.println("Chap cannot move onto that tile!");
             }
         }
     }
