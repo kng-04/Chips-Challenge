@@ -96,6 +96,7 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gui.createGame("levels/level1.json");
+                gui.setCurrentLevel(1);
 
             }
         });
@@ -105,7 +106,7 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gui.createGame("levels/level2.json");
-
+                gui.setCurrentLevel(2);
             }
         });
         // SPACE pause game

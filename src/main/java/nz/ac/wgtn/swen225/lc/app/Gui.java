@@ -22,9 +22,12 @@ public class Gui extends JFrame{
     private final Controller controller;
 
     private JPanel gameArea; // The panel where the game will render
+
     protected LevelTimer levelTimer;
-    protected int currentLevel = 1; // TODO needs to be updated
     private JLabel timeLabel;
+
+    protected int currentLevel;
+    private JLabel levelLabel;
 
     private JPanel keyInventory;
 
@@ -79,6 +82,8 @@ public class Gui extends JFrame{
             return;
         }
 
+        currentLevel = game.getCurrentLevel();
+        levelLabel.setText("Level: "+ currentLevel);
         levelTimer.reset(game.getSecondsLeft());
 
         // Holds the game images
@@ -115,7 +120,7 @@ public class Gui extends JFrame{
 
         // Sidebar
         var sidebar = new JPanel(new GridLayout(4,1));
-        var levelLabel = new JLabel("Level: " + currentLevel, SwingConstants.CENTER);
+        levelLabel = new JLabel("Level: " + 0, SwingConstants.CENTER);
         timeLabel = new JLabel("Time: 000", SwingConstants.CENTER);
         var scoreLabel = new JLabel("Chips Left: 0", SwingConstants.CENTER);
 
@@ -297,5 +302,10 @@ public class Gui extends JFrame{
         renderPanel.hidePauseRenderLabel();
         renderPanel.hideStartLevelLabel();
         levelTimer.start();
+    }
+
+    public void setCurrentLevel(int level) {
+        currentLevel = level;
+        levelLabel.setText("Level: "+ currentLevel);
     }
 }
