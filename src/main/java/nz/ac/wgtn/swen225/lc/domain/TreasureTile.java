@@ -13,7 +13,5 @@ public class TreasureTile extends Tile {
      */
     public void interact(Chap chap, Game game){
         game.collectTile(this);
-        System.out.println("/nTreasures left: " + game.treasuresLeft());
-        System.out.println("Chap picked up a treasure!");
     }
 }
