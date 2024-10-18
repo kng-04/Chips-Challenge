@@ -87,7 +87,7 @@ public class Gui extends JFrame{
         // Start playing background music
         renderPanel.playBackgroundMusic();
 
-        pauseGame();
+        pauseGame(true);
     }
 
     private void loadMenu(){
@@ -154,7 +154,7 @@ public class Gui extends JFrame{
         var miPause = new JMenuItem("Pause");
         var miPlay = new JMenuItem("Play");
         miQuit.addActionListener(e -> saveManager.exitWithoutSaving());
-        miPause.addActionListener(e -> pauseGame());
+        miPause.addActionListener(e -> pauseGame(false));
         miPlay.addActionListener(e -> resumeGame());
         mGame.add(miPlay);
         mGame.add(miPause);
@@ -243,13 +243,18 @@ public class Gui extends JFrame{
 
     private boolean isPaused = false;
 
-    protected void pauseGame(){
+    protected void pauseGame(boolean isNewLevel){
         if (isPaused) {return;}
         isPaused = true;
 
         controller.disableUserInput();
         renderPanel.stopBackgroundMusic();
-        renderPanel.pauseRender();
+        if(isNewLevel){
+            renderPanel.showStartLevelLabel();
+        } else {
+            renderPanel.showPauseRenderLabel();
+        }
+
         levelTimer.stop();
 
     }
@@ -259,7 +264,8 @@ public class Gui extends JFrame{
 
         controller.enableUserInput();
         renderPanel.playBackgroundMusic();
-        renderPanel.unpauseRender();
+        renderPanel.hidePauseRenderLabel();
+        renderPanel.hideStartLevelLabel();
         levelTimer.start();
     }
 }

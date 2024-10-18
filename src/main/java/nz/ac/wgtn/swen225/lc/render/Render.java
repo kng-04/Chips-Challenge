@@ -1,10 +1,7 @@
 package nz.ac.wgtn.swen225.lc.render;
 
 import nz.ac.wgtn.swen225.lc.app.Gui;
-import nz.ac.wgtn.swen225.lc.app.Controller;
-import nz.ac.wgtn.swen225.lc.app.LevelTimer;
 import nz.ac.wgtn.swen225.lc.domain.*;
-import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -25,7 +22,9 @@ public class Render extends JPanel {
     //private final LevelTimer levelTimer;
     private int currentLevel;
     public Clip clip;
-    JPanel pauseLabelPanel;
+    private JPanel pauseLabelPanel;
+    private JPanel startLevelLabelPanel;
+
 
     public Render(Game game, Map<String, BufferedImage> images, int currentLevel) {
         if (game == null || images == null) {
@@ -37,6 +36,7 @@ public class Render extends JPanel {
         //this.levelTimer = levelTimer;
         this.currentLevel = currentLevel;
         setupPauseLabel();
+        setupStartLevelLabel();
         updateEntities();
     }
 
@@ -56,6 +56,17 @@ public class Render extends JPanel {
         pauseLabelPanel.add(pauseLabel);
         this.add(pauseLabelPanel);
         pauseLabelPanel.setVisible(false);
+    }
+    // Creates a simple label telling the user to press ECS to start the game
+    private void setupStartLevelLabel(){
+        startLevelLabelPanel = new JPanel();
+        startLevelLabelPanel.setBackground(Color.WHITE);
+        var startLevelLabel = new JLabel("Press ESC to start the level");
+        startLevelLabel.setForeground(Color.RED);
+        startLevelLabel.setFont(new Font("Sans", Font.BOLD, 24));
+        startLevelLabelPanel.add(startLevelLabel);
+        this.add(startLevelLabelPanel);
+        startLevelLabelPanel.setVisible(false);
     }
 
     @Override
@@ -103,12 +114,14 @@ public class Render extends JPanel {
         repaint();
     }
 
-    public void pauseRender() {
+    public void showPauseRenderLabel() {
         pauseLabelPanel.setVisible(true);
     }
-    public void unpauseRender() {
+    public void hidePauseRenderLabel() {
         pauseLabelPanel.setVisible(false);
     }
+    public void showStartLevelLabel(){startLevelLabelPanel.setVisible(true);}
+    public void hideStartLevelLabel(){startLevelLabelPanel.setVisible(false);}
 
     public void resetChapPosition() {
         // Assuming Chap is a single instance in the game.
