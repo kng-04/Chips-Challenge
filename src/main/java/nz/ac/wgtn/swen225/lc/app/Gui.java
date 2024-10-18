@@ -351,9 +351,6 @@ public class Gui extends JFrame{
             parent.remove(sidebar);
         }
 
-        // Stop the background music
-        if (renderPanel != null) { renderPanel.stopBackgroundMusic(); }
-
         // Create the game over panel
         JPanel gameOverPanel = new JPanel(new BorderLayout());
         gameOverPanel.setBackground(Color.BLACK);
@@ -381,19 +378,12 @@ public class Gui extends JFrame{
         buttonPanel.setBackground(Color.BLACK);
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 25, 0)); //padding
 
-        // Buttons for restarting
-        JButton restartButton = new JButton("Restart");
-        restartButton.setPreferredSize(new Dimension(140, 50)); //size of button
-        restartButton.setFont(new Font("Sans", Font.BOLD, 20));
-        restartButton.addActionListener(e -> resetGame());
-
         // Buttons for exiting
         JButton exitButton = new JButton("Exit");
         exitButton.setPreferredSize(new Dimension(140, 50)); //size of button
         exitButton.setFont(new Font("Sans", Font.BOLD, 20));
         exitButton.addActionListener(e -> System.exit(0));
 
-        buttonPanel.add(restartButton);
         buttonPanel.add(exitButton);
         gameOverPanel.add(messageLabel, BorderLayout.NORTH);
         gameOverPanel.add(congratLabel);
@@ -401,24 +391,6 @@ public class Gui extends JFrame{
 
         gameArea.add(gameOverPanel); // Add the game over panel to the game area
         gameArea.revalidate(); // Refresh the game area to show the new components
-        gameArea.repaint();
-    }
-
-    private void resetGame() {
-        gameArea.removeAll();
-
-        // Create and add the sidebar
-        sidebar = createSidebar();
-        gameArea.add(sidebar);
-
-        // Reset the current level and clear the game data
-        currentLevel = 1;
-        game = new Game();
-        levelTimer.reset(60);
-
-        createGame("levels/level1.json"); // Start a new game with the initial level
-
-        gameArea.revalidate();
         gameArea.repaint();
     }
 
