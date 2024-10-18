@@ -29,6 +29,8 @@ public class Gui extends JFrame{
     protected int currentLevel;
     private JLabel levelLabel;
 
+    private JLabel scoreLabel;
+
     private JPanel keyInventory;
 
     protected final JFileChooser fileChooser = new JFileChooser();
@@ -83,9 +85,9 @@ public class Gui extends JFrame{
         }
 
         currentLevel = game.getCurrentLevel();
-        levelLabel.setText("Level: "+ currentLevel);
-        timeLabel.setForeground(Color.BLACK);
+        timeLabel.setForeground(Color.DARK_GRAY);
         levelTimer.reset(game.getSecondsLeft());
+        updateLabels();
 
         // Holds the game images
         Map<String, BufferedImage> images;
@@ -123,7 +125,7 @@ public class Gui extends JFrame{
         var sidebar = new JPanel(new GridLayout(4,1));
         levelLabel = new JLabel("Level: " + 0, SwingConstants.CENTER);
         timeLabel = new JLabel("Time: 000", SwingConstants.CENTER);
-        var scoreLabel = new JLabel("Chips Left: 0", SwingConstants.CENTER);
+        scoreLabel = new JLabel("Chips Remaining: 0", SwingConstants.CENTER);
 
         sidebar.setBackground(Color.GRAY);
         sidebar.add(levelLabel);
@@ -308,5 +310,10 @@ public class Gui extends JFrame{
     public void setCurrentLevel(int level) {
         currentLevel = level;
         levelLabel.setText("Level: "+ currentLevel);
+    }
+
+    public void updateLabels(){
+        scoreLabel.setText("Chips Remaining: " + game.treasuresLeft());
+        levelLabel.setText("Level: " + game.getCurrentLevel());
     }
 }

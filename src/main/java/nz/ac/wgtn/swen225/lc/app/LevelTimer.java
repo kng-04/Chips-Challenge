@@ -22,6 +22,7 @@ public class LevelTimer {
     private void updateTimer() {
         if (remainingSeconds > 0) {
             remainingSeconds--;
+            gui.updateLabels();
             timeLabel.setText(String.format("Time: %03d", remainingSeconds));
         } else {
             swingTimer.stop(); // Stop the timer when it reaches 0
