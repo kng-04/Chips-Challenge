@@ -21,7 +21,7 @@ public class Render extends JPanel {
     public Clip clip;
     JPanel pauseLabelPanel;
 
-    public Render(Game game, Map<String, BufferedImage> images) {
+    public Render(Game game, Map<String, BufferedImage> images, int currentLevel) {
         if (game == null || images == null) {
             throw new IllegalArgumentException("Game and images must not be null");
         }

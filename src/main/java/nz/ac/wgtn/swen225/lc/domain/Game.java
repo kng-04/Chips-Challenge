@@ -13,7 +13,6 @@ public class Game {
     private List<Tile> inventory, tiles;
 
     private int currentLevel;
-    private Gui gui;
 
     public Game(int width, int height, int secondsLeft, List<Characters> characters, List<Tile> inventory, List<Tile> tiles) {
         this.width = width;
@@ -24,11 +23,10 @@ public class Game {
         this.tiles = tiles;
         this.currentLevel = 1;
     }
-
-    public Game(Gui gui){
-        this.gui = gui;
+    public Game(){
         this.currentLevel = 1;
     }
+
 
     public void replaceTileWith(Tile tile){
         System.out.println(getTiles());
@@ -99,24 +97,8 @@ public class Game {
     }
 
     public void completeLevel() {
-        currentLevel++;
-        String nextLevelFile = "levels/level" + currentLevel + ".json";
-
-        // Attempt to load the next level
-        try {
-            File levelFile = new File(nextLevelFile);
-            if (levelFile.exists()) {
-                if (gui != null) {
-                    gui.createGame(nextLevelFile);
-                }
-            } else {
-                JOptionPane.showMessageDialog(gui, "You have completed all levels!", "Game Finished", JOptionPane.INFORMATION_MESSAGE);
-                //currentLevel--;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(gui, "Error loading next level. Try again.", "Error", JOptionPane.ERROR_MESSAGE);
-            //currentLevel--;
-        }
+        //currentLevel++;
+        //String nextLevelFile = "levels/level" + currentLevel + ".json";
     }
 
     public int getHeight() {

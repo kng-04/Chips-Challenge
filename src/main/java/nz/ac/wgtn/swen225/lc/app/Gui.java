@@ -60,7 +60,7 @@ public class Gui extends JFrame{
         setVisible(true);
     }
 
-    public void createGame(String jsonFileName) {
+    protected void createGame(String jsonFileName) {
         try {
             game = Persistency.loadGame(jsonFileName);
         } catch (IOException e) {
@@ -81,7 +81,7 @@ public class Gui extends JFrame{
         }
 
         // Create a new GamePanel and add it to the gameArea
-        renderPanel = new Render(game, images);
+        renderPanel = new Render(game, images, currentLevel);
         gameArea.removeAll();
         gameArea.add(renderPanel);
         gameArea.revalidate();
@@ -90,7 +90,7 @@ public class Gui extends JFrame{
         // Start playing background music
         renderPanel.playBackgroundMusic();
 
-        resumeGame();
+        pauseGame();
     }
 
     private void loadMenu(){
