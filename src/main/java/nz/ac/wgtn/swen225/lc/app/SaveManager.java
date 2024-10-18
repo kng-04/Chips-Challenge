@@ -12,20 +12,24 @@ import java.util.Scanner;
 public class SaveManager {
     private final Gui gui;
     public String fileToLoad; // When the game is closed store the save file automatically and load on relaunch
+    private final File saveDir;
 
     SaveManager(Gui gui){
         this.gui = gui;
+        saveDir = new File("levels"+File.separator+"saves");
+        saveDir.mkdirs();
     }
 
     // saves using date and time instead of file picker
     public void autoSave(){
-        gui.pauseGame();
+
+        gui.pauseGame(false);
         Gui.game.setSecondsLeft(gui.levelTimer.getRemainingSeconds());
         LocalDateTime time = LocalDateTime.now();
         String fileName = time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
         fileName = "save_" + fileName + ".json";
         try {
-            Persistency.saveGame(Gui.game, "levels/saves/"+fileName);
+            Persistency.saveGame(Gui.game, saveDir+File.separator+fileName);
             fileToLoad = fileName;
             //writeConfig();
         } catch (IOException e) {
@@ -34,7 +38,7 @@ public class SaveManager {
     }
 
     protected void writeConfig(String fileName) {
-        File configFile = new File("config.txt");
+        File configFile = new File(saveDir,"previousSave.txt");
         try {
             // Create the file if it doesn't exist
             if (!configFile.exists()) {
@@ -47,15 +51,15 @@ public class SaveManager {
                 writer.write(Objects.requireNonNullElse(fileName, ""));
             }
         } catch (IOException e) {
-            throw new RuntimeException("Unable to write to config file", e);
+            throw new RuntimeException("Unable to write to previousSave file", e);
         }
     }
     protected void readConfig() {
-        File configFile = new File("config.txt");
+        File configFile = new File(saveDir,"previousSave.txt");
         try {
             configFile.createNewFile();
         } catch (IOException e) {
-            throw new RuntimeException("Unable to generate config file",e);
+            throw new RuntimeException("Unable to generate previousSave file",e);
         }
         try {
             Scanner sc = new Scanner(configFile);
@@ -63,13 +67,13 @@ public class SaveManager {
                 fileToLoad = sc.nextLine();
             }
         } catch(FileNotFoundException e) {
-            throw new RuntimeException("Unable to find config file",e);
+            throw new RuntimeException("Unable to find previousSave file",e);
         }
     }
 
     public void exitAndSave(){
         autoSave();
-        writeConfig("levels/saves/"+fileToLoad);
+        writeConfig(saveDir+File.separator+fileToLoad);
         System.exit(0);
     }
     public void exitWithoutSaving(){
@@ -77,13 +81,13 @@ public class SaveManager {
         System.exit(0);
     }
     public void loadSaveFilePicker() {
-        gui.pauseGame();
+        gui.pauseGame(false);
         int returnVal = gui.fileChooser.showOpenDialog(gui);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
             String fileName = gui.fileChooser.getSelectedFile().getAbsolutePath();
             gui.createGame(fileName);
             gui.resumeGame();
-            gui.pauseGame();
+            gui.pauseGame(true);
 
         } else {
             JOptionPane.showMessageDialog(gui, "Loading Canceled");
@@ -92,5 +96,7 @@ public class SaveManager {
     public void resetLevel(){
         gui.levelTimer.stop();
         gui.createGame("levels/level"+gui.currentLevel+".json");
+        gui.resumeGame();
+        gui.pauseGame(true);
     }
 }

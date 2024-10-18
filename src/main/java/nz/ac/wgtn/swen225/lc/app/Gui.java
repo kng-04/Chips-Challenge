@@ -31,6 +31,9 @@ public class Gui extends JFrame{
     protected JLabel levelLabel;
     private JLabel timeLabel;
 
+    protected int currentLevel;
+    private JLabel levelLabel;
+
     private JPanel keyInventory;
 
     protected final JFileChooser fileChooser = new JFileChooser();
@@ -56,7 +59,7 @@ public class Gui extends JFrame{
         fileChooser.setCurrentDirectory(new File("levels/saves")); // set to directory the program is run in
 
         loadMenu();
-        levelTimer = new LevelTimer(60, timeLabel);
+        levelTimer = new LevelTimer(this,60, timeLabel);
         levelTimer.stop();
         saveManager.readConfig();
 
@@ -86,6 +89,9 @@ public class Gui extends JFrame{
             return;
         }
 
+        currentLevel = game.getCurrentLevel();
+        levelLabel.setText("Level: "+ currentLevel);
+        timeLabel.setForeground(Color.BLACK);
         levelTimer.reset(game.getSecondsLeft());
 
         // Holds the game images
@@ -105,8 +111,8 @@ public class Gui extends JFrame{
 
         // Start playing background music
         renderPanel.playBackgroundMusic();
-
-        pauseGame();
+        resumeGame();
+        pauseGame(true);
     }
 
     /**
@@ -199,7 +205,7 @@ public class Gui extends JFrame{
         var miPause = new JMenuItem("Pause");
         var miPlay = new JMenuItem("Play");
         miQuit.addActionListener(e -> saveManager.exitWithoutSaving());
-        miPause.addActionListener(e -> pauseGame());
+        miPause.addActionListener(e -> pauseGame(false));
         miPlay.addActionListener(e -> resumeGame());
         mGame.add(miPlay);
         mGame.add(miPause);
@@ -290,13 +296,18 @@ public class Gui extends JFrame{
      * Pauses the game and disables user input.
      */
     private boolean isPaused = false;
-    protected void pauseGame(){
+    protected void pauseGame(boolean isNewLevel){
         if (isPaused) {return;}
         isPaused = true;
 
         controller.disableUserInput();
         renderPanel.stopBackgroundMusic();
-        renderPanel.pauseRender();
+        if(isNewLevel){
+            renderPanel.showStartLevelLabel();
+        } else {
+            renderPanel.showPauseRenderLabel();
+        }
+
         levelTimer.stop();
 
     }
@@ -310,7 +321,8 @@ public class Gui extends JFrame{
 
         controller.enableUserInput();
         renderPanel.playBackgroundMusic();
-        renderPanel.unpauseRender();
+        renderPanel.hidePauseRenderLabel();
+        renderPanel.hideStartLevelLabel();
         levelTimer.start();
     }
 
