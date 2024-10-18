@@ -371,7 +371,7 @@ public class Gui extends JFrame{
     protected void pauseGame(boolean isNewLevel){
         if (isPaused) {return;}
         isPaused = true;
-
+        this.game.disableNPC();
         controller.disableUserInput();
         renderPanel.stopBackgroundMusic();
         if(isNewLevel){
@@ -392,6 +392,7 @@ public class Gui extends JFrame{
         isPaused = false;
 
         controller.enableUserInput();
+        this.game.enableNPC();
         renderPanel.playBackgroundMusic();
         renderPanel.hidePauseRenderLabel();
         renderPanel.hideStartLevelLabel();

@@ -193,6 +193,42 @@ public class Game {
         return 60; //default
     }
 
+    public Chap getChap() {
+
+        return characters.stream()
+                .filter(t -> t instanceof Chap)
+                .map(t -> (Chap) t)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No Chap found!"));  // Handle if no Chap is found
+    }
+
+    public void setGame(){
+        for(Characters ch : characters){
+            if(ch instanceof BlindMan){
+                ((BlindMan) ch).setGame(this);
+                ((BlindMan) ch).startMovement();
+                this.getChap().addBlindMan((BlindMan)ch);
+            }
+        }
+    }
+
+    public void disableNPC(){
+        for(Characters ch : characters){
+            if(ch instanceof BlindMan){
+                ((BlindMan) ch).setCannotMove();
+            }
+        }
+    }
+
+    public void enableNPC(){
+        for(Characters ch : characters){
+            if(ch instanceof BlindMan){
+                ((BlindMan) ch).setCanMove();
+            }
+        }
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

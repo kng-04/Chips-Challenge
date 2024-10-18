@@ -32,11 +32,11 @@ public class GameDataGenerator {
         chap.setX(random.nextInt());
         chap.setY(random.nextInt());
 
-        Enemy enemy = new Enemy();
-        enemy.setX(random.nextInt());
-        enemy.setY(random.nextInt());
+        BlindMan blindman = new BlindMan();
+        blindman.setX(random.nextInt());
+        blindman.setY(random.nextInt());
 
-        return List.of(chap, enemy);
+        return List.of(chap, blindman);
     }
 
     private static List<Tile> genInventory() {

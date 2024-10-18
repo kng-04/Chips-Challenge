@@ -16,7 +16,7 @@ public class MapConstant {
 
     static {
         CHAR_MAP.put(129302, Chap.class);//🤖
-        CHAR_MAP.put(128123, Enemy.class);//👻
+        CHAR_MAP.put(128123, BlindMan.class);//👻
         CHAR_MAP.put(128681, ExitTile.class);//🚩
         CHAR_MAP.put(127538, ExitLockTile.class);//🈲
         CHAR_MAP.put(128307, FreeTile.class);//🔳
