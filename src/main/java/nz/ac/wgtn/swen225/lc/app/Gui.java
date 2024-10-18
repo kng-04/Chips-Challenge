@@ -101,7 +101,7 @@ public class Gui extends JFrame{
         // Sidebar
         var sidebar = new JPanel(new GridLayout(4,1));
         var levelLabel = new JLabel("Level: 1", SwingConstants.CENTER);
-        timeLabel = new JLabel("Time: 0", SwingConstants.CENTER);
+        timeLabel = new JLabel("Time: 000", SwingConstants.CENTER);
         var scoreLabel = new JLabel("Chips Left: 0", SwingConstants.CENTER);
 
         sidebar.setBackground(Color.GRAY);
