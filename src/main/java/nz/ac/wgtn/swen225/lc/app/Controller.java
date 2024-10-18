@@ -95,6 +95,7 @@ public class Controller {
                 gui.createGame("levels/level1.json");
                 gui.setCurrentLevel(1);
                 Gui.game.setCurrentLevel(1);
+                Gui.game.setSecondsLeft(Gui.game.getLevelTimeLimit(1));
 
             }
         });
@@ -105,7 +106,8 @@ public class Controller {
             public void actionPerformed(ActionEvent e) {
                 gui.createGame("levels/level2.json");
                 gui.setCurrentLevel(2);
-                Gui.game.setCurrentLevel(1);
+                Gui.game.setCurrentLevel(2);
+                Gui.game.setSecondsLeft(Gui.game.getLevelTimeLimit(2));
             }
         });
         // SPACE pause game

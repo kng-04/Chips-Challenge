@@ -1,10 +1,13 @@
 package nz.ac.wgtn.swen225.lc.domain;
 import nz.ac.wgtn.swen225.lc.app.Gui;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
+import nz.ac.wgtn.swen225.lc.render.Render;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.util.*;
+
+import static nz.ac.wgtn.swen225.lc.app.Gui.renderPanel;
 
 
 public class Game {
@@ -137,6 +140,7 @@ public class Game {
 
             secondsLeft = getLevelTimeLimit(currentLevel);
             loadLevelData(currentGui, "levels/level" + currentLevel + ".json");
+            //playLevelMusic(currentGui.getRender());
         } else if (currentLevel == 2) {
             currentGui.showGameOverScreen();
         }
@@ -148,7 +152,7 @@ public class Game {
             // Update game state with the new level data
             this.width = nextGame.width;
             this.height = nextGame.height;
-            this.secondsLeft = nextGame.secondsLeft;
+            this.secondsLeft = getLevelTimeLimit(currentLevel);
             this.characters = nextGame.characters;
             this.inventory = nextGame.inventory;
             this.tiles = nextGame.tiles;
@@ -156,6 +160,14 @@ public class Game {
             System.out.println("Unable to load next level: " + e.getMessage());
             JOptionPane.showMessageDialog(currentGui, "Unable to load level " + currentLevel, "Error", JOptionPane.ERROR_MESSAGE);
             currentLevel--; // Reset to previous level on error
+        }
+    }
+
+    public void playLevelMusic(Render render) {
+        if (currentLevel == 1) {
+            //render.playBackgroundMusic();
+        } else if (currentLevel == 2) {
+            //render.playBackgroundMusic();
         }
     }
 

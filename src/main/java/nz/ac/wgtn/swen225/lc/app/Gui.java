@@ -109,8 +109,6 @@ public class Gui extends JFrame{
         gameArea.revalidate();
         gameArea.repaint();
 
-        // Start playing background music
-        renderPanel.playBackgroundMusic();
         resumeGame();
         pauseGame(true);
     }
@@ -375,7 +373,7 @@ public class Gui extends JFrame{
         isPaused = true;
         this.game.disableNPC();
         controller.disableUserInput();
-        renderPanel.stopBackgroundMusic();
+        //renderPanel.stopBackgroundMusic();
         if(isNewLevel){
             renderPanel.showStartLevelLabel();
         } else {
@@ -395,7 +393,7 @@ public class Gui extends JFrame{
 
         controller.enableUserInput();
         this.game.enableNPC();
-        renderPanel.playBackgroundMusic();
+        //renderPanel.playBackgroundMusic();
         renderPanel.hidePauseRenderLabel();
         renderPanel.hideStartLevelLabel();
         levelTimer.start();
@@ -471,7 +469,6 @@ public class Gui extends JFrame{
         gameArea.repaint();
     }
 
-    public void close() { this.dispose(); }
     public static Gui getCurrentInstance() { return currentInstance; }
-
+    //public Render getRender() { return renderPanel; }
 }

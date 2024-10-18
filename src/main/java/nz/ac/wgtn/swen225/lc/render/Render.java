@@ -134,44 +134,42 @@ public class Render extends JPanel {
     public void showStartLevelLabel() {startLevelLabelPanel.setVisible(true);}
     public void hideStartLevelLabel() {startLevelLabelPanel.setVisible(false);}
 
-    /**
-     * Plays the background music for the game.
-     * The music will loop continuously until stopped.
-     */
+    /*
     public void playBackgroundMusic() {
-        File audioFile = new File("images/ThemeSong.wav");
-        if (!audioFile.exists()) {
-            //System.out.println("Audio file not found: " + audioFile.getAbsolutePath());
-            return;
+        if (this.clip != null && this.clip.isRunning()) {
+            this.clip.stop(); // Stop the current clip if it is playing
+            this.clip.flush();
+            this.clip.close();
         }
 
-        if (this.clip != null && this.clip.isRunning()) { return; }
+        // Your existing code for loading and playing the clip
+        File audioFile = new File("images/ThemeSong.wav");
+        if (!audioFile.exists()) {
+            return;
+        }
 
         try {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
             this.clip = AudioSystem.getClip();
             this.clip.open(audioStream);
 
-            //skips over the 4 secs that are silent in audio file
+            // Skips over the 4 secs that are silent in audio file
             float frameRate = clip.getFormat().getFrameRate();
             float framesToSkip = frameRate * 4;
             clip.setFramePosition((int) framesToSkip);
 
             this.clip.start();
-            this.clip.loop(Clip.LOOP_CONTINUOUSLY);  // Loop the music
+            this.clip.loop(Clip.LOOP_CONTINUOUSLY); // Loop the music
         } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Stops the background music if it is currently playing.
-     */
     public void stopBackgroundMusic() {
         if (this.clip != null && this.clip.isRunning()) {
             this.clip.stop();
             this.clip.flush();
             this.clip.close();
         }
-    }
+    }*/
 }
