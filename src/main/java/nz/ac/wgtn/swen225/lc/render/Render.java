@@ -21,6 +21,14 @@ public class Render extends JPanel {
     public Clip clip;
     JPanel pauseLabelPanel;
 
+    /**
+     * Constructs a Render object with the specified game, images, and current level.
+     *
+     * @param game        the game instance containing the game state
+     * @param images      a map of image names to their corresponding BufferedImages
+     * @param currentLevel the current level of the game
+     * @throws IllegalArgumentException if game or images is null
+     */
     public Render(Game game, Map<String, BufferedImage> images, int currentLevel) {
         if (game == null || images == null) {
             throw new IllegalArgumentException("Game and images must not be null");
@@ -32,13 +40,20 @@ public class Render extends JPanel {
         updateEntities();
     }
 
+    /**
+     * Updates the list of entities to be rendered by clearing the current list
+     * and adding the latest tiles and characters from the game.
+     */
     private void updateEntities() {
         entities.clear();
         entities.addAll(game.getTiles());
         entities.addAll(game.getCharacters());
     }
 
-    // Creates a simple label telling the user the game is paused
+    /**
+     * Sets up the panel that displays the paused game label.
+     * The label informs the player that the game is currently paused.
+     */
     private void setupPauseLabel(){
         pauseLabelPanel = new JPanel();
         pauseLabelPanel.setBackground(Color.WHITE);
@@ -82,6 +97,7 @@ public class Render extends JPanel {
             }
         }
     }
+
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(IMG_SIZE * game.getWidth(), IMG_SIZE * game.getHeight());
@@ -102,6 +118,10 @@ public class Render extends JPanel {
         pauseLabelPanel.setVisible(false);
     }
 
+    /**
+     * Plays the background music for the game.
+     * The music will loop continuously until stopped.
+     */
     public void playBackgroundMusic() {
         File audioFile = new File("images/ThemeSong.wav");
         if (!audioFile.exists()) {
@@ -120,6 +140,9 @@ public class Render extends JPanel {
         }
     }
 
+    /**
+     * Stops the background music if it is currently playing.
+     */
     public void stopBackgroundMusic() {
         if (this.clip != null && this.clip.isRunning()) {
             this.clip.stop();
