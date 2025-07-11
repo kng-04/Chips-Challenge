@@ -1,48 +1,36 @@
-# Group 20 Project
+# 🧩 Larry Croft’s Adventures
 
-# Communications
-- Discord server
+_A SWEN225 Group Project — Victoria University of Wellington (2024)_
 
-# Members
-- Angus Ng
-- Fletcher Bright
-- William Fermanis
-- Lingjun Gui
-- Krystal Ng
+## 📘 Overview
 
-# ASSIGNMENTS
-| Member | Assignment |
-|   :---:   |    :---:     |
-| Krystal Ng  | Renderer   |
-| Willliam Fermanis  | Domain     |
-| Lingjun Gui | Persistency |
-| Fletcher Bright | App        |
-| Angus Ng | Recorder   | 
-| Whole Team       | Fuzz       |
+**Larry Croft’s Adventures** is a creative reimagining of the classic *Chip’s Challenge* (1989), implemented entirely in Java. The game challenges players to solve tile-based mazes, collect keys and treasures, and escape each level — all while evading hazards and enemies.  
 
-https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
+This project was developed as part of the SWEN225 Software Design course, and brings together concepts of object-oriented design, modular architecture, event-driven programming, and quality assurance practices.
 
-# Map Design
-Use txt file with unicode symbols to represent tiles, e.g. [level1](levels/level1.txt).
-The txt map design file is for human to design the map.
+> 👥 Team project (5–6 members)
 
-Which can be converted to JSON file, used for program to save and load game.
+---
 
-Symbol List:
-- 🤖: Chap
-- 👻: Enemy
-- 🚩: Exit
-- 🈲: ExitLock
-- 🔳: FreeTile
-- 💡: InfoField
-- 🔑: Key (Green): 
-- 🗝️: Key (Yellow): 
-- 🔒 :LockedDoor (Green)
-- 🔏: LockedDoor (Yellow)
-- 💎: Treasure
-- 🧱: WallTile
+## 🧱 Architecture
 
-# Run Application from Maven
-```shell
-mvn exec:java
-```
+The project is split into six distinct modules, each mapped to a Java package:
+
+| Module       | Responsibility |
+|--------------|----------------|
+| `domain`     | Game logic and rules (tiles, objects, movement, collision, etc.) |
+| `app`        | GUI management, keystroke handling, level switching, countdown timer |
+| `renderer`   | Visual rendering of the game board, animations, sounds |
+| `persistency`| JSON-based save/load and level storage |
+| `recorder`   | Record and replay entire gameplay sessions |
+| `fuzz`       | Automated input testing to detect edge cases and bugs |
+
+---
+
+## ▶️ How to Run the Game
+
+1. Open the project in **IntelliJ** or **Eclipse**
+2. Locate the main class: nz.ac.wgtn.swen225.lc.app.Main
+3. Run the program
+   
+---
